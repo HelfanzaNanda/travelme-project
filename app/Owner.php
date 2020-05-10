@@ -40,7 +40,7 @@ class Owner extends Authenticatable
 
     public function cars()
     {
-        return $this->hasMany(Car::class, 'car_id', 'id');
+        return $this->hasMany(Car::class, 'owner_id', 'id');
     }
 
     public function departures()

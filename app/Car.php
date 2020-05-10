@@ -10,6 +10,6 @@ class Car extends Model
 
     public function driver()
     {
-        return $this->hasOne(Driver::class, 'driver_id', 'id');
+        return $this->hasOne(Driver::class, 'car_id', 'id');
     }
 }

@@ -61,7 +61,8 @@ class UserController extends Controller
 
             $results = [];
             foreach ($datas as $val){
-                if ($val->date){
+                //$check = $val->date;
+                if (isset($val->date)){
                     array_push($results, $val);
                 }
             }
@@ -69,7 +70,7 @@ class UserController extends Controller
             return response()->json([
                 'message' => 'successfully search',
                 'status' => true,
-                'data'=> DepartureResource::collection($results),
+                'data'=> DepartureResource::collection(collect($results)),
             ], 200);
 
         }catch (\Exception $exception){

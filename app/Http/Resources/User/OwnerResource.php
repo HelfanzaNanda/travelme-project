@@ -23,6 +23,7 @@ class OwnerResource extends JsonResource
             'email'             => $this->email,
             'photo'            => $this->photo,
             'telephone'         => $this->telephone,
+            'cars'              => CarResource::collection($this->cars)
         ];
     }
 }
