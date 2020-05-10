@@ -24,8 +24,8 @@ Route::group(['prefix' => 'user'], function (){
     Route::post('order','Api\V1\User\UserController@order');*/
 
 
-    Route::post('register', 'Api\V2\User\Auth\RegisterController@register');
-    Route::post('login', 'Api\V2\User\Auth\LoginController@login');
+    Route::post('register', 'Api\V1\User\Auth\RegisterController@register');
+    Route::post('login', 'Api\V1\User\Auth\LoginController@login');
 
 
     Route::get('destination', 'Api\V1\User\UserController@getDestination');
