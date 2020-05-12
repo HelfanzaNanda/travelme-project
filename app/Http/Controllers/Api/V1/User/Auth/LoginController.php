@@ -31,20 +31,22 @@ class LoginController extends Controller
             $user = Auth::guard('web')->user();
             if ($user->active == false){
                 return response()->json([
-                    'status' => true,
                     'message' => 'Login Successfully',
+                    'status' => true,
                     'data' => $user,
                 ], 200);
             }else{
                 return response()->json([
-                    'status' => false,
                     'message' => 'Silahkan Aktifasi Email Dahulu',
+                    'status' => false,
+                    'data' => []
                 ], 401);
             }
         }
         return response()->json([
-            'status' => false,
             'message' => 'Masukan Email dan Password yang benar',
+            'status' => false,
+            'data' => (object)[]
         ], 401);
     }
 }

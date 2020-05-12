@@ -122,10 +122,9 @@ class ScheduleController extends Controller
         $hours = [];
         foreach ($dates as $val) {
             array_push($itemDate, Carbon::parse($val->date)->format('d-m-Y'));
-            foreach ($val->hourOfDeparture as $hour) {
+            foreach ($val->hours as $hour) {
                 $hours[$hour['hour']] = Carbon::parse($hour->hour)->format('H:i');
             }
-
         }
         $date = implode(",", $itemDate);
 

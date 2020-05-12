@@ -101,6 +101,10 @@ class DriverController extends Controller
     public function edit($id)
     {
         $data = Driver::find($id);
+        /*$cars = Car::with(['driver' => function ($query){
+            $query->where('car_id', null);
+        }])->where('status', '1')->get();
+        dd($cars);*/
         $cars = Car::all()->where('status', '1');
         return view('pages.owner.driver.edit', compact('data', 'cars'));
     }

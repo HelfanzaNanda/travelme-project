@@ -3,9 +3,7 @@
 namespace App\Http\Controllers\Api\V1\User\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
 use App\User;
-use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -21,12 +19,20 @@ class RegisterController extends Controller
     public function register(Request $request)
     {
         try{
-            $this->validate($request, [
-                'name' => 'required',
-                'email' => 'email|required|unique:users',
+
+            $validator = Validator::make($request->all(),[
+                'name' => 'required|min:5',
+                'email' => 'email|required|unique:users|min:8',
                 'password' => 'required',
             ]);
 
+            if ($validator->fails()){
+                return response()->json([
+                    'message' => $validator->errors(),
+                    'status' => false,
+                    'data' => (object)[]
+                ], 401);
+            }
             $data = new User();
             $data->name = $request->name;
             $data->email = $request->email;
@@ -36,13 +42,17 @@ class RegisterController extends Controller
             $data->save();
 
             return response()->json([
-                'status' => true,
                 'message' => 'Register Successfully',
+                'status' => true,
                 'data' => $data
             ], 200);
 
         }catch (\Exception $e){
-            $e->getMessage();
+            return response()->json([
+                'message' => $e->getMessage(),
+                'status' => false,
+                'data' => (object)[]
+            ], 500);
         }
     }
 }

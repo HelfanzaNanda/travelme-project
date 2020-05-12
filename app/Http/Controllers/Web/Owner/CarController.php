@@ -51,6 +51,7 @@ class CarController extends Controller
             'number_plate' => 'required|unique:cars',
             'seat' => 'required|numeric',
             'facility' => 'required',
+            'photo' => 'image|file|mimes:jpg,png,jpeg|max:2048|required'
         ]);
 
         $photo = $request->file('photo');
@@ -107,6 +108,7 @@ class CarController extends Controller
         $this->validate($request, [
             'seat' => 'required|numeric',
             'facility' => 'required',
+            'photo' => 'image|file|mimes:jpg,png,jpeg|max:2048'
         ]);
 
         $data = Car::findOrFail($id);

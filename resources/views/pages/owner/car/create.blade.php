@@ -62,7 +62,8 @@
                                     <div class="form-group">
                                         <label for="projectinput3">Foto</label>
                                         <input type="file" id="input-file-now" name="photo"
-                                               class="dropify form-control {{$errors->has('photo')?'is-invalid':''}}" />
+                                               class="dropify form-control"
+                                                {{$errors->has('photo')?'is-invalid':''}}/>
 
                                         @if ($errors->has('photo'))
                                             <span class="invalid-feedback" role="alert">

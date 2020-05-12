@@ -25,6 +25,8 @@ class CreateOrdersTable extends Migration
             $table->integer('price');
             $table->integer('total_price');
             $table->integer('total_seat');
+            $table->string('pickup_location', '100');
+            $table->string('destination_location', '100');
             $table->enum('status', ['0', '1', '2'])->default('1');
             $table->timestamps();
 
