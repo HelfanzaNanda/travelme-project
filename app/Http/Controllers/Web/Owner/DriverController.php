@@ -53,7 +53,7 @@ class DriverController extends Controller
             'sim'           => 'required|unique:drivers|max:16',
             'name'          => 'required|regex:/^[\pL\s\-]+$/u',
             'email'         => 'required|unique:drivers',
-            'telephone'     => 'required|numeric|max:13',
+            'telephone'     => 'required|string|max:13',
             'address'       => 'required',
             'avatar'        => 'required|image|mimes:jpg,png,jpeg|max:2048'
         ]);
