@@ -190,14 +190,15 @@ class ScheduleController extends Controller
             foreach ($arrDiffReq as $value) {
                 $itemDate = [
                     'id' => $lastIdDate == null ? 1 : $lastIdDate->id + 1,
-                    'owner_id' => $id,
+                    'owner_id' => Auth::guard('owner')->user()->id,
+                    'departure_id' => $id
                     'date' => $value
                 ];
                 DateOfDeparture::create($itemDate);
                 $hours = $request->hour;
                 foreach ($hours as $hour) {
                     $itemHour[] = [
-                        'car_id' => $data->id,
+                        'owner_id' => Auth::guard('owner')->user()->id,
                         'date_id' => $item['id'],
                         'hour' => $hour,
                         'seat' => 0,
