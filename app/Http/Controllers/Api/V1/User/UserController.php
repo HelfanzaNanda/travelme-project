@@ -42,7 +42,9 @@ class UserController extends Controller
     public function getUserLogIn($api_token)
     {
         try{
-            $user = User::where('api_token', $api_token)->first();
+            $token = substr($api_token, '7', '87');
+            //dd($api_token, $token);
+            $user = User::where('api_token', $token)->first();
             return response()->json([
                 'message' => 'successfully get user is login',
                 'status' => true,
