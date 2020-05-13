@@ -164,7 +164,7 @@ class UserController extends Controller
             return response()->json([
                 'message' => 'successfully order travel',
                 'status' => true,
-                'data' => new OrderResource($data)
+                'data' => new $data
             ]);
 
 
