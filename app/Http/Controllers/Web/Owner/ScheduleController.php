@@ -149,6 +149,15 @@ class ScheduleController extends Controller
             'hour' => 'required'
         ]);
 
+
+        $departure = Departure::findOrFail($id);
+        $departure->owner_id = Auth::guard('owner')->user()->id;
+        $departure->from = 'Tegal';
+        $departure->destination = ucwords($request->destination);
+        $departure->photo_destination = ucwords($request->destination) . '.jpg';
+        $departure->price = $request->price;
+        $departure->update();
+
         $requestDates = explode(',', $request->date);
         $dbDates = DateOfDeparture::where('departure_id', $id)
             ->where('owner_id', Auth::guard('owner')->user()->id)
