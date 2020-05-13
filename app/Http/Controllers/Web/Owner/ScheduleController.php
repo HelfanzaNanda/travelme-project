@@ -191,7 +191,7 @@ class ScheduleController extends Controller
                 $itemDate = [
                     'id' => $lastIdDate == null ? 1 : $lastIdDate->id + 1,
                     'owner_id' => Auth::guard('owner')->user()->id,
-                    'departure_id' => $id
+                    'departure_id' => $id,
                     'date' => $value
                 ];
                 DateOfDeparture::create($itemDate);
