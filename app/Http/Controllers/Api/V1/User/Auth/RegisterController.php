@@ -21,7 +21,7 @@ class RegisterController extends Controller
         try{
 
             $validator = Validator::make($request->all(),[
-                'name' => 'required|min:5',
+                'name' => 'required|min:5|regex:/^[\pL\s\-]+$/u',
                 'email' => 'email|required|unique:users|min:8',
                 'password' => 'required',
             ]);
@@ -38,11 +38,13 @@ class RegisterController extends Controller
             $data->email = $request->email;
             $data->password = Hash::make($request->password);
             $data->api_token = Str::random(80);
-
+            $data->active =  true;
             $data->save();
+            $data->sendApiEmailVerificationNotification();
+            $message = "Cek Email Anda, Verifikasi Dahulu";
 
             return response()->json([
-                'message' => 'Register Successfully',
+                'message' => $message,
                 'status' => true,
                 'data' => $data
             ], 200);

@@ -49,11 +49,11 @@ class DriverController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'nik'           => 'required|unique:drivers',
-            'sim'           => 'required|unique:drivers',
-            'name'          => 'required',
+            'nik'           => 'required|unique:drivers|max:16',
+            'sim'           => 'required|unique:drivers|max:16',
+            'name'          => 'required|regex:/^[\pL\s\-]+$/u',
             'email'         => 'required|unique:drivers',
-            'telephone'     => 'required|numeric',
+            'telephone'     => 'required|numeric|max:13',
             'address'       => 'required',
             'avatar'        => 'required|image|mimes:jpg,png,jpeg|max:2048'
         ]);
@@ -119,10 +119,10 @@ class DriverController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request,[
-            'name'       => 'required',
-            'telephone'  => 'required|numeric',
-            'address'    => 'required',
-            'avatar'=> 'image|mimes:jpg,png,jpeg|max:2048'
+            'name'          => 'required|regex:/^[\pL\s\-]+$/u',
+            'telephone'     => 'required|numeric|max:13',
+            'address'       => 'required',
+            'avatar'        => 'required|image|mimes:jpg,png,jpeg|max:2048'
         ]);
 
 

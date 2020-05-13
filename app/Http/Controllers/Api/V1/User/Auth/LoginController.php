@@ -17,7 +17,7 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $this->validate($request, [
-            'email' => 'required|string',
+            'email' => 'required|string|email',
             'password' => 'required|string|min:6'
         ]);
 
@@ -29,7 +29,7 @@ class LoginController extends Controller
 
         if (Auth::guard('web')->attempt($credential)){
             $user = Auth::guard('web')->user();
-            if ($user->active == false){
+            if ($user->email_verified_at !== null){
                 return response()->json([
                     'message' => 'Login Successfully',
                     'status' => true,

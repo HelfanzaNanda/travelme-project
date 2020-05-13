@@ -10,6 +10,7 @@ use App\Http\Resources\User\UserResource;
 use App\Order;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
@@ -67,12 +68,11 @@ class UserController extends Controller
                 'data' => $datas
             ]);
         }catch (\Exception $exception){
-            $exception->getMessage();
             return response()->json([
                 'message' => $exception->getMessage(),
                 'status' => false,
-                'data' => (object)[],
-            ], 500);
+                'data' => (object)[]
+            ]);
         }
     }
 
@@ -102,7 +102,7 @@ class UserController extends Controller
                 'date' => 'required',
             ]);
 
-            $date = $request->date;
+            $date = Carbon::parse($request->date)->format('Y-m-d');
             $datas = Departure::with(['date' => function ($query) use ($date) {
                 $query->where('date', $date);
             }])->where('destination', $request->destination)->get();
