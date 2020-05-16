@@ -24,6 +24,7 @@
 <script src="{{asset('assets/plugins/jquery-asColorPicker-master/dist/jquery-asColorPicker.min.js')}}"></script>
 <script src="{{asset('assets/plugins/timepicker/bootstrap-timepicker.min.js')}}"></script>
 <script src="{{asset('assets/plugins/moment/moment.js')}}"></script>
+@yield('script')
 
 <script>
 	$('.date').datepicker({
@@ -94,17 +95,18 @@
 
 <script>
 	$(document).ready(function() {
-		// Basic
-		$('.dropify').dropify();
+
+	    var val = document.getElementById("photo").value;
+	    console.log(val);
 
 		// Translated
-		$('.dropify-fr').dropify({
-			messages: {
-				default: 'Glissez-déposez un fichier ici ou cliquez',
-				replace: 'Glissez-déposez un fichier ou cliquez pour remplacer',
-				remove: 'Supprimer',
-				error: 'Désolé, le fichier trop volumineux'
-			}
+		$('.dropify').dropify({
+            messages: {
+                'default': 'Seret dan taruh file di sini atau klik',
+                'replace': 'Seret dan lepas atau klik untuk mengganti',
+                'remove':  'Hapus',
+                'error':   'Ups, terjadi kesalahan.'
+            },
 		});
 
 		// Used events

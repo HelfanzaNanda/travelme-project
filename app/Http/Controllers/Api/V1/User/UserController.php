@@ -12,6 +12,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -80,29 +81,158 @@ class UserController extends Controller
 
     public function departureByDestination($destination)
     {
-        $datas = Departure::where('destination', $destination)->get();
+        try{
+            $datas = Departure::where('destination', $destination)->get();
 
-        /*$results = [];
-        foreach ($datas as $val){
-            if ($val->date){
-                array_push($results, $val);
+            $results = [];
+            foreach ($datas as $key => $data){
+                if ($data->owner->cars[$key]->driver){
+                    if ($data->date){
+                        if (count($data->date->hours) > 1){
+                            foreach ($data->date->hours as $hour){
+                                if ($hour){
+                                    $results[] = $data;
+                                }
+                            }
+                        }
+                    }
+                }
             }
-        }*/
 
-        return response()->json([
-            'message' => 'succeessfully get departure by destination',
-            'status' => true,
-            'data' => DepartureResource::collection($datas)
-        ], 200);
+            return response()->json([
+                'message' => 'succeessfully get departure by destination',
+                'status' => true,
+                'data' => DepartureResource::collection(collect($results))
+            ], 200);
+
+        }catch (\Exception $exception){
+            return response()->json([
+                'message' => $exception->getMessage(),
+                'status' => false,
+                'data' => (object)[]
+            ], 200);
+        }
     }
 
     public function search(Request $request)
     {
         try{
-            $this->validate($request, [
+            $validator = Validator::make($request->all(),['destination' => 'required', 'date' => 'required',]);
+
+            if ($validator->fails()){
+                return response()->json([
+                    'message' => $validator->errors(),
+                    'status' => false,
+                    'data'=> (object)[],
+                ], 501);
+            }
+
+            $date = Carbon::parse($request->date)->format('Y-m-d');
+            $datas = Departure::with(['date' => function ($query) use ($date) {
+                $query->where('date', $date);
+            }])->where('destination', $request->destination)->get();
+
+            $results = [];
+            foreach ($datas as $data){
+                if ($data->date){
+                    if (count($data->date->hours) > 1){
+                        foreach ($data->date->hours as $hour){
+                            if ($hour){
+                                $results[] = $data;
+                            }
+                        }
+                    }
+                }
+            }
+
+            return response()->json([
+                'message' => 'successfully search departure',
+                'status' => true,
+                'data'=> DepartureResource::collection(collect($results)),
+            ], 200);
+        }catch (\Exception $exception){
+            return response()->json([
+                'message' => $exception->getMessage(),
+                'status' => false,
+                'data'=> (object)[]
+            ], 200);
+        }
+    }
+
+    public function order(Request $request)
+    {
+        try{
+            $validator = Validator::make($request->all(),[
+                'pickup_location' => 'required',
+                'destination_location' => 'required',
+            ]);
+
+            if ($validator->fails()){
+                return response()->json(['message' => $validator->errors(), 'status' => false, 'data'=> (object)[],]);
+            }
+
+            $data = new Order();
+            $data->user_id = Auth::guard('api')->user()->id;
+            $data->owner_id = $request->owner_id;
+            $data->departure_id = $request->departure_id;
+            $data->date = $request->date;
+            $data->hour = $request->hour;
+            $data->price = $request->price;
+            $data->total_price = $request->price * $request->total_seat;
+            $data->total_seat = $request->total_seat;
+            $data->pickup_location = $request->pickup_location;
+            $data->destination_location = $request->destination_location;
+            $data->save();
+
+            return response()->json([
+                'message' => 'successfully order travel',
+                'status' => true,
+                'data' => new OrderResource($data)
+            ]);
+
+
+        }catch (\Exception $exception){
+            return response()->json([
+                'message' => $exception->getMessage(),
+                'status' => false,
+                'data'=> (object)[],
+            ]);
+        }
+    }
+
+    public function orderByUser()
+    {
+        try{
+            $order = Order::where('user_id', Auth::guard('api')->user()->id)->get();
+            return response()->json([
+                'message' => 'successfully get order by user',
+                'status' => true,
+                'data'=> OrderResource::collection($order),
+            ]);
+        }catch (\Exception $exception){
+            return response()->json([
+                'message' => $exception->getMessage(),
+                'status' => false,
+                'data'=> (object)[]
+            ]);
+        }
+    }
+
+    /*public function search(Request $request)
+    {
+        try{
+            $validator = Validator::make($request->all(),[
                 'destination' => 'required',
                 'date' => 'required',
             ]);
+
+            if ($validator->fails()){
+                return response()->json([
+                    'message' => $validator->errors(),
+                    'status' => false,
+                    'data'=> (object)[],
+                ], 501);
+            }
 
             $date = Carbon::parse($request->date)->format('Y-m-d');
             $datas = Departure::with(['date' => function ($query) use ($date) {
@@ -130,51 +260,6 @@ class UserController extends Controller
                 'data'=> (object)[],
             ], 404);
         }
-    }
-
-    public function order(Request $request)
-    {
-        try{
-            $validator = Validator::make($request->all(),[
-                'pickup_location' => 'required',
-                'destination_location' => 'required',
-            ]);
-
-            if ($validator->fails()){
-                return response()->json([
-                    'message' => $validator->errors(),
-                    'status' => false,
-                    'data'=> (object)[],
-                ]);
-            }
-
-            $data = new Order();
-            $data->user_id = $request->user_id;
-            $data->owner_id = $request->owner_id;
-            $data->departure_id = $request->departure_id;
-            $data->date = $request->date;
-            $data->hour = $request->hour;
-            $data->price = $request->price;
-            $data->total_price = $request->price * $request->total_seat;
-            $data->total_seat = $request->total_seat;
-            $data->pickup_location = $request->pickup_location;
-            $data->destination_location = $request->destination_location;
-            $data->save();
-
-            return response()->json([
-                'message' => 'successfully order travel',
-                'status' => true,
-                'data' => new OrderResource($data)
-            ]);
-
-
-        }catch (\Exception $exception){
-            return response()->json([
-                'message' => $exception->getMessage(),
-                'status' => false,
-                'data'=> (object)[],
-            ]);
-        }
-    }
+    }*/
 
 }

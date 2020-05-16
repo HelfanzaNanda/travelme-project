@@ -21,30 +21,34 @@
                             <div class="row d-flex justify-content-center">
                                 <div class="col-md-8">
 
-
                                     <div class="form-group">
                                         <label for="projectinput2">Tujuan</label>
                                         <input type="text"
-                                               class="form-control {{$errors->has('to')?'is-invalid':''}}"
+                                               class="form-control {{$errors->has('destination')?'is-invalid':''}}"
                                                placeholder="Tujuan" name="destination" value="{{old('destination')}}">
                                         @if ($errors->has('destination'))
                                             <span class="invalid-feedback" role="alert">
-                                                        <p><b>{{ $errors->first('destination') }}</b></p>
-                                                    </span>
+                                                <p><b>{{ $errors->first('destination') }}</b></p>
+                                            </span>
                                         @endif
                                     </div>
 
 
                                     <div class="form-group">
                                         <label for="projectinput2">Harga</label>
-                                        <input type="text" id="rupiah"
-                                               class="form-control {{$errors->has('price')?'is-invalid':''}}"
-                                               placeholder="Harga" name="price" value="{{old('price')}}">
-                                        @if ($errors->has('price'))
-                                            <span class="invalid-feedback" role="alert">
+                                        <div class="input-group">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">Rp.</span>
+                                            </div>
+                                            <input type="text" id="rupiah"
+                                                   class="form-control {{$errors->has('price')?'is-invalid':''}}"
+                                                   placeholder="Harga" name="price" value="{{old('price')}}">
+                                            @if ($errors->has('price'))
+                                                <span class="invalid-feedback" role="alert">
                                                         <p><b>{{ $errors->first('price') }}</b></p>
                                                     </span>
-                                        @endif
+                                            @endif
+                                        </div>
                                     </div>
 
                                     <div class="form-group">
@@ -68,11 +72,12 @@
                                         <div class="input-group clockpicker entry mt-1" id="time">
                                             <div class="input-group-prepend">
                                                 <button class="btn btn-primary btn-add" type="button">
-                                                    <span class="fa fa-plus" aria-hidden="true" style="font-size: 12px;"></span>
+                                                    <span class="fa fa-plus" aria-hidden="true"
+                                                          style="font-size: 12px;"></span>
                                                 </button>
                                             </div>
                                             <input class="form-control {{$errors->has('hour')?'is-invalid':''}}"
-                                                   type="text"  name="hour[]">
+                                                   type="text" name="hour[]">
                                             @if ($errors->has('hour'))
                                                 <span class="invalid-feedback" role="alert">
                                                     <p><b>{{ $errors->first('hour') }}</b></p>
@@ -102,4 +107,31 @@
         </div>
     </div>
 
+@endsection
+
+
+@section('script')
+    <script>
+        var rupiah = document.getElementById('rupiah')
+        rupiah.addEventListener('keyup', function (e) {
+            rupiah.value = formatRupiah(this.value)
+        })
+
+
+        function formatRupiah(angka) {
+            var number_string = angka.replace(/[^,\d]/g, '').toString(),
+                split = number_string.split(','),
+                sisa = split[0].length % 3,
+                rupiah = split[0].substr(0, sisa),
+                ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+            if(ribuan){
+                separator = sisa ? '.' : '';
+                rupiah += separator + ribuan.join('.');
+            }
+
+            rupiah = split[1] != undefined ? rupiah + '.' + split[1] : rupiah;
+            return rupiah;
+        }
+    </script>
 @endsection

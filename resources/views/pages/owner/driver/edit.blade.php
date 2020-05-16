@@ -103,14 +103,10 @@
                                     <div class="form-group">
                                         <label>Foto</label>
                                         <input type="hidden" name="old_avatar" value="{{$data->avatar}}">
-                                        <input type="file" id="input-file-now-custom-1" name="avatar"
-                                               class="dropify {{$errors->has('avatar')?'is-invalid':''}}"
+                                        <input type="file" id="photo" name="avatar"
+                                               class="dropify" data-allowed-file-extensions="png jpeg jpg"
+                                               data-max-file-size="1M"
                                                data-default-file="{{asset('uploads/owner/driver/'.$data->avatar)}}"/>
-                                        @if ($errors->has('avatar'))
-                                            <span class="invalid-feedback" role="alert">
-                                                <p><b>{{ $errors->first('avatar') }}</b></p>
-                                            </span>
-                                        @endif
                                     </div>
                                 </div>
                             </div>

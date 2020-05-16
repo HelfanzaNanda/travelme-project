@@ -49,14 +49,11 @@
                                             <div class="form-group">
                                                 <label for="">Foto</label>
                                                 <input type="hidden" value="{{$data->photo}}" name="old_photo">
-                                                <input type="file" id="input-file-now-custom-1" name="photo"
-                                                       class="form-control {{$errors->has('photo')?'is-invalid':''}} dropify"
-                                                       data-default-file="{{asset('/uploads/owner/car/'.$data->photo)}}" />
-                                                @if ($errors->has('photo'))
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <p><b>{{ $errors->first('photo') }}</b></p>
-                                                    </span>
-                                                @endif
+                                                <input type="file" id="input-file-now-custom-1"
+                                                       name="photo" class="dropify"
+                                                       data-default-file="{{asset('/uploads/owner/car/'.$data->photo)}}"
+                                                       data-allowed-file-extensions="png jpeg jpg"
+                                                       data-max-file-size="1M"/>
                                             </div>
 
 

@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
 class DriverController extends Controller
@@ -36,7 +37,9 @@ class DriverController extends Controller
      */
     public function create()
     {
-        $datas = Car::where('owner_id', Auth::guard('owner')->user()->id)->where('status', '1')->get();
+        //$datas = Car::where('owner_id', Auth::guard('owner')->user()->id)->where('status', '1')->get();
+        $datas = Car::where('owner_id', Auth::guard('owner')->user()->id)
+            ->where('status', '1')->get();
         return view('pages.owner.driver.create', compact('datas'));
     }
 
@@ -48,15 +51,30 @@ class DriverController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,[
-            'nik'           => 'required|unique:drivers|max:16',
-            'sim'           => 'required|unique:drivers|max:16',
-            'name'          => 'required|regex:/^[\pL\s\-]+$/u',
-            'email'         => 'required|unique:drivers',
-            'telephone'     => 'required|string|max:13',
-            'address'       => 'required',
-            'avatar'        => 'required|image|mimes:jpg,png,jpeg|max:2048'
-        ]);
+        $rules = [
+            'id_car'        => 'unique:drivers',
+            'nik'           => 'required|unique:drivers|digits:16|numeric',
+            'sim'           => 'required|unique:drivers|digits:12|numeric',
+            'name'          => 'required|regex:/^[\pL\s\-]+$/u||min:5',
+            'email'         => 'required|unique:drivers|email',
+            'telephone'     => 'required|numeric|digits_between:11,13|regex:/(08)[0-9]{9}/',
+            'address'       => 'required|min:10',
+        ];
+
+        $message = [
+            'required'  => ':attribute tidak boleh kosong',
+            'unique'    => ':attribute sudah di tambahkan',
+            'max'       => ':attribute maksimal :max karakter',
+            'min'       => ':attribute minimal :min karakter',
+            'email'     => ':attribute harus sesuai format email',
+            'digits_between' => ':attribute setidaknya :min sampai :max karakter',
+            'numeric'   => ':attribute hanya boleh angka',
+            'digits'    => ':attribute harus :digits karakter',
+            'telephone.regex'     => ':attribute harus sesuai format 08xx-xxxx-xxxx',
+            'name.regex'     => ':attribute harus huruf semua'
+        ];
+
+        $this->validate($request, $rules, $message);
 
         $avatar             = $request->file('avatar');
         $filename           = time().'-driver'.'.'. $avatar->getClientOriginalExtension();
@@ -101,10 +119,6 @@ class DriverController extends Controller
     public function edit($id)
     {
         $data = Driver::find($id);
-        /*$cars = Car::with(['driver' => function ($query){
-            $query->where('car_id', null);
-        }])->where('status', '1')->get();
-        dd($cars);*/
         $cars = Car::all()->where('status', '1');
         return view('pages.owner.driver.edit', compact('data', 'cars'));
     }
@@ -118,13 +132,28 @@ class DriverController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request,[
-            'name'          => 'required|regex:/^[\pL\s\-]+$/u',
-            'telephone'     => 'required|numeric|max:13',
-            'address'       => 'required',
-            'avatar'        => 'required|image|mimes:jpg,png,jpeg|max:2048'
-        ]);
+        $rules = [
+            'nik'           => 'required|unique:drivers|digits:16|numeric',
+            'sim'           => 'required|unique:drivers|digits:12|numeric',
+            'name'          => 'required|regex:/^[\pL\s\-]+$/u|min:5',
+            'email'         => 'required|unique:drivers|email',
+            'telephone'     => 'required|numeric|digits_between:11,13|regex:/(08)[0-9]{9}/',
+            'address'       => 'required|min:10',
+        ];
 
+        $message = [
+            'required'  => ':attribute tidak boleh kosong',
+            'unique'    => ':attribute sudah di tambahkan',
+            'max'       => ':attribute maksimal :max karakter',
+            'min'       => ':attribute minimal :min karakter',
+            'email'     => ':attribute harus sesuai format email',
+            'digits_between' => ':attribute setidaknya :min sampai :max karakter',
+            'numeric'   => ':attribute hanya boleh angka',
+            'digits'    => ':attribute harus :digits karakter',
+            'regex'     => ':attribute harus sesuai format 08xx-xxxx-xxxx'
+        ];
+
+        $this->validate($request, $rules, $message);
 
         $data               = Driver::findOrFail($id);
         $data->owner_id     = Auth::guard('owner')->user()->id;

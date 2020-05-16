@@ -53,20 +53,29 @@ class ScheduleController extends Controller
      */
     public function store(Request $request)
     {
-
-        $this->validate($request, [
-            'destination' => 'required',
-            'price' => 'required',
+        $rules = [
+            'destination' => 'required|regex:/^[\pL\s\-]+$/u',
+            'price' => 'required|numeric',
             'date' => 'required',
             'hour' => 'required'
-        ]);
+        ];
+
+        $message = [
+            'required' => ':attribute tidak boleh kosong',
+            'numeric' => ':attribute hanya boleh angka',
+            'regex' => ':attribute hanya boleh huruf'
+        ];
+
+        $this->validate($request, $rules, $message);
+
+        $delete_full_stop = preg_replace('/[^\w\s]/', '', $request->price);
 
         $departure = new Departure();
         $departure->owner_id = Auth::guard('owner')->user()->id;
         $departure->from = 'Tegal';
         $departure->destination = ucwords($request->destination);
         $departure->photo_destination = ucwords($request->destination) . '.jpg';
-        $departure->price = $request->price;
+        $departure->price = $delete_full_stop;
         $departure->save();
 
         $dates = explode(',', (string)$request->date);
@@ -80,14 +89,15 @@ class ScheduleController extends Controller
             ];
             DateOfDeparture::create($itemDateOfDeparture);
 
+            $car = Car::where('owner_id', Auth::guard('owner')->user()->id)->first();
             $hours = $request->hour;
             foreach ($hours as $hour) {
                 $itemHourOfDeparture[] = [
                     'owner_id' => Auth::guard('owner')->user()->id,
                     'date_id' => $itemDateOfDeparture['id'],
                     'hour' => $hour,
-                    'seat' => 0,
-                    'remaining_seat' => 0
+                    'seat' => $car->seat,
+                    'remaining_seat' => $car->seat
                 ];
             };
         }
@@ -142,20 +152,29 @@ class ScheduleController extends Controller
 
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'destination' => 'required',
-            'price' => 'required',
+        $rules = [
+            'destination' => 'required|regex:/^[\pL\s\-]+$/u',
+            'price' => 'required|numeric',
             'date' => 'required',
             'hour' => 'required'
-        ]);
+        ];
 
+        $message = [
+            'required' => ':attribute tidak boleh kosong',
+            'numeric' => ':attribute hanya boleh angka',
+            'regex' => ':attribute hanya boleh huruf'
+        ];
+
+        $this->validate($request, $rules, $message);
+
+        $delete_full_stop = preg_replace('/[^\w\s]/', '', $request->price);
 
         $departure = Departure::findOrFail($id);
         $departure->owner_id = Auth::guard('owner')->user()->id;
         $departure->from = 'Tegal';
         $departure->destination = ucwords($request->destination);
         $departure->photo_destination = ucwords($request->destination) . '.jpg';
-        $departure->price = $request->price;
+        $departure->price = $delete_full_stop;
         $departure->update();
 
         $requestDates = explode(',', $request->date);
@@ -195,14 +214,16 @@ class ScheduleController extends Controller
                     'date' => $value
                 ];
                 DateOfDeparture::create($itemDate);
+
+                $car = Car::where('owner_id', Auth::guard('owner')->user()->id)->first();
                 $hours = $request->hour;
                 foreach ($hours as $hour) {
                     $itemHour[] = [
                         'owner_id' => Auth::guard('owner')->user()->id,
-                        'date_id' => $item['id'],
+                        'date_id' => $itemDate['id'],
                         'hour' => $hour,
-                        'seat' => 0,
-                        'remaining_seat' => 0
+                        'seat' => $car->seat,
+                        'remaining_seat' => $car->seat
                     ];
                 };
             }

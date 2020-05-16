@@ -34,7 +34,7 @@
                                 <tr>
                                     <td>{{$loop->iteration}}</td>
                                     <td>{{$data->from .' - '. $data->destination}}</td>
-                                    <td>{{$data->price}}</td>
+                                    <td>{{'Rp.'.number_format($data->price)}}</td>
                                     <td>
                                         <a href="{{route('driver.show', $data->id)}}" class="btn btn-info btn-sm"><i
                                                 class="mdi mdi-eye"></i></a>
