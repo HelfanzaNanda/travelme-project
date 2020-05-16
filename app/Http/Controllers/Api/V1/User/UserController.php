@@ -163,6 +163,7 @@ class UserController extends Controller
     {
         try{
             $validator = Validator::make($request->all(),[
+                'departure_id' => 'required',
                 'pickup_location' => 'required',
                 'destination_location' => 'required',
             ]);
