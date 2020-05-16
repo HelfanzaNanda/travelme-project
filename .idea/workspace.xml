@@ -2,21 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7c3ba4ed-9835-4339-a329-40bbc1b998a0" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/app/DateOfDeparture.php" afterPath="$PROJECT_DIR$/app/DateOfDeparture.php" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/V1/User/UserController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/V1/User/UserController.php" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Web/Owner/CarController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/Web/Owner/CarController.php" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Web/Owner/DriverController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/Web/Owner/DriverController.php" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Web/Owner/ScheduleController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/Web/Owner/ScheduleController.php" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Resources/User/DateResource.php" afterPath="$PROJECT_DIR$/app/Http/Resources/User/DateResource.php" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/owner/car/create.blade.php" afterPath="$PROJECT_DIR$/resources/views/pages/owner/car/create.blade.php" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/owner/car/edit.blade.php" afterPath="$PROJECT_DIR$/resources/views/pages/owner/car/edit.blade.php" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/owner/driver/create.blade.php" afterPath="$PROJECT_DIR$/resources/views/pages/owner/driver/create.blade.php" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/owner/driver/edit.blade.php" afterPath="$PROJECT_DIR$/resources/views/pages/owner/driver/edit.blade.php" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/owner/schedule/create.blade.php" afterPath="$PROJECT_DIR$/resources/views/pages/owner/schedule/create.blade.php" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/owner/schedule/index.blade.php" afterPath="$PROJECT_DIR$/resources/views/pages/owner/schedule/index.blade.php" />
-      <change beforePath="$PROJECT_DIR$/resources/views/templates/partials/owner/_script.blade.php" afterPath="$PROJECT_DIR$/resources/views/templates/partials/owner/_script.blade.php" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" afterPath="$PROJECT_DIR$/routes/api.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -33,8 +19,8 @@
       <file leaf-file-name="UserController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/V1/User/UserController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="231">
-              <caret line="205" column="71" lean-forward="false" selection-start-line="205" selection-start-column="71" selection-end-line="205" selection-end-column="71" />
+            <state relative-caret-position="401">
+              <caret line="215" column="35" lean-forward="true" selection-start-line="215" selection-start-column="35" selection-end-line="215" selection-end-column="35" />
               <folding>
                 <element signature="e#52#70#0#PHP" expanded="true" />
                 <element signature="e#7108#8537#0#PHP" expanded="false" />
@@ -44,7 +30,17 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="api.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ScheduleController.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Web/Owner/ScheduleController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="503">
+              <caret line="247" column="24" lean-forward="false" selection-start-line="247" selection-start-column="24" selection-end-line="247" selection-end-column="24" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="api.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/api.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="520">
@@ -84,7 +80,6 @@
         <option value="$PROJECT_DIR$/app/Http/Resources/User/DateResource.php" />
         <option value="$PROJECT_DIR$/resources/views/pages/owner/schedule/index.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/pages/owner/schedule/create.blade.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Web/Owner/ScheduleController.php" />
         <option value="$PROJECT_DIR$/resources/views/templates/partials/owner/_script.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/pages/owner/car/edit.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/pages/owner/car/create.blade.php" />
@@ -94,6 +89,7 @@
         <option value="$PROJECT_DIR$/resources/views/pages/owner/driver/edit.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Api/V1/User/UserController.php" />
         <option value="$PROJECT_DIR$/routes/api.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Web/Owner/ScheduleController.php" />
       </list>
     </option>
   </component>
@@ -244,7 +240,7 @@
               <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="Http" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="Controllers" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Api" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="Web" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
               <item name="travelme-project" type="b2602c69:ProjectViewProjectNode" />
@@ -252,18 +248,8 @@
               <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="Http" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="Controllers" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Api" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="V1" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="travelme-project" type="b2602c69:ProjectViewProjectNode" />
-              <item name="travelme-project" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Http" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Controllers" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Api" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="V1" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="User" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="Web" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="Owner" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
               <item name="travelme-project" type="b2602c69:ProjectViewProjectNode" />
@@ -331,12 +317,12 @@
       <workItem from="1589336556769" duration="6973000" />
       <workItem from="1589352083332" duration="830000" />
       <workItem from="1589424245184" duration="70000" />
-      <workItem from="1589594103295" duration="17958000" />
+      <workItem from="1589594103295" duration="18219000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="32031000" />
+    <option name="totallyTimeSpent" value="32292000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
@@ -708,14 +694,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Web/Owner/ScheduleController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="163">
-          <caret line="147" column="21" lean-forward="true" selection-start-line="147" selection-start-column="21" selection-end-line="147" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/lang/en/validation.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
@@ -966,10 +944,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/routes/api.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="520">
+          <caret line="35" column="19" lean-forward="true" selection-start-line="35" selection-start-column="19" selection-end-line="35" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/V1/User/UserController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="205" column="71" lean-forward="false" selection-start-line="205" selection-start-column="71" selection-end-line="205" selection-end-column="71" />
+        <state relative-caret-position="401">
+          <caret line="215" column="35" lean-forward="true" selection-start-line="215" selection-start-column="35" selection-end-line="215" selection-end-column="35" />
           <folding>
             <element signature="e#52#70#0#PHP" expanded="true" />
             <element signature="e#7108#8537#0#PHP" expanded="false" />
@@ -978,10 +964,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/api.php">
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Web/Owner/ScheduleController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="520">
-          <caret line="35" column="19" lean-forward="true" selection-start-line="35" selection-start-column="19" selection-end-line="35" selection-end-column="19" />
+        <state relative-caret-position="503">
+          <caret line="247" column="24" lean-forward="false" selection-start-line="247" selection-start-column="24" selection-end-line="247" selection-end-column="24" />
           <folding />
         </state>
       </provider>

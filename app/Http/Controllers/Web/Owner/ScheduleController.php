@@ -244,6 +244,8 @@ class ScheduleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = Departure::findOrFail($id);
+        $data->delete();
+        return redirect()->route('schedule.index')->with('success', 'Berhasil Menghapus Data');
     }
 }
