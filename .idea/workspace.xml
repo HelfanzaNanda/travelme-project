@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7c3ba4ed-9835-4339-a329-40bbc1b998a0" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Web/Owner/ScheduleController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/Web/Owner/ScheduleController.php" />
+      <change beforePath="$PROJECT_DIR$/resources/views/pages/owner/schedule/index.blade.php" afterPath="$PROJECT_DIR$/resources/views/pages/owner/schedule/index.blade.php" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" afterPath="$PROJECT_DIR$/routes/web.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -30,11 +31,42 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ScheduleController.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ScheduleController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Web/Owner/ScheduleController.php">
           <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="384">
+              <caret line="240" column="6" lean-forward="true" selection-start-line="240" selection-start-column="6" selection-end-line="240" selection-end-column="6" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.blade.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/views/pages/owner/schedule/index.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="333">
+              <caret line="42" column="66" lean-forward="false" selection-start-line="42" selection-start-column="66" selection-end-line="42" selection-end-column="66" />
+              <folding>
+                <marker date="1589617171755" expanded="true" signature="9:26" ph="..." />
+                <marker date="1589617171755" expanded="true" signature="37:46" ph="..." />
+                <marker date="1589617171755" expanded="true" signature="518:542" ph="..." />
+                <marker date="1589617171755" expanded="true" signature="1456:1479" ph="..." />
+                <marker date="1589617171755" expanded="true" signature="1560:1576" ph="..." />
+                <marker date="1589617171755" expanded="true" signature="1626:1664" ph="..." />
+                <marker date="1589617171755" expanded="true" signature="1714:1747" ph="..." />
+                <marker date="1589617171755" expanded="true" signature="1847:1878" ph="..." />
+                <marker date="1589617171755" expanded="true" signature="2041:2074" ph="..." />
+                <marker date="1589617171755" expanded="true" signature="2243:2279" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="web.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/routes/web.php">
+          <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="503">
-              <caret line="247" column="24" lean-forward="false" selection-start-line="247" selection-start-column="24" selection-end-line="247" selection-end-column="24" />
+              <caret line="57" column="24" lean-forward="false" selection-start-line="57" selection-start-column="24" selection-end-line="57" selection-end-column="24" />
               <folding />
             </state>
           </provider>
@@ -69,7 +101,6 @@
         <option value="$PROJECT_DIR$/app/Http/Resources/User/OrderResource.php" />
         <option value="$PROJECT_DIR$/database/migrations/2020_05_09_024523_create_orders_table.php" />
         <option value="$PROJECT_DIR$/.env" />
-        <option value="$PROJECT_DIR$/routes/web.php" />
         <option value="$PROJECT_DIR$/app/Notifications/ApiVerifiEmail.php" />
         <option value="$PROJECT_DIR$/app/Notifications/ApiVerifyEmail.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Api/V1/User/Auth/LoginController.php" />
@@ -78,7 +109,6 @@
         <option value="$PROJECT_DIR$/app/Http/Controllers/Api/V1/User/Auth/VerificationController.php" />
         <option value="$PROJECT_DIR$/app/DateOfDeparture.php" />
         <option value="$PROJECT_DIR$/app/Http/Resources/User/DateResource.php" />
-        <option value="$PROJECT_DIR$/resources/views/pages/owner/schedule/index.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/pages/owner/schedule/create.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/templates/partials/owner/_script.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/pages/owner/car/edit.blade.php" />
@@ -90,6 +120,8 @@
         <option value="$PROJECT_DIR$/app/Http/Controllers/Api/V1/User/UserController.php" />
         <option value="$PROJECT_DIR$/routes/api.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Web/Owner/ScheduleController.php" />
+        <option value="$PROJECT_DIR$/resources/views/pages/owner/schedule/index.blade.php" />
+        <option value="$PROJECT_DIR$/routes/web.php" />
       </list>
     </option>
   </component>
@@ -240,7 +272,7 @@
               <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="Http" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="Controllers" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Web" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="Api" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
               <item name="travelme-project" type="b2602c69:ProjectViewProjectNode" />
@@ -248,13 +280,64 @@
               <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="Http" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="Controllers" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Web" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Owner" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="Api" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="V1" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
               <item name="travelme-project" type="b2602c69:ProjectViewProjectNode" />
               <item name="travelme-project" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="config" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="Http" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="Controllers" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="Api" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="V1" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="User" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="travelme-project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="travelme-project" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="Http" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="Controllers" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="Api" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="V1" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="User" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="Auth" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="travelme-project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="travelme-project" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="resources" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="travelme-project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="travelme-project" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="resources" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="views" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="travelme-project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="travelme-project" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="resources" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="views" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="pages" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="travelme-project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="travelme-project" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="resources" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="views" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="pages" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="owner" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="travelme-project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="travelme-project" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="resources" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="views" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="pages" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="owner" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="schedule" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
               <item name="travelme-project" type="b2602c69:ProjectViewProjectNode" />
@@ -317,12 +400,12 @@
       <workItem from="1589336556769" duration="6973000" />
       <workItem from="1589352083332" duration="830000" />
       <workItem from="1589424245184" duration="70000" />
-      <workItem from="1589594103295" duration="18219000" />
+      <workItem from="1589594103295" duration="18619000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="32292000" />
+    <option name="totallyTimeSpent" value="32692000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
@@ -573,24 +656,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/web.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="18" column="33" lean-forward="false" selection-start-line="18" selection-start-column="33" selection-end-line="18" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/V1/User/Auth/LoginController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="442">
           <caret line="30" column="45" lean-forward="false" selection-start-line="30" selection-start-column="45" selection-end-line="30" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/V1/User/Auth/RegisterController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="646">
-          <caret line="43" column="59" lean-forward="false" selection-start-line="43" selection-start-column="59" selection-end-line="43" selection-end-column="59" />
         </state>
       </provider>
     </entry>
@@ -644,25 +713,6 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/pages/owner/schedule/index.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="36" column="74" lean-forward="false" selection-start-line="36" selection-start-column="74" selection-end-line="36" selection-end-column="74" />
-          <folding>
-            <marker date="1589601768413" expanded="true" signature="9:26" ph="..." />
-            <marker date="1589601768413" expanded="true" signature="37:46" ph="..." />
-            <marker date="1589601768413" expanded="true" signature="518:542" ph="..." />
-            <marker date="1589601768413" expanded="true" signature="1456:1479" ph="..." />
-            <marker date="1589601768413" expanded="true" signature="1560:1576" ph="..." />
-            <marker date="1589601768413" expanded="true" signature="1626:1664" ph="..." />
-            <marker date="1589601768413" expanded="true" signature="1714:1747" ph="..." />
-            <marker date="1589601768413" expanded="true" signature="1847:1878" ph="..." />
-            <marker date="1589601768413" expanded="true" signature="2041:2074" ph="..." />
-            <marker date="1589601768413" expanded="true" signature="2243:2277" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -964,10 +1014,45 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/V1/User/Auth/RegisterController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Web/Owner/ScheduleController.php">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="384">
+          <caret line="240" column="6" lean-forward="true" selection-start-line="240" selection-start-column="6" selection-end-line="240" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/pages/owner/schedule/index.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="333">
+          <caret line="42" column="66" lean-forward="false" selection-start-line="42" selection-start-column="66" selection-end-line="42" selection-end-column="66" />
+          <folding>
+            <marker date="1589617171755" expanded="true" signature="9:26" ph="..." />
+            <marker date="1589617171755" expanded="true" signature="37:46" ph="..." />
+            <marker date="1589617171755" expanded="true" signature="518:542" ph="..." />
+            <marker date="1589617171755" expanded="true" signature="1456:1479" ph="..." />
+            <marker date="1589617171755" expanded="true" signature="1560:1576" ph="..." />
+            <marker date="1589617171755" expanded="true" signature="1626:1664" ph="..." />
+            <marker date="1589617171755" expanded="true" signature="1714:1747" ph="..." />
+            <marker date="1589617171755" expanded="true" signature="1847:1878" ph="..." />
+            <marker date="1589617171755" expanded="true" signature="2041:2074" ph="..." />
+            <marker date="1589617171755" expanded="true" signature="2243:2279" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/web.php">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="503">
-          <caret line="247" column="24" lean-forward="false" selection-start-line="247" selection-start-column="24" selection-end-line="247" selection-end-column="24" />
+          <caret line="57" column="24" lean-forward="false" selection-start-line="57" selection-start-column="24" selection-end-line="57" selection-end-column="24" />
           <folding />
         </state>
       </provider>

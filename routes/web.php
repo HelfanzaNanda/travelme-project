@@ -54,6 +54,7 @@ Route::group(['prefix' => 'owner'], function (){
     Route::get('driver/{driver}/destroy', 'Web\Owner\DriverController@destroy')->name('driver.destroy');
     Route::resource('car', 'Web\Owner\CarController')->except('destroy');
     Route::get('car/{id}/destroy', 'Web\Owner\CarController@destroy')->name('car.destroy');
-    Route::resource('schedule', 'Web\Owner\ScheduleController')->except('show');
+    Route::resource('schedule', 'Web\Owner\ScheduleController')->except(['show', 'destroy']);
+    Route::get('schedule/{id}/destroy', 'Web\Owner\ScheduleController@destroy')->name('schedule.destroy');
     Route::resource('t-profile', 'Web\Owner\ProfileController')->only(['index', 'create', 'store']);
 });

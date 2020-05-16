@@ -40,7 +40,7 @@
                                                 class="mdi mdi-eye"></i></a>
                                         <a href="{{route('schedule.edit', $data->id)}}" class="btn btn-warning btn-sm"><i
                                                 class="mdi mdi-pencil"></i></a>
-                                        <a href="{{route('driver.destroy', $data->id)}}"
+                                        <a href="{{route('schedule.destroy', $data->id)}}"
                                            onclick="return confirm('apakah anda yakin ingin menghapus data ini?')"
                                            class="btn btn-danger btn-sm">
                                             <i class="mdi mdi-delete"></i></a>
