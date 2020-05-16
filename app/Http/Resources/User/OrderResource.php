@@ -16,11 +16,6 @@ class OrderResource extends JsonResource
     {
         return [
             "id" => $this->id,
-            "user" => new UserResource($this->user),
-            "owner" => new OwnerResource($this->owner),
-            "departure" => new DepartureResource($this->departure),
-            "driver" => new DriverResource($this->driver),
-            "car" => new CarResource($this->car),
             "date" => $this->date,
             "hour" => $this->hour,
             "price" => $this->price,
@@ -29,6 +24,11 @@ class OrderResource extends JsonResource
             "pickup_location" => $this->pickup_location,
             "destination_location" => $this->destination_location,
             "status" => $this->status
+            "user" => new UserResource($this->user),
+            "owner" => new OwnerResource($this->owner),
+            "departure" => new DepartureResource($this->departure),
+            "driver" => new DriverResource($this->driver),
+            "car" => new CarResource($this->car),
         ];
     }
 }

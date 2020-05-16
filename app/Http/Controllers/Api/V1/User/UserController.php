@@ -182,6 +182,7 @@ class UserController extends Controller
             $data->total_seat = $request->total_seat;
             $data->pickup_location = $request->pickup_location;
             $data->destination_location = $request->destination_location;
+            $data->status = '1';
             $data->save();
 
             return response()->json([
