@@ -218,6 +218,25 @@ class UserController extends Controller
         }
     }
 
+    public function getAllOrder()
+    {
+        try{
+            $orders = Order::all();
+            return response()->json([
+                'message' => 'successfully get all orders',
+                'status' => true,
+                'data'=> OrderResource::collection($orders)
+            ]);
+
+        }catch(Exception $exception){
+            return response()->json([
+                'message' => $exception->getMessage(),
+                'status' => false,
+                'data'=> (object)[]
+            ]);
+        }
+    }
+
     /*public function search(Request $request)
     {
         try{

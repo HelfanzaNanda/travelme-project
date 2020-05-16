@@ -34,3 +34,4 @@ Route::get('departure/{destination}', 'Api\V1\User\UserController@departureByDes
 Route::post('departure/search', 'Api\V1\User\UserController@search');
 Route::post('order','Api\V1\User\UserController@order');
 Route::get('order/{token}','Api\V1\User\UserController@orderByUser');
+Route::get('orders', 'Api\V1\User\UserController@getAllOrder');
