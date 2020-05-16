@@ -23,7 +23,7 @@ class OrderResource extends JsonResource
             "total_seat" => $this->total_seat,
             "pickup_location" => $this->pickup_location,
             "destination_location" => $this->destination_location,
-            "status" => $this->status
+            "status" => $this->status,
             "user" => new UserResource($this->user),
             "owner" => new OwnerResource($this->owner),
             "departure" => new DepartureResource($this->departure),
