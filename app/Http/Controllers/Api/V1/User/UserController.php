@@ -162,6 +162,7 @@ class UserController extends Controller
     public function order(Request $request)
     {
         try{
+
             $validator = Validator::make($request->all(),[
                 'departure_id' => 'required',
                 'pickup_location' => 'required',

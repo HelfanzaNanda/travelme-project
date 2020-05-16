@@ -32,7 +32,7 @@ class CreateOrdersTable extends Migration
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('CASCADE');
             $table->foreign('owner_id')->references('id')->on('owners')->onDelete('CASCADE');
-            $table->foreign('departure_id')->references('id')->on('owners')->onDelete('CASCADE');
+            $table->foreign('departure_id')->references('id')->on('departures')->onDelete('CASCADE');
             $table->foreign('driver_id')->references('id')->on('drivers')->onDelete('CASCADE');
             $table->foreign('car_id')->references('id')->on('cars')->onDelete('CASCADE');
         });
