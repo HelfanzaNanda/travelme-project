@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1\User;
 use App\Departure;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\User\DepartureResource;
+use App\Http\Resources\User\DepartureSearchResource;
 use App\Http\Resources\User\OrderResource;
 use App\Http\Resources\User\UserResource;
 use App\Order;
@@ -85,17 +86,9 @@ class UserController extends Controller
             $datas = Departure::where('destination', $destination)->get();
 
             $results = [];
-            foreach ($datas as $key => $data){
-                if ($data->owner->cars[$key]->driver){
-                    if ($data->date){
-                        if (count($data->date->hours) > 1){
-                            foreach ($data->date->hours as $hour){
-                                if ($hour){
-                                    $results[] = $data;
-                                }
-                            }
-                        }
-                    }
+            foreach ($datas as $val){
+                if ($val->date){
+                    array_push($results, $val);
                 }
             }
 
@@ -133,22 +126,16 @@ class UserController extends Controller
             }])->where('destination', $request->destination)->get();
 
             $results = [];
-            foreach ($datas as $data){
-                if ($data->date){
-                    if (count($data->date->hours) > 1){
-                        foreach ($data->date->hours as $hour){
-                            if ($hour){
-                                $results[] = $data;
-                            }
-                        }
-                    }
+            foreach ($datas as $val){
+                if ($val->date){
+                    array_push($results, $val);
                 }
             }
 
             return response()->json([
                 'message' => 'successfully search departure',
                 'status' => true,
-                'data'=> DepartureResource::collection(collect($results)),
+                'data'=> DepartureSearchResource::collection(collect($results)),
             ], 200);
         }catch (\Exception $exception){
             return response()->json([

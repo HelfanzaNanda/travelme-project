@@ -18,8 +18,8 @@ class DateResource extends JsonResource
         return [
             'id' => $this->id,
             'date' => $this->date,
-            'hour' => new HourResource($this->hour)
-            //'hours' => HourResource::collection($this->hours),
+            'hours' => HourResource::collection($this->hours),
+            //'hour' => new HourResource($this->hour)
         ];
     }
 }
