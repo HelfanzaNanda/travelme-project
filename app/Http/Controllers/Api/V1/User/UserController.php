@@ -135,7 +135,7 @@ class UserController extends Controller
             return response()->json([
                 'message' => 'successfully search departure',
                 'status' => true,
-                'data'=> DepartureSearchResource::collection(collect($results)),
+                'data'=> DepartureResource::collection(collect($results)),
             ], 200);
         }catch (\Exception $exception){
             return response()->json([
