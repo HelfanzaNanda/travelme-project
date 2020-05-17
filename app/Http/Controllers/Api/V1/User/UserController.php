@@ -120,10 +120,12 @@ class UserController extends Controller
                 ], 501);
             }
 
-            $date = Carbon::parse($request->date)->format('Y-m-d');
+            /*$date = Carbon::parse($request->date)->format('Y-m-d');
             $datas = Departure::with(['date' => function ($query) use ($date) {
                 $query->where('date', $date);
-            }])->where('destination', $request->destination)->get();
+            }])->where('destination', $request->destination)->get();*/
+
+            $datas = Departure::where('destination', $request->destination)->get();
 
             $results = [];
             foreach ($datas as $val){
