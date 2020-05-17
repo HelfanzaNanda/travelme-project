@@ -180,8 +180,9 @@ class UserController extends Controller
             $hour = HourOfDeparture::with(['date' => function($q)use($request){
                 $q->where('date', $request->date);
             }])->where('hour', $request->hour)
-            ->where('owner_id', $request->owner_id)
-            ->update(['remaining_seat' => $hour->remaining_seat - $request->total_seat]);
+            ->where('owner_id', $request->owner_id)->first();
+            $hour->remaining_seat = $hour->remaining_seat - $request->total_seat;
+            $hour->update();
 
             return response()->json([
                 'message' => 'successfully order travel',
