@@ -21,7 +21,7 @@ class DepartureSearchResource extends JsonResource
             'photo_destination' => $this->photo_destination,
             'price'             => $this->price,
             'owner'             => new OwnerResource($this->owner),
-            'date'              => new DateResource($this->date),
+            'dates'              => DateResource::collection($this->dates)->where('date', $request->date),
         ];
     }
 }
