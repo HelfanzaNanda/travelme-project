@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1\User;
 
 use App\Departure;
+use App\HourOfDeparture;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\User\DepartureResource;
 use App\Http\Resources\User\DepartureSearchResource;
@@ -129,7 +130,7 @@ class UserController extends Controller
 
             $results = [];
             foreach ($datas as $val){
-                if ($val->date){
+                if ($val->dates){
                     array_push($results, $val);
                 }
             }
@@ -175,6 +176,12 @@ class UserController extends Controller
             $data->destination_location = $request->destination_location;
             $data->status = '1';
             $data->save();
+
+            $hour = HourOfDeparture::with(['date' => function($q)use($request){
+                $q->where('date', $request->date);
+            }])->where('hour', $request->hour)
+            ->where('owner_id', $request->owner_id)
+            ->update(['remaining_seat' => $hour->remaining_seat - $request->total_seat]);
 
             return response()->json([
                 'message' => 'successfully order travel',
