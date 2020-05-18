@@ -24,7 +24,7 @@ class RegisterController extends Controller
                 'name' => 'required|min:5|regex:/^[\pL\s\-]+$/u',
                 'email' => 'email|required|unique:users|min:8',
                 'password' => 'required',
-                'telp' => 'required'
+                'telp' => 'required|unique:users'
             ]);
 
             if ($validator->fails()){
@@ -38,7 +38,7 @@ class RegisterController extends Controller
             $data->name = $request->name;
             $data->email = $request->email;
             $data->password = Hash::make($request->password);
-            $data->telephone = $request->telp;
+            $data->telp = $request->telp;
             $data->api_token = Str::random(80);
             $data->active =  true;
             $data->save();
