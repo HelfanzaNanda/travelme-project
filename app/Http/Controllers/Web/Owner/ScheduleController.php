@@ -68,6 +68,11 @@ class ScheduleController extends Controller
 
         $this->validate($request, $rules, $message);
 
+        $car = Car::where('owner_id', Auth::guard('owner')->user()->id)->first();
+        if (!$car) {
+            return redirect()->back()->withInput()->WithErrors(['seat' => 'tambahkan mobil dahulu']);
+        }
+
         $delete_full_stop = preg_replace('/[^\w\s]/', '', $request->price);
 
         $departure = new Departure();
@@ -89,7 +94,6 @@ class ScheduleController extends Controller
             ];
             DateOfDeparture::create($itemDateOfDeparture);
 
-            $car = Car::where('owner_id', Auth::guard('owner')->user()->id)->first();
             $hours = $request->hour;
             foreach ($hours as $hour) {
                 $itemHourOfDeparture[] = [
