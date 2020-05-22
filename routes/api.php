@@ -32,6 +32,12 @@ Route::get('user/{api_token}','Api\V1\User\UserController@getUserLogIn');
 Route::get('destination', 'Api\V1\User\UserController@getDestination');
 Route::get('departure/{destination}', 'Api\V1\User\UserController@departureByDestination');
 Route::post('departure/search', 'Api\V1\User\UserController@search');
-Route::post('order','Api\V1\User\UserController@order');
-Route::get('order/{token}','Api\V1\User\UserController@orderByUser');
-Route::get('orders', 'Api\V1\User\UserController@getAllOrder');
+Route::get('order','Api\V1\User\UserController@orderByUser');
+Route::post('order/store','Api\V1\User\UserController@order');
+Route::get('order/all', 'Api\V1\User\UserController@getAllOrder');
+
+Route::group(['prefix' => 'driver'], function (){
+   Route::post('login', 'Api\V1\Driver\Auth\LoginController@login');
+});
+
+Route::get('order/driver', 'Api\V1\Driver\DriverController@order');
