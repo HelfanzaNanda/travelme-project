@@ -41,7 +41,7 @@
                                         <fieldset class="form-group floating-label-form-group">
                                             <label for="user-name">License Number</label>
                                             <input type="text" class="form-control {{$errors->has('license_number')?'is-invalid':''}}"
-                                                   placeholder="Masukkan Nomor License Anda" name="license_number" value="{{old('lincese_number')}}">
+                                                   placeholder="Masukkan Nomor License Anda" name="license_number" value="{{old('license_number')}}">
                                             @if ($errors->has('license_number'))
                                                 <span class="invalid-feedback" role="alert">
                                                         <p><b>{{ $errors->first('license_number') }}</b></p>
@@ -63,7 +63,7 @@
                                         <fieldset class="form-group floating-label-form-group">
                                             <label for="user-name">Nama Usaha</label>
                                             <input type="text" class="form-control {{$errors->has('business_name')?'is-invalid':''}}"
-                                                   placeholder="Masukkan Nama Usaha" name="business_name" value="{{old('lincese_name')}}">
+                                                   placeholder="Masukkan Nama Usaha" name="business_name" value="{{old('business_name')}}">
                                             @if ($errors->has('business_name'))
                                                 <span class="invalid-feedback" role="alert">
                                                         <p><b>{{ $errors->first('business_name')}}</b></p>

@@ -29,6 +29,7 @@ class OrderResource extends JsonResource
             "departure" => new DepartureResource($this->departure),
             "driver" => new DriverResource($this->driver),
             "car" => new CarResource($this->car),
+            'status' => $this->status
         ];
     }
 }

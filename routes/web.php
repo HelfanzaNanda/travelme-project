@@ -22,6 +22,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 
 Route::group(['prefix' => 'admin'], function (){
+    Route::get('', function (){
+        return redirect()->route('adashboard.index');
+    });
     Route::get('/login', 'Web\Admin\AuthController@getLogin')->name('admin.login');
     Route::post('/login', 'Web\Admin\AuthController@login')->name('admin.login.submit');
     Route::get('/logout', 'Web\Admin\AuthController@logout')->name('admin.logout');
@@ -49,6 +52,9 @@ Route::group(['prefix' => 'owner'], function (){
     Route::get('/password/reset/{token}', 'Web\Owner\Auth\ResetPasswordController@showResetForm')->name('owner.password.reset');
     Route::post('/password/reset', 'Web\Owner\Auth\ResetPasswordController@reset')->name('owner.password.reset.submit');
 
+    Route::get('', function (){
+        return redirect()->route('tdashboard.index');
+    });
     Route::resource('tdashboard', 'Web\Owner\DashboardController');
     Route::resource('driver', 'Web\Owner\DriverController')->except('destroy');
     Route::get('driver/{driver}/destroy', 'Web\Owner\DriverController@destroy')->name('driver.destroy');
@@ -57,4 +63,9 @@ Route::group(['prefix' => 'owner'], function (){
     Route::resource('schedule', 'Web\Owner\ScheduleController')->except(['show', 'destroy']);
     Route::get('schedule/{id}/destroy', 'Web\Owner\ScheduleController@destroy')->name('schedule.destroy');
     Route::resource('t-profile', 'Web\Owner\ProfileController')->only(['index', 'create', 'store']);
+
+    Route::get('user', 'Web\Owner\UserController@index')->name('owner.user.index');
+    Route::get('user/{id}', 'Web\Owner\UserController@show')->name('owner.user.show');
+    Route::put('user/{id}/confirmed', 'Web\Owner\UserController@confirmed')->name('owner.user.confirmed');
+    Route::get('user/{id}/decline', 'Web\Owner\UserController@decline')->name('owner.user.decline');
 });

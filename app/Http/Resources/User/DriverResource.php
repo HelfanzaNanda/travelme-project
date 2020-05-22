@@ -23,7 +23,8 @@ class DriverResource extends JsonResource
             "email"     => $this->email,
             "avatar"    => $this->avatar,
             "address"   => $this->address,
-            "telephone" => $this->telephone
+            "telephone" => $this->telephone,
+            "active"    => $this->active,
         ];
     }
 }

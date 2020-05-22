@@ -55,7 +55,7 @@
                                         <label for="projectinput2">Tanggal</label>
                                         <div class='input-group mb-3'>
                                             <input class="form-control {{$errors->has('date')?'is-invalid':''}} date"
-                                                   type="text" id="unavailable_date" name="date">
+                                                   type="text" id="date" name="date">
                                             <div class="input-group-append">
                                                 <span class="input-group-text"><span class="ti-calendar"></span></span>
                                             </div>

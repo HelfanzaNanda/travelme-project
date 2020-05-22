@@ -27,9 +27,11 @@
 @yield('script')
 
 <script>
+    var dateToday = new Date();
 	$('.date').datepicker({
 		multidate: true,
-		format: 'dd-mm-yyyy'
+		format: 'dd-mm-yyyy',
+        minDate: dateToday,
 	});
 
 
@@ -95,9 +97,6 @@
 
 <script>
 	$(document).ready(function() {
-
-	    var val = document.getElementById("photo").value;
-	    console.log(val);
 
 		// Translated
 		$('.dropify').dropify({

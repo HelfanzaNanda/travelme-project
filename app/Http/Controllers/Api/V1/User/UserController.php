@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1\User;
 
+use App\DateOfDeparture;
 use App\Departure;
 use App\HourOfDeparture;
 use App\Http\Controllers\Controller;
@@ -177,10 +178,11 @@ class UserController extends Controller
             $data->status = '1';
             $data->save();
 
-            $hour = HourOfDeparture::with(['date' => function($q)use($request){
-                $q->where('date', $request->date);
-            }])->where('hour', $request->hour)
-            ->where('owner_id', $request->owner_id)->first();
+            $date = DateOfDeparture::where('date', $request->date)->first();
+            $hour = HourOfDeparture::where('date_id', $date->id)
+                ->where('owner_id', $request->owner_id)
+                ->where('hour', $request->hour)
+                ->first();
             $hour->remaining_seat = $hour->remaining_seat - $request->total_seat;
             $hour->update();
 
