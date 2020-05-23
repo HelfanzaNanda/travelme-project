@@ -23,7 +23,7 @@ class CreateOwnersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->text ('password')->nullable();
             $table->text('photo')->nullable();
-            $table->string('telephone', '13');
+            $table->string('telephone', '13')->unique();
             $table->enum('active', ['0', '1', '2'])->default('1');
             $table->string('activation_token')->nullable();
             $table->rememberToken();

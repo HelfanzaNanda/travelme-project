@@ -34,7 +34,7 @@ class RegisterController extends Controller
             'address'           => 'required',
             'email'             => 'required|unique:owners|email',
             'password'          => 'required|confirmed',
-            'telephone'         => 'required',
+            'telephone'         => 'required|unique:owners',
         ];
 
         $message = [

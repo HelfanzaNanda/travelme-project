@@ -20,7 +20,6 @@ class DriverController extends Controller
 
     public function order()
     {
-
         try{
             $order = Order::where('driver_id', Auth::guard('driver-api')->user()->id)->get();
 

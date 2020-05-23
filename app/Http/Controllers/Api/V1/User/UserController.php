@@ -6,22 +6,34 @@ use App\DateOfDeparture;
 use App\Departure;
 use App\HourOfDeparture;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Midtrans\Config;
+use App\Http\Controllers\Midtrans\Snap;
 use App\Http\Resources\User\DepartureResource;
 use App\Http\Resources\User\DepartureSearchResource;
 use App\Http\Resources\User\OrderResource;
 use App\Http\Resources\User\UserResource;
 use App\Order;
 use App\User;
+use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use App\Veritrans\Midtrans;
 
+/**
+ * @property  response
+ */
 class UserController extends Controller
 {
 
-    public function __construct()
+    protected $request;
+
+    public function __construct(Request $request)
     {
+
+        Midtrans::$serverKey = 'SB-Mid-server-lgheMLSAsWyuFmE1FmP7L2K1';
+        Midtrans::$isProduction = false;
+        $this->request = $request;
         $this->middleware('auth:api')->except(['getUsers', 'getUserLogIn']);
     }
 
@@ -150,7 +162,7 @@ class UserController extends Controller
         }
     }
 
-    public function order(Request $request)
+    public function postOrder(Request $request)
     {
         try{
 
@@ -165,6 +177,7 @@ class UserController extends Controller
             }
 
             $data = new Order();
+            $data->order_id = rand();
             $data->user_id = Auth::guard('api')->user()->id;
             $data->owner_id = $request->owner_id;
             $data->departure_id = $request->departure_id;
@@ -175,7 +188,32 @@ class UserController extends Controller
             $data->total_seat = $request->total_seat;
             $data->pickup_location = $request->pickup_location;
             $data->destination_location = $request->destination_location;
-            $data->status = '1';
+            $data->save();
+
+
+            $midtrans = new Midtrans();
+
+            $payload = [
+                'transaction_details' => [
+                    'order_id'  => $data->id,
+                    'gross_amount' => $data->total_price
+                ],
+                'customer_details' => [
+                    'first_name' => Auth::guard('api')->user()->name,
+                    'email' => Auth::guard('api')->user()->email,
+                    'telephone' => Auth::guard('api')->user()->telp,
+                ],
+                'item_details' => [
+                    'id' => $data->departure_id,
+                    'quantity' => (int)$data->total_seat,
+                    'price' => $data->price,
+                    'name' => $data->date,
+                ],
+            ];
+
+            $snap = $midtrans->getSnapToken($payload);
+            //$snapToken = Snap::getSnapToken($transaction_data);
+            $data->snap_token = $snap;
             $data->save();
 
             $date = DateOfDeparture::where('date', $request->date)->first();
@@ -189,7 +227,10 @@ class UserController extends Controller
             return response()->json([
                 'message' => 'successfully order travel',
                 'status' => true,
-                'data' => new OrderResource($data)
+                'data' => [
+                    'data' => new OrderResource($data),
+                    'snap' => $snap
+                ],
             ]);
 
 

@@ -33,7 +33,7 @@ Route::get('destination', 'Api\V1\User\UserController@getDestination');
 Route::get('departure/{destination}', 'Api\V1\User\UserController@departureByDestination');
 Route::post('departure/search', 'Api\V1\User\UserController@search');
 Route::get('order','Api\V1\User\UserController@orderByUser');
-Route::post('order/store','Api\V1\User\UserController@order');
+Route::post('order/store','Api\V1\User\UserController@postOrder');
 Route::get('order/all', 'Api\V1\User\UserController@getAllOrder');
 
 Route::group(['prefix' => 'driver'], function (){
