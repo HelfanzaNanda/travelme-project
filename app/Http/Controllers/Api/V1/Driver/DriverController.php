@@ -27,7 +27,7 @@ class DriverController extends Controller
             return response()->json([
                 'message' => 'succesfully get order by driver',
                 'status' => true,
-                'data' => $order
+                'data' => OrderResource::collection($order)
             ]);
         }catch (\Exception $exception){
             return response()->json([

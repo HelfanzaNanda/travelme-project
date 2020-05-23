@@ -57,7 +57,7 @@ class DriverController extends Controller
             'sim'           => 'required|unique:drivers|digits:12|numeric',
             'name'          => 'required|regex:/^[\pL\s\-]+$/u||min:5',
             'email'         => 'required|unique:drivers|email',
-            'telephone'     => 'required|numeric|digits_between:11,13|regex:/(08)[0-9]{9}/',
+            'telephone'     => 'required|numeric|digits_between:11,13|regex:/(08)[0-9]{9}/|unique:drivers',
             'address'       => 'required|min:10',
         ];
 

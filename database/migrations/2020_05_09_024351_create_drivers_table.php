@@ -16,7 +16,7 @@ class CreateDriversTable extends Migration
         Schema::create('drivers', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('owner_id')->unsigned();
-            $table->integer('car_id')->unsigned();
+            $table->integer('car_id')->unsigned()->unique();
             $table->char('nik','16')->unique();
             $table->char('sim', '16')->unique();
             $table->string('name', '50');
@@ -26,7 +26,7 @@ class CreateDriversTable extends Migration
             $table->text('password');
             $table->text('avatar')->nullable();
             $table->text('address');
-            $table->string('telephone', '13');
+            $table->string('telephone', '13')->unique();
             $table->string('api_token', 80)->unique()->nullable()->default(null);
             $table->rememberToken();
             $table->boolean('active')->default(true);
