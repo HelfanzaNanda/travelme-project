@@ -207,7 +207,7 @@ class UserController extends Controller
                 ],
                 'item_details' => [
                     'id' => $data->departure_id,
-                    'quantity' => $data->totat_seat,
+                    'quantity' => $data->total_seat,
                     'price' => $data->price,
                     'name' => $data->date,
                 ],
