@@ -16,23 +16,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
-
-// Configurations
-use App\Http\Controllers\Midtrans\Config;
-
-// Midtrans API Resources
-use App\Http\Controllers\Midtrans\Transaction;
-
-// Plumbing
-use App\Http\Controllers\Midtrans\ApiRequestor;
-use App\Http\Controllers\Midtrans\SnapApiRequestor;
-use App\Http\Controllers\Midtrans\Notification;
-use App\Http\Controllers\Midtrans\CoreApi;
-use App\Http\Controllers\Midtrans\Snap;
-
-// Sanitization
-use App\Http\Controllers\Midtrans\Sanitizer;
-
+use App\Veritrans\Midtrans;
 /**
  * @property  response
  */
@@ -45,13 +29,13 @@ class UserController extends Controller
     {
         $this->request = $request;
 
-        //Midtrans::$serverKey = 'SB-Mid-server-lgheMLSAsWyuFmE1FmP7L2K1';
-        Config::$serverKey = 'SB-Mid-server-lgheMLSAsWyuFmE1FmP7L2K1';
-        Config::$isSanitized = true;
-        Config::$is3ds = true;
+        Midtrans::$serverKey = 'SB-Mid-server-lgheMLSAsWyuFmE1FmP7L2K1';
+        //Config::$serverKey = 'SB-Mid-server-lgheMLSAsWyuFmE1FmP7L2K1';
+        //Config::$isSanitized = true;
+        //Config::$is3ds = true;
 
         //Midtrans::$serverKey = config('services.midtrans.serverKey');
-        //Midtrans::$isProduction = false;
+        Midtrans::$isProduction = false;
         $this->middleware('auth:api')->except(['getUsers', 'getUserLogIn']);
     }
 
@@ -233,8 +217,9 @@ class UserController extends Controller
             ];
 
             //$snap = $midtrans->getSnapToken($payload);
+            $snap = Midtrans::getSnapToken($payload);
             //$snap = Snap::getSnapToken($payload);
-            $snap = Snap::getSnapToken($payload);
+            //$snap = Snap::getSnapToken($payload);
             $data->snap_token = $snap;
             $data->save();
 
