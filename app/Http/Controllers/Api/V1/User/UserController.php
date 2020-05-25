@@ -230,10 +230,7 @@ class UserController extends Controller
             return response()->json([
                 'message' => 'successfully order travel',
                 'status' => true,
-                'data' => [
-                    'data' => new OrderResource($data),
-                    'snap' => $snap
-                ],
+                'data' => $snap
             ]);
 
 
