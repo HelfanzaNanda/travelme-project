@@ -41,3 +41,4 @@ Route::group(['prefix' => 'driver'], function (){
 });
 
 Route::get('order/driver', 'Api\V1\Driver\DriverController@order');
+Route::post('snap', 'Api\V1\User\DriverController@snapToken');

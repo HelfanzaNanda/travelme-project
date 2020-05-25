@@ -196,7 +196,7 @@ class UserController extends Controller
             //$midtrans = new Midtrans();
 
             //dd($data->total_seat, $request->total_seat);
-            $payload = [
+            /*$payload = [
                 'transaction_details' => [
                     'order_id'  => $data->id,
                     'gross_amount' => $data->total_price
@@ -212,13 +212,13 @@ class UserController extends Controller
                     'price' => $data->price,
                     'name' => $data->date,
                 ],
-            ];
+            ];*/
 
             //$snap = $midtrans->getSnapToken($payload);
-            $snap = Midtrans::getSnapToken($payload);
+            //$snap = Midtrans::getSnapToken($payload);
             //$snap = Snap::getSnapToken($payload);
             //$snap = Snap::getSnapToken($payload);
-            $data->snap_token = $snap;
+            /*$data->snap_token = $snap;
             $data->save();
 
             $date = DateOfDeparture::where('date', $request->date)->first();
@@ -227,14 +227,12 @@ class UserController extends Controller
                 ->where('hour', $request->hour)
                 ->first();
             $hour->remaining_seat = $hour->remaining_seat - $request->total_seat;
-            $hour->update();
+            $hour->update();*/
 
             return response()->json([
                 'message' => 'successfully order travel',
                 'status' => true,
-                'data' => [
-                    'payment_endpoint' => Midtrans::getSnapBaseUrl().'/'.$snap
-                ],
+                'data' => new OrderResource($data)
             ]);
 
 
@@ -245,6 +243,44 @@ class UserController extends Controller
                 'data'=> (object)[],
             ]);
         }
+    }
+
+
+    public function snapToken(Request $request)
+    {
+        $payload = [
+                'transaction_details' => [
+                    'order_id'  => $request->id,
+                    'gross_amount' => $request->total_price
+                ],
+                'customer_details' => [
+                    'first_name' => Auth::guard('api')->user()->name,
+                    'email' => Auth::guard('api')->user()->email,
+                    'telephone' => Auth::guard('api')->user()->telp,
+                ],
+                'item_details' => [
+                    'id' => $request->departure_id,
+                    'quantity' => $request->total_seat,
+                    'price' => $request->price,
+                    'name' => $request->date,
+                ],
+            ];
+
+            //$snap = $midtrans->getSnapToken($payload);
+            
+            try {
+                $snap = Midtrans::getSnapToken($payload);
+                return response()->json([
+                    'message' => 'successfully get snap',
+                    'status' => true,
+                    'data' => [
+                        'payment_endpoint' => Midtrans::getSnapBaseUrl().'/'.$snap
+                    ],
+                ]);
+            } catch (\Exception $e) {
+                return ['code' => 0 , 'message' => 'failed'];
+            }
+
     }
 
     public function orderByUser()
