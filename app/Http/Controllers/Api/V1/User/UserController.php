@@ -6,8 +6,6 @@ use App\DateOfDeparture;
 use App\Departure;
 use App\HourOfDeparture;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Midtrans\Config;
-use App\Http\Controllers\Midtrans\Snap;
 use App\Http\Resources\User\DepartureResource;
 use App\Http\Resources\User\DepartureSearchResource;
 use App\Http\Resources\User\OrderResource;
@@ -18,6 +16,22 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+
+// Configurations
+use App\Http\Controllers\Midtrans\Config;
+
+// Midtrans API Resources
+use App\Http\Controllers\Midtrans\Transaction;
+
+// Plumbing
+use App\Http\Controllers\Midtrans\ApiRequestor;
+use App\Http\Controllers\Midtrans\SnapApiRequestor;
+use App\Http\Controllers\Midtrans\Notification;
+use App\Http\Controllers\Midtrans\CoreApi;
+use App\Http\Controllers\Midtrans\Snap;
+
+// Sanitization
+use App\Http\Controllers\Midtrans\Sanitizer;
 
 /**
  * @property  response
