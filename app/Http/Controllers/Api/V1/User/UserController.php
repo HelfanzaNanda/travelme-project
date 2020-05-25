@@ -271,7 +271,6 @@ class UserController extends Controller
 
 $order_id = 101;
 
-$payload = [
 
 $item_details[] = [
 
@@ -280,6 +279,9 @@ $item_details[] = [
                     'price' => $request->price,
                     'name' => $request->date,
 ];
+
+
+$payload = [
 
                 'transaction_details' => [
                     'order_id'  => $order_id,
@@ -292,7 +294,7 @@ $item_details[] = [
                 ],
                 'item_details' => $item_details
             ];
-            
+
             $snapToken = Snap::getSnapToken($payload);
                 //$snap = Midtrans::getSnapToken($payload);
                 return response()->json([
