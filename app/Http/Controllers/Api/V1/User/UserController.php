@@ -256,7 +256,7 @@ class UserController extends Controller
 $payload = [
                 'transaction_details' => [
                     'order_id'  => $request->id,
-                    'gross_amount' => $request->total_price
+                    'gross_amount' => $request->price * $request->total_seat,
                 ],
                 'customer_details' => [
                     'first_name' => Auth::guard('api')->user()->name,
@@ -270,7 +270,7 @@ $payload = [
                     'name' => $request->date,
                 ],
             ];
-                
+
                 $snap = Midtrans::getSnapToken($payload);
                 return response()->json([
                     'message' => 'successfully get snap',
