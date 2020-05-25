@@ -18,7 +18,6 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
-use App\Veritrans\Midtrans;
 
 /**
  * @property  response
@@ -32,7 +31,11 @@ class UserController extends Controller
     {
         $this->request = $request;
 
-        Midtrans::$serverKey = 'SB-Mid-server-lgheMLSAsWyuFmE1FmP7L2K1';
+        //Midtrans::$serverKey = 'SB-Mid-server-lgheMLSAsWyuFmE1FmP7L2K1';
+        Config::$serverKey = 'SB-Mid-server-lgheMLSAsWyuFmE1FmP7L2K1';
+        Config::$isSanitized = true;
+        Config::$is3ds = true;
+
         //Midtrans::$serverKey = config('services.midtrans.serverKey');
         //Midtrans::$isProduction = false;
         $this->middleware('auth:api')->except(['getUsers', 'getUserLogIn']);
@@ -213,9 +216,9 @@ class UserController extends Controller
                 ],
             ];
 
-            $snap = $midtrans->getSnapToken($payload);
+            //$snap = $midtrans->getSnapToken($payload);
             //$snap = Snap::getSnapToken($payload);
-            //$snap = Snap::getSnapToken($payload);
+            $snap = Snap::getSnapToken($payload);
             $data->snap_token = $snap;
             $data->save();
 
