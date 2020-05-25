@@ -277,7 +277,8 @@ $payload = [
                     'message' => 'successfully get snap',
                     'status' => true,
                     'data' => [
-                        'payment_endpoint' => Midtrans::getSnapBaseUrl().'/'.$snap
+                        'token' => $snap,
+                        'redirect_url' => Midtrans::getSnapBaseUrl().'/'.$snap
                     ],
                 ]);
             } catch (\Exception $e) {
