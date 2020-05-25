@@ -32,8 +32,8 @@ class UserController extends Controller
     {
         $this->request = $request;
 
-        //Midtrans::$serverKey = 'SB-Mid-server-lgheMLSAsWyuFmE1FmP7L2K1';
-        Midtrans::$serverKey = config('services.midtrans.serverKey');
+        Midtrans::$serverKey = 'SB-Mid-server-lgheMLSAsWyuFmE1FmP7L2K1';
+        //Midtrans::$serverKey = config('services.midtrans.serverKey');
         //Midtrans::$isProduction = false;
         $this->middleware('auth:api')->except(['getUsers', 'getUserLogIn']);
     }
