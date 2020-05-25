@@ -232,7 +232,9 @@ class UserController extends Controller
             return response()->json([
                 'message' => 'successfully order travel',
                 'status' => true,
-                'data' => Midtrans::getSnapBaseUrl().'/'.$snap
+                'data' => [
+                    'payment_endpoint' => Midtrans::getSnapBaseUrl().'/'.$snap
+                ],
             ]);
 
 
