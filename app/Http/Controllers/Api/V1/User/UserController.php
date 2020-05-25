@@ -248,7 +248,12 @@ class UserController extends Controller
 
     public function snapToken(Request $request)
     {
-        $payload = [
+
+            //$snap = $midtrans->getSnapToken($payload);
+            
+            try {
+
+$payload = [
                 'transaction_details' => [
                     'order_id'  => $request->id,
                     'gross_amount' => $request->total_price
@@ -265,10 +270,7 @@ class UserController extends Controller
                     'name' => $request->date,
                 ],
             ];
-
-            //$snap = $midtrans->getSnapToken($payload);
-            
-            try {
+                
                 $snap = Midtrans::getSnapToken($payload);
                 return response()->json([
                     'message' => 'successfully get snap',
