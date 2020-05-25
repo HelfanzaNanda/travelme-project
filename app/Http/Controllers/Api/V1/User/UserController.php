@@ -278,7 +278,10 @@ class UserController extends Controller
                     ],
                 ]);
             } catch (\Exception $e) {
-                return ['code' => 0 , 'message' => 'failed'];
+                return response()->json([
+                    'message' => $e->getMessage(),
+                    'status' => false,
+                ]);
             }
 
     }
