@@ -45,13 +45,13 @@ class UserController extends Controller
     {
         $this->request = $request;
 
-        Midtrans::$serverKey = 'SB-Mid-server-lgheMLSAsWyuFmE1FmP7L2K1';
-        //Config::$serverKey = 'SB-Mid-server-lgheMLSAsWyuFmE1FmP7L2K1';
-        //Config::$isSanitized = true;
-        //Config::$is3ds = true;
+        //Midtrans::$serverKey = 'SB-Mid-server-lgheMLSAsWyuFmE1FmP7L2K1';
+        Config::$serverKey = 'SB-Mid-server-lgheMLSAsWyuFmE1FmP7L2K1';
+        Config::$isSanitized = true;
+        Config::$is3ds = true;
 
         //Midtrans::$serverKey = config('services.midtrans.serverKey');
-        Midtrans::$isProduction = false;
+        //Midtrans::$isProduction = false;
         $this->middleware('auth:api')->except(['getUsers', 'getUserLogIn']);
     }
 
@@ -268,6 +268,7 @@ class UserController extends Controller
             //$snap = $midtrans->getSnapToken($payload);
             
             try {
+
 $order_id = 101;
 
 $payload = [
@@ -288,16 +289,16 @@ $payload = [
                 ],
             ];
 
-            //$snapToken = Snap::getSnapToken($transaction);
+            $snapToken = Snap::getSnapToken($transaction);
                 $snap = Midtrans::getSnapToken($payload);
                 return response()->json([
                     'message' => 'successfully get snap',
                     'status' => true,
-                    //'data' => $snapToken
-                    'data' => [
+                    'data' => $snapToken
+                    /*'data' => [
                         'token' => $snap,
                         'redirect_url' => Midtrans::getSnapBaseUrl().'/'.$snap
-                    ],
+                    ],*/
                 ]);
             } catch (\Exception $e) {
                 return response()->json([
