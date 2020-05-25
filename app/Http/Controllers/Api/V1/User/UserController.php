@@ -289,13 +289,13 @@ class UserController extends Controller
 
             $snapToken = Snap::getSnapToken($payload);
 
-            return response()->json($snapToken);
+            //return response()->json($snapToken);
 
-            /*return response()->json([
+            return response()->json([
                 'message' => 'successfully get snap',
                 'status' => true,
                 'data' => $snapToken
-            ]);*/
+            ]);
         } catch (\Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),
