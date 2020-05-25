@@ -192,8 +192,9 @@ class UserController extends Controller
             $data->save();
 
 
-            //$midtrans = new Midtrans();
+            $midtrans = new Midtrans();
 
+            //dd($data->total_seat, $request->total_seat);
             $payload = [
                 'transaction_details' => [
                     'order_id'  => $data->id,
@@ -206,14 +207,14 @@ class UserController extends Controller
                 ],
                 'item_details' => [
                     'id' => $data->departure_id,
-                    'quantity' => (int)$data->total_seat,
+                    'quantity' => $data->totat_seat,
                     'price' => $data->price,
                     'name' => $data->date,
                 ],
             ];
 
-            //$snap = $midtrans->getSnapToken($payload);
-            $snap = Snap::getSnapToken($payload);
+            $snap = $midtrans->getSnapToken($payload);
+            //$snap = Snap::getSnapToken($payload);
             //$snap = Snap::getSnapToken($payload);
             $data->snap_token = $snap;
             $data->save();

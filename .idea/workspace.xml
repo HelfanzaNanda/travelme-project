@@ -4,8 +4,6 @@
     <list default="true" id="7c3ba4ed-9835-4339-a329-40bbc1b998a0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/V1/User/UserController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/V1/User/UserController.php" />
-      <change beforePath="$PROJECT_DIR$/config/services.php" afterPath="$PROJECT_DIR$/config/services.php" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" afterPath="$PROJECT_DIR$/routes/web.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -74,12 +72,12 @@
       <file leaf-file-name="UserController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/V1/User/UserController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="333">
-              <caret line="219" column="0" lean-forward="true" selection-start-line="219" selection-start-column="0" selection-end-line="219" selection-end-column="0" />
+            <state relative-caret-position="255">
+              <caret line="35" column="14" lean-forward="true" selection-start-line="35" selection-start-column="14" selection-end-line="35" selection-end-column="14" />
               <folding>
-                <element signature="e#9179#10608#0#PHP" expanded="false" />
-                <marker date="1590380630675" expanded="true" signature="8955:9173" ph="{...}" />
-                <marker date="1590380630675" expanded="true" signature="9170:9173" ph="{...}" />
+                <element signature="e#9231#10660#0#PHP" expanded="false" />
+                <marker date="1590382107115" expanded="true" signature="9007:9225" ph="{...}" />
+                <marker date="1590382107115" expanded="true" signature="9222:9225" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -423,12 +421,12 @@
       <workItem from="1590202127198" duration="354000" />
       <workItem from="1590204334651" duration="491000" />
       <workItem from="1590213900726" duration="11044000" />
-      <workItem from="1590380137166" duration="617000" />
+      <workItem from="1590380137166" duration="1818000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="57377000" />
+    <option name="totallyTimeSpent" value="58578000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
@@ -875,12 +873,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/V1/User/UserController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="333">
-          <caret line="219" column="0" lean-forward="true" selection-start-line="219" selection-start-column="0" selection-end-line="219" selection-end-column="0" />
+        <state relative-caret-position="255">
+          <caret line="35" column="14" lean-forward="true" selection-start-line="35" selection-start-column="14" selection-end-line="35" selection-end-column="14" />
           <folding>
-            <element signature="e#9179#10608#0#PHP" expanded="false" />
-            <marker date="1590380630675" expanded="true" signature="8955:9173" ph="{...}" />
-            <marker date="1590380630675" expanded="true" signature="9170:9173" ph="{...}" />
+            <element signature="e#9231#10660#0#PHP" expanded="false" />
+            <marker date="1590382107115" expanded="true" signature="9007:9225" ph="{...}" />
+            <marker date="1590382107115" expanded="true" signature="9222:9225" ph="{...}" />
           </folding>
         </state>
       </provider>
