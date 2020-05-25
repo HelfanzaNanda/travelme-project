@@ -414,7 +414,7 @@ $payload = [
         // return $transaction;
         try {
             $snapToken = Snap::getSnapToken($transaction);
-            return response()->json($snapToken);
+            return response()->json($transaction);
             // return ['code' => 1 , 'message' => 'success' , 'result' => $snapToken];
         } catch (\Exception $e) {
             dd($e);
