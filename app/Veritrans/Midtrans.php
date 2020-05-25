@@ -151,8 +151,8 @@ class Midtrans {
             Midtrans::$serverKey,
             $params);
 
-        //return $result->token;
-        return $result;
+        return $result->token;
+        //return $result;
     }
 
 }

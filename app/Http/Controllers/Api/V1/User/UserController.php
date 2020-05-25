@@ -207,12 +207,10 @@ class UserController extends Controller
                     'telephone' => Auth::guard('api')->user()->telp,
                 ],
                 'item_details' => [
-                    [
-                        'id' => $data->departure_id,
+                    'id' => $data->departure_id,
                     'quantity' => $data->total_seat,
                     'price' => $data->price,
                     'name' => $data->date,
-                    ],
                 ],
             ];
 
@@ -234,7 +232,7 @@ class UserController extends Controller
             return response()->json([
                 'message' => 'successfully order travel',
                 'status' => true,
-                'data' => $snap
+                'data' => Midtrans::getSnapBaseUrl().'/'.$snap
             ]);
 
 
