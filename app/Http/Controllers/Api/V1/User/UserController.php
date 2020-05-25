@@ -209,7 +209,7 @@ class UserController extends Controller
             $data->save();
 
 
-            $midtrans = new Midtrans();
+            //$midtrans = new Midtrans();
 
             //dd($data->total_seat, $request->total_seat);
             $payload = [
