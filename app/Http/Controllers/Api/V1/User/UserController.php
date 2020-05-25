@@ -264,25 +264,17 @@ class UserController extends Controller
 
     public function snapToken(Request $request)
     {
+        try {
+            $order_id = 101;
 
-            //$snap = $midtrans->getSnapToken($payload);
-            
-            try {
+            $item_details[] = [
+                'id' => $request->departure_id,
+                'quantity' => $request->total_seat,
+                'price' => $request->price,
+                'name' => $request->date,
+            ];
 
-$order_id = 101;
-
-
-$item_details[] = [
-
-'id' => $request->departure_id,
-                    'quantity' => $request->total_seat,
-                    'price' => $request->price,
-                    'name' => $request->date,
-];
-
-
-$payload = [
-
+            $payload = [
                 'transaction_details' => [
                     'order_id'  => $order_id,
                     'gross_amount' => $request->price * $request->total_seat,
@@ -296,22 +288,20 @@ $payload = [
             ];
 
             $snapToken = Snap::getSnapToken($payload);
-                //$snap = Midtrans::getSnapToken($payload);
-                return response()->json([
-                    'message' => 'successfully get snap',
-                    'status' => true,
-                    'data' => $snapToken
-                    /*'data' => [
-                        'token' => $snap,
-                        'redirect_url' => Midtrans::getSnapBaseUrl().'/'.$snap
-                    ],*/
-                ]);
-            } catch (\Exception $e) {
-                return response()->json([
-                    'message' => $e->getMessage(),
-                    'status' => false,
-                ]);
-            }
+
+            return response()->json($snapToken);
+
+            /*return response()->json([
+                'message' => 'successfully get snap',
+                'status' => true,
+                'data' => $snapToken
+            ]);*/
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+                'status' => false,
+            ]);
+        }
 
     }
 
