@@ -30,10 +30,11 @@ class UserController extends Controller
 
     public function __construct(Request $request)
     {
-
-        Midtrans::$serverKey = 'SB-Mid-server-lgheMLSAsWyuFmE1FmP7L2K1';
-        Midtrans::$isProduction = false;
         $this->request = $request;
+
+        //Midtrans::$serverKey = 'SB-Mid-server-lgheMLSAsWyuFmE1FmP7L2K1';
+        Midtrans::$serverKey = config('services.midtrans.serverKey');
+        //Midtrans::$isProduction = false;
         $this->middleware('auth:api')->except(['getUsers', 'getUserLogIn']);
     }
 
@@ -191,7 +192,7 @@ class UserController extends Controller
             $data->save();
 
 
-            $midtrans = new Midtrans();
+            //$midtrans = new Midtrans();
 
             $payload = [
                 'transaction_details' => [
@@ -211,8 +212,9 @@ class UserController extends Controller
                 ],
             ];
 
-            $snap = $midtrans->getSnapToken($payload);
-            //$snapToken = Snap::getSnapToken($transaction_data);
+            //$snap = $midtrans->getSnapToken($payload);
+            $snap = Snap::getSnapToken($payload);
+            //$snap = Snap::getSnapToken($payload);
             $data->snap_token = $snap;
             $data->save();
 
