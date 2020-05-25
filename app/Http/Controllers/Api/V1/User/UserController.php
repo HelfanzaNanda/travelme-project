@@ -252,10 +252,11 @@ class UserController extends Controller
             //$snap = $midtrans->getSnapToken($payload);
             
             try {
+$order_id = 101;
 
 $payload = [
                 'transaction_details' => [
-                    'order_id'  => $request->id,
+                    'order_id'  => $order_id,
                     'gross_amount' => $request->price * $request->total_seat,
                 ],
                 'customer_details' => [
