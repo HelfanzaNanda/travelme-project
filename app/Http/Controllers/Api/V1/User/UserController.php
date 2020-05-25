@@ -289,8 +289,8 @@ $payload = [
                 ],
             ];
 
-            $snapToken = Snap::getSnapToken($transaction);
-                $snap = Midtrans::getSnapToken($payload);
+            $snapToken = Snap::getSnapToken($payload);
+                //$snap = Midtrans::getSnapToken($payload);
                 return response()->json([
                     'message' => 'successfully get snap',
                     'status' => true,
