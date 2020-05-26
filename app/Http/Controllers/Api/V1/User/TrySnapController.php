@@ -20,28 +20,21 @@ class TrySnapController extends Controller
 
     public function store(Request $request)
     {
-        $output = new \Symfony\Component\Console\Output\ConsoleOutput(2);
-
-        $result = [];
-
-        $orders = $request->all();
-
-       /* $gross_amout = 0;
-        foreach ($orders as $order){
-            array_push($result, $order);
-        }
+        $converted = $request->item_details;
         $payload = [
+            'item_details' => $converted,
             'customer_details' => [
                 'first_name' => 'admin',
                 'email' => 'admin@gmail.com',
                 'telephone' => '089663543354',
             ],
-            'item_details' => $request->all()
         ];
-        $snapToken = Snap::getSnapToken($payload);*/
 
-       dump($orders);
-
-        return response()->json(array_keys($orders));
+        try {
+            $snapToken = Snap::getSnapToken($payload);
+            return response()->json($snapToken);
+        } catch (\Exception $exception) {
+            return response()->json($exception->getMessage());
+        }
     }
 }
