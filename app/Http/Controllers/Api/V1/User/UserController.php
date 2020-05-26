@@ -232,13 +232,6 @@ class UserController extends Controller
                 'item_details' => $item_details
             ];
 
-            //$snap = $midtrans->getSnapToken($payload);
-            //$snap = Midtrans::getSnapToken($payload);
-            //$snap = Snap::getSnapToken($payload);
-            $snap = Snap::getSnapToken($payload);
-            $data->snap_token = $snap;
-            $data->save();
-
             $date = DateOfDeparture::where('date', $request->date)->first();
             $hour = HourOfDeparture::where('date_id', $date->id)
                 ->where('owner_id', $request->owner_id)
@@ -247,7 +240,10 @@ class UserController extends Controller
             $hour->remaining_seat = $hour->remaining_seat - $request->total_seat;
             $hour->update();
 
-            return response()->json($snap);
+            $snapToken = Snap::getSnapToken($payload);
+            $data->snap_token = $snapToken;
+            $data->save();
+            return response()->json($snapToken);
 
             /*return response()->json([
                 'message' => 'successfully order travel',
