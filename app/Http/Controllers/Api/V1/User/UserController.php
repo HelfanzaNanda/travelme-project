@@ -209,10 +209,10 @@ class UserController extends Controller
             $data->save();
 
             $item_details[] = [
-                'id' => $request->departure_id,
-                'quantity' => $request->total_seat,
-                'price' => $request->price,
-                'name' => $request->date,
+                'id' => $data->departure_id,
+                'quantity' => $data->total_seat,
+                'price' => $data->price,
+                'name' => $data->departure->destination,
             ];
 
             //$midtrans = new Midtrans();
