@@ -41,8 +41,6 @@ class UserController extends Controller
 
     public function __construct()
     {
-
-        //Midtrans::$serverKey = 'SB-Mid-server-lgheMLSAsWyuFmE1FmP7L2K1';
         Config::$serverKey = 'SB-Mid-server-lgheMLSAsWyuFmE1FmP7L2K1';
         Config::$isSanitized = true;
         Config::$is3ds = true;
@@ -237,13 +235,13 @@ class UserController extends Controller
             $data->snap_token = $snapToken->token;
             $data->save();
 
-            return response()->json($snapToken);
+            //return response()->json($snapToken);
 
-           /* return response()->json([
+            return response()->json([
                 'message' => 'successfully order travel',
                 'status' => true,
                 'data' => $snapToken
-            ]);*/
+            ]);
 
             /*return response()->json([
                 'message' => 'successfully order travel',
