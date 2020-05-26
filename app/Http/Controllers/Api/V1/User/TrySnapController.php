@@ -26,9 +26,9 @@ class TrySnapController extends Controller
         $orders = $request->all();
 
         $gross_amout = 0;
-/*        foreach ($orders as $order){
+        foreach ($orders as $order){
             array_push($result, $order);
-            $gross_amout += $order['price'] * $order['quantity'];
+            $gross_amout += $order->price * $order->quantity;
         }
         $payload = [
             'transaction_details' => [
@@ -42,9 +42,8 @@ class TrySnapController extends Controller
             ],
             'item_details' => $result
         ];
-        $snapToken = Snap::getSnapToken($payload);*/
-error_log($orders);
+        $snapToken = Snap::getSnapToken($payload);
 
-        return response()->json($request->all());
+        return response()->json($snapToken);
     }
 }
