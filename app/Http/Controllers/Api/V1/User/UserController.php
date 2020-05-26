@@ -242,6 +242,8 @@ class UserController extends Controller
             $snapToken = Snap::getSnapToken($payload);
             $data->snap_token = $snapToken;
             $data->save();
+            dd($snapToken);
+
             return response()->json($snapToken);
 
             /*return response()->json([
