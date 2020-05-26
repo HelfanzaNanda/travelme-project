@@ -212,29 +212,31 @@ class UserController extends Controller
             //$midtrans = new Midtrans();
 
             //dd($data->total_seat, $request->total_seat);
-            /*$payload = [
+            $payload = [
                 'transaction_details' => [
                     'order_id'  => $data->id,
                     'gross_amount' => $data->total_price
                 ],
                 'customer_details' => [
-                    'first_name' => Auth::guard('api')->user()->name,
-                    'email' => Auth::guard('api')->user()->email,
-                    'telephone' => Auth::guard('api')->user()->telp,
+                    'first_name' => $data->user->name,
+                    'email' => $data->user->email,
+                    'telephone' => $data->user->telp,
                 ],
                 'item_details' => [
-                    'id' => $data->departure_id,
-                    'quantity' => $data->total_seat,
-                    'price' => $data->price,
-                    'name' => $data->date,
+                    [
+                        'id' => $data->departure_id,
+                        'quantity' => $data->total_seat,
+                        'price' => $data->price,
+                        'name' => $data->date,
+                    ]
                 ],
-            ];*/
+            ];
 
             //$snap = $midtrans->getSnapToken($payload);
             //$snap = Midtrans::getSnapToken($payload);
             //$snap = Snap::getSnapToken($payload);
-            //$snap = Snap::getSnapToken($payload);
-            /*$data->snap_token = $snap;
+            $snap = Snap::getSnapToken($payload);
+            $data->snap_token = $snap;
             $data->save();
 
             $date = DateOfDeparture::where('date', $request->date)->first();
@@ -243,7 +245,7 @@ class UserController extends Controller
                 ->where('hour', $request->hour)
                 ->first();
             $hour->remaining_seat = $hour->remaining_seat - $request->total_seat;
-            $hour->update();*/
+            $hour->update();
 
             return response()->json([
                 'message' => 'successfully order travel',
