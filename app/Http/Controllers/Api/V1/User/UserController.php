@@ -39,11 +39,8 @@ use App\Http\Controllers\Midtrans\Sanitizer;
 class UserController extends Controller
 {
 
-    protected $request;
-
-    public function __construct(Request $request)
+    public function __construct()
     {
-        $this->request = $request;
 
         //Midtrans::$serverKey = 'SB-Mid-server-lgheMLSAsWyuFmE1FmP7L2K1';
         Config::$serverKey = 'SB-Mid-server-lgheMLSAsWyuFmE1FmP7L2K1';
@@ -240,10 +237,10 @@ class UserController extends Controller
             $hour->update();*/
 
             $snapToken = Snap::getSnapToken($payload);
-            $data->snap_token = $snapToken;
-            $data->save();
+            //$data->snap_token = $snapToken;
+            //$data->save();
 
-            return response()->json($snapToken);
+            return response()->json($payload);
 
             /*return response()->json([
                 'message' => 'successfully order travel',
