@@ -231,13 +231,13 @@ class UserController extends Controller
                 'item_details' => $item_details
             ];
 
-            $date = DateOfDeparture::where('date', $request->date)->first();
+            /*$date = DateOfDeparture::where('date', $request->date)->first();
             $hour = HourOfDeparture::where('date_id', $date->id)
                 ->where('owner_id', $request->owner_id)
                 ->where('hour', $request->hour)
                 ->first();
             $hour->remaining_seat = $hour->remaining_seat - $request->total_seat;
-            $hour->update();
+            $hour->update();*/
 
             $snapToken = Snap::getSnapToken($payload);
             $data->snap_token = $snapToken;
