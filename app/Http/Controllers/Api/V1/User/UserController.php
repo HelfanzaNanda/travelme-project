@@ -203,52 +203,11 @@ class UserController extends Controller
             $data->destination_location = $request->destination_location;
             $data->save();
 
-            $item_details[] = [
-                'id' => $data->departure->from .' - '. $data->departure->destination,
-                'quantity' => $data->total_seat,
-                'price' => $data->price,
-                'name' => $data->date,
-            ];
-
-            $payload = [
-                'transaction_details' => [
-                    'order_id'  => $data->id,
-                    'gross_amount' => $data->total_price
-                ],
-                'customer_details' => [
-                    'first_name' => $data->user->name,
-                    'email' => $data->user->email,
-                    'telephone' => $data->user->telp,
-                ],
-                'item_details' => $item_details
-            ];
-
-            $date = DateOfDeparture::where('date', $request->date)->first();
-            $hour = HourOfDeparture::where('date_id', $date->id)
-                ->where('owner_id', $request->owner_id)
-                ->where('hour', $request->hour)
-                ->first();
-            $hour->remaining_seat = $hour->remaining_seat - $request->total_seat;
-            $hour->update();
-
-            $snapToken = Snap::getSnapToken($payload);
-            $data->snap_token = $snapToken->token;
-            $data->save();
-
-            //return response()->json($snapToken);
-
             return response()->json([
                 'message' => 'successfully order travel',
                 'status' => true,
-                'data' => $snapToken
-            ]);
-
-            /*return response()->json([
-                'message' => 'successfully order travel',
-                'status' => true,
                 'data' => new OrderResource($data)
-            ]);*/
-
+            ]);
 
         }catch (\Exception $exception){
             return response()->json([
@@ -262,45 +221,26 @@ class UserController extends Controller
 
     public function snapToken(Request $request)
     {
+        $order_id = rand();
+        $converted = $request->item_details;
+        $payload = [
+            'transaction_details' => [
+                'order_id' => $order_id
+            ],
+            'item_details' => $converted,
+            'customer_details' => [
+                'first_name' => 'admin',
+                'email' => 'admin@gmail.com',
+                'telephone' => '089663543354',
+            ],
+        ];
+
         try {
-            $order_id = 101;
-
-            $item_details[] = [
-                'id' => $request->departure_id,
-                'quantity' => $request->total_seat,
-                'price' => $request->price,
-                'name' => $request->date,
-            ];
-
-            $payload = [
-                'transaction_details' => [
-                    'order_id'  => $order_id,
-                    'gross_amount' => $request->price * $request->total_seat,
-                ],
-                'customer_details' => [
-                    'first_name' => $request->name,
-                    'email' => $request->email,
-                    'telephone' => $request->telp,
-                ],
-                'item_details' => $item_details
-            ];
-
             $snapToken = Snap::getSnapToken($payload);
-
             return response()->json($snapToken);
-
-            /*return response()->json([
-                'message' => 'successfully get snap',
-                'status' => true,
-                'data' => $snapToken
-            ]);*/
-        } catch (\Exception $e) {
-            return response()->json([
-                'message' => $e->getMessage(),
-                'status' => false,
-            ]);
+        } catch (\Exception $exception) {
+            return response()->json($exception->getMessage());
         }
-
     }
 
     public function orderByUser()
@@ -339,84 +279,6 @@ class UserController extends Controller
             ]);
         }
     }
-
-
-    public function getSnapToken(Request $req){
-
-        $item_list = array();
-        $amount = 0;
-        // Required
-
-         $item_list[] = [
-                'id' => "111",
-                'price' => 20000,
-                'quantity' => 1,
-                'name' => "Majohn"
-        ];
-
-        $transaction_details = array(
-            'order_id' => rand(),
-            'gross_amount' => 20000, // no decimal allowed for creditcard
-        );
-
-
-        // Optional
-        $item_details = $item_list;
-
-        // Optional
-        $billing_address = array(
-            'first_name'    => "Andri",
-            'last_name'     => "Litani",
-            'address'       => "Mangga 20",
-            'city'          => "Jakarta",
-            'postal_code'   => "16602",
-            'phone'         => "081122334455",
-            'country_code'  => 'IDN'
-        );
-
-        // Optional
-        $shipping_address = array(
-            'first_name'    => "Obet",
-            'last_name'     => "Supriadi",
-            'address'       => "Manggis 90",
-            'city'          => "Jakarta",
-            'postal_code'   => "16601",
-            'phone'         => "08113366345",
-            'country_code'  => 'IDN'
-        );
-
-        // Optional
-        $customer_details = array(
-            'first_name'    => "Andri",
-            'last_name'     => "Litani",
-            'email'         => "andri@litani.com",
-            'phone'         => "081122334455",
-            'billing_address'  => $billing_address,
-            'shipping_address' => $shipping_address
-        );
-
-        // Optional, remove this to display all available payment methods
-        $enable_payments = array();
-
-        // Fill transaction details
-        $transaction = array(
-            'enabled_payments' => $enable_payments,
-            'transaction_details' => $transaction_details,
-            'customer_details' => $customer_details,
-            'item_details' => $item_details,
-        );
-        // return $transaction;
-        try {
-            $snapToken = Snap::getSnapToken($transaction);
-            return response()->json($transaction);
-            // return ['code' => 1 , 'message' => 'success' , 'result' => $snapToken];
-        } catch (\Exception $e) {
-            dd($e);
-            return ['code' => 0 , 'message' => 'failed'];
-        }
-
-    }
-
 
     /*public function search(Request $request)
     {

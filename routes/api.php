@@ -34,9 +34,8 @@ Route::get('departure/{destination}', 'Api\V1\User\UserController@departureByDes
 Route::post('departure/search', 'Api\V1\User\UserController@search');
 Route::get('order','Api\V1\User\UserController@orderByUser');
 Route::post('order/store','Api\V1\User\UserController@postOrder');
-Route::post('snap', 'Api\V1\User\UserController@postOrder');
-Route::post('snap/charge', 'Api\V1\User\UserController@postOrder');
-
+Route::post('snap', 'Api\V1\User\UserController@snapToken');
+Route::post('snap/charge', 'Api\V1\User\UserController@snapToken');
 
 Route::get('order/all', 'Api\V1\User\UserController@getAllOrder');
 
