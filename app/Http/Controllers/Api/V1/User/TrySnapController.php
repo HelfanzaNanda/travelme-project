@@ -20,26 +20,28 @@ class TrySnapController extends Controller
 
     public function store(Request $request)
     {
-        $item_details[] = [
-            'id' => '101',
-            'quantity' => $request->quantity,
-            'price' => $request->price,
-            'name' => $request->name,
-        ];
 
+        $result = [];
+
+        $orders = $request->all();
+
+        $gross_amout = 0;
+        foreach ($orders as $key => $order){
+            array_push($result, $order);
+            $gross_amout += $order['price'] * $order['quantity'];
+        }
         $payload = [
             'transaction_details' => [
                 'order_id'  => '101',
-                'gross_amount' => $request->price * $request->quantity
+                'gross_amount' => $gross_amout
             ],
             'customer_details' => [
                 'first_name' => 'admin',
                 'email' => 'admin@gmail.com',
                 'telephone' => '089663543354',
             ],
-            'item_details' => $item_details
+            'item_details' => $result
         ];
-
         $snapToken = Snap::getSnapToken($payload);
 
         return response()->json($snapToken);
