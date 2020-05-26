@@ -212,7 +212,7 @@ class UserController extends Controller
                 'id' => $data->departure_id,
                 'quantity' => $data->total_seat,
                 'price' => $data->price,
-                'name' => $data->departure->destination,
+                'name' => $data->date,
             ];
 
             //$midtrans = new Midtrans();
@@ -224,9 +224,9 @@ class UserController extends Controller
                     'gross_amount' => $data->total_price
                 ],
                 'customer_details' => [
-                    'first_name' => $data->user->name,
-                    'email' => $data->user->email,
-                    'telephone' => $data->user->telp,
+                    'first_name' => 'nanda',
+                    'email' => 'aa@gmail.com',
+                    'telephone' => '04055',
                 ],
                 'item_details' => $item_details
             ];
@@ -242,7 +242,6 @@ class UserController extends Controller
             $snapToken = Snap::getSnapToken($payload);
             $data->snap_token = $snapToken;
             $data->save();
-            dd($snapToken);
 
             return response()->json($snapToken);
 
