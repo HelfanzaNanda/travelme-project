@@ -247,11 +247,13 @@ class UserController extends Controller
             $hour->remaining_seat = $hour->remaining_seat - $request->total_seat;
             $hour->update();
 
-            return response()->json([
+            return response()->json($snap);
+
+            /*return response()->json([
                 'message' => 'successfully order travel',
                 'status' => true,
                 'data' => new OrderResource($data)
-            ]);
+            ]);*/
 
 
         }catch (\Exception $exception){
