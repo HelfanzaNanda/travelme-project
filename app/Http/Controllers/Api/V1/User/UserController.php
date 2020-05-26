@@ -206,39 +206,36 @@ class UserController extends Controller
             $data->save();
 
             $item_details[] = [
-                'id' => $data->departure_id,
+                'id' => $data->departure->from .' - '. $data->departure->destination,
                 'quantity' => $data->total_seat,
                 'price' => $data->price,
                 'name' => $data->date,
             ];
 
-            //$midtrans = new Midtrans();
-
-            //dd($data->total_seat, $request->total_seat);
             $payload = [
                 'transaction_details' => [
                     'order_id'  => $data->id,
                     'gross_amount' => $data->total_price
                 ],
                 'customer_details' => [
-                    'first_name' => 'nanda',
-                    'email' => 'aa@gmail.com',
-                    'telephone' => '04055',
+                    'first_name' => $data->user->name,
+                    'email' => $data->user->email,
+                    'telephone' => $data->user->telp,
                 ],
                 'item_details' => $item_details
             ];
 
-            /*$date = DateOfDeparture::where('date', $request->date)->first();
+            $date = DateOfDeparture::where('date', $request->date)->first();
             $hour = HourOfDeparture::where('date_id', $date->id)
                 ->where('owner_id', $request->owner_id)
                 ->where('hour', $request->hour)
                 ->first();
             $hour->remaining_seat = $hour->remaining_seat - $request->total_seat;
-            $hour->update();*/
+            $hour->update();
 
             $snapToken = Snap::getSnapToken($payload);
-            //$data->snap_token = $snapToken;
-            //$data->save();
+            $data->snap_token = $snapToken->token;
+            $data->save();
 
             return response()->json($snapToken);
 
