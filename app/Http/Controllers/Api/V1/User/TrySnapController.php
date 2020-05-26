@@ -24,7 +24,7 @@ class TrySnapController extends Controller
 
         $item_details[] = [
             'id' => '101',
-            'quantity' => $request->qty,
+            'quantity' => $request->quantity,
             'price' => $request->price,
             'name' => $request->name,
         ];
@@ -32,7 +32,7 @@ class TrySnapController extends Controller
         $payload = [
             'transaction_details' => [
                 'order_id'  => '101',
-                'gross_amount' => $request->price * $request->qty
+                'gross_amount' => $request->price * $request->quantity
             ],
             'customer_details' => [
                 'first_name' => 'admin',
