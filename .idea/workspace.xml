@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7c3ba4ed-9835-4339-a329-40bbc1b998a0" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/V1/User/TrySnapController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/V1/User/TrySnapController.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -54,8 +55,8 @@
       <file leaf-file-name="TrySnapController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/V1/User/TrySnapController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="435">
-              <caret line="45" column="8" lean-forward="false" selection-start-line="45" selection-start-column="8" selection-end-line="45" selection-end-column="8" />
+            <state relative-caret-position="180">
+              <caret line="30" column="37" lean-forward="false" selection-start-line="30" selection-start-column="37" selection-end-line="30" selection-end-column="37" />
               <folding>
                 <element signature="e#52#93#0#PHP" expanded="true" />
               </folding>
@@ -393,12 +394,12 @@
       <workItem from="1590213900726" duration="11044000" />
       <workItem from="1590380137166" duration="2677000" />
       <workItem from="1590474691239" duration="597000" />
-      <workItem from="1590476133495" duration="5885000" />
+      <workItem from="1590476133495" duration="6442000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="65919000" />
+    <option name="totallyTimeSpent" value="66476000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
@@ -842,8 +843,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/V1/User/TrySnapController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="45" column="8" lean-forward="false" selection-start-line="45" selection-start-column="8" selection-end-line="45" selection-end-column="8" />
+        <state relative-caret-position="180">
+          <caret line="30" column="37" lean-forward="false" selection-start-line="30" selection-start-column="37" selection-end-line="30" selection-end-column="37" />
           <folding>
             <element signature="e#52#93#0#PHP" expanded="true" />
           </folding>
