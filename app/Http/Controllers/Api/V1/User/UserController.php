@@ -215,6 +215,7 @@ class UserController extends Controller
                 'name' => $request->date,
             ];
 
+            dd($data->user->name);
 
             //$midtrans = new Midtrans();
 
@@ -225,9 +226,9 @@ class UserController extends Controller
                     'gross_amount' => $data->total_price
                 ],
                 'customer_details' => [
-                    'first_name' => $data->user->name,
-                    'email' => $data->user->email,
-                    'telephone' => $data->user->telp,
+                    'first_name' => 'nanda',
+                    'email' => 'nanda@maol.com',
+                    'telephone' => '0000',
                 ],
                 'item_details' => $item_details
             ];
