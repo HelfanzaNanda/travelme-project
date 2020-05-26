@@ -52,7 +52,7 @@ class UserController extends Controller
 
         //Midtrans::$serverKey = config('services.midtrans.serverKey');
         //Midtrans::$isProduction = false;
-        $this->middleware('auth:api')->except(['getUsers', 'getUserLogIn']);
+        $this->middleware('auth:api')->except(['getUsers', 'getUserLogIn', 'snapToken']);
     }
 
     public function getUsers()
@@ -280,22 +280,22 @@ class UserController extends Controller
                     'gross_amount' => $request->price * $request->total_seat,
                 ],
                 'customer_details' => [
-                    'first_name' => Auth::guard('api')->user()->name,
-                    'email' => Auth::guard('api')->user()->email,
-                    'telephone' => Auth::guard('api')->user()->telp,
+                    'first_name' => $request->name,
+                    'email' => $request->email,
+                    'telephone' => $request->telp,
                 ],
                 'item_details' => $item_details
             ];
 
             $snapToken = Snap::getSnapToken($payload);
 
-            //return response()->json($snapToken);
+            return response()->json($snapToken);
 
-            return response()->json([
+            /*return response()->json([
                 'message' => 'successfully get snap',
                 'status' => true,
                 'data' => $snapToken
-            ]);
+            ]);*/
         } catch (\Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),
