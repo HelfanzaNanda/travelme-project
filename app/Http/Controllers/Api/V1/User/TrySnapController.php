@@ -40,8 +40,8 @@ class TrySnapController extends Controller
         ];
         $snapToken = Snap::getSnapToken($payload);*/
 
-        $output->writeln($orders);
-       
+       dump($orders);
+
         return response()->json(array_keys($orders));
     }
 }
