@@ -34,12 +34,14 @@ Route::get('departure/{destination}', 'Api\V1\User\UserController@departureByDes
 Route::post('departure/search', 'Api\V1\User\UserController@search');
 Route::get('order','Api\V1\User\UserController@orderByUser');
 Route::post('order/store','Api\V1\User\UserController@postOrder');
+Route::post('snap', 'Api\V1\User\UserController@postOrder');
+Route::post('snap/charge', 'Api\V1\User\UserController@postOrder');
+
+
 Route::get('order/all', 'Api\V1\User\UserController@getAllOrder');
 
 Route::group(['prefix' => 'driver'], function (){
    Route::post('login', 'Api\V1\Driver\Auth\LoginController@login');
 });
 
-Route::get('order/driver', 'Api\V1\Driver\DriverController@postOrder');
-Route::post('snap', 'Api\V1\User\UserController@postOrder');
-Route::post('snap/charge', 'Api\V1\User\UserController@postOrder');
+Route::get('order/driver', 'Api\V1\Driver\DriverController@order');
