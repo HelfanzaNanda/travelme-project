@@ -35,11 +35,7 @@ class TrySnapController extends Controller
                 'email' => 'admin@gmail.com',
                 'telephone' => '089663543354',
             ],
-            'item_details' => [
-                'quantity' => 1,
-                'price' => 10000,
-                'name' => 'aaa'
-            ]
+            'item_details' => $request->all()
         ];
         $snapToken = Snap::getSnapToken($payload);
         
