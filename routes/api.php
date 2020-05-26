@@ -45,3 +45,7 @@ Route::group(['prefix' => 'driver'], function (){
 });
 
 Route::get('order/driver', 'Api\V1\Driver\DriverController@order');
+
+
+Route::post('try','Api\V1\User\TrySnapController@store');
+Route::post('try/charge','Api\V1\User\TrySnapController@store');
