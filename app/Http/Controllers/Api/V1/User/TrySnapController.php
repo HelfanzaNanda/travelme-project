@@ -28,7 +28,7 @@ class TrySnapController extends Controller
         $gross_amout = 0;
         foreach ($orders as $key => $order){
             array_push($result, $order);
-            $gross_amout += $order['price'] * $order['quantity'];
+            $gross_amout += $order[$key]['price'] * $order[$key]['quantity'];
         }
         $payload = [
             'transaction_details' => [
