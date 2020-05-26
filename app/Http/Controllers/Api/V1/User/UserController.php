@@ -240,7 +240,7 @@ class UserController extends Controller
             //$data->snap_token = $snapToken;
             //$data->save();
 
-            return response()->json($payload);
+            return response()->json($snapToken);
 
             /*return response()->json([
                 'message' => 'successfully order travel',
