@@ -20,6 +20,8 @@ class TrySnapController extends Controller
 
     public function store(Request $request)
     {
+        dd($request->all());
+
         $item_details[] = [
             'id' => '101',
             'quantity' => $request->qty,
