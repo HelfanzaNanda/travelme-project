@@ -22,6 +22,9 @@ class TrySnapController extends Controller
     {
         $converted = $request->item_details;
         $payload = [
+            'transaction_details' => [
+                'order_id' => '101'
+            ],
             'item_details' => $converted,
             'customer_details' => [
                 'first_name' => 'admin',
