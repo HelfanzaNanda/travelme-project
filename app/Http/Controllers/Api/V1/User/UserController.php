@@ -208,6 +208,13 @@ class UserController extends Controller
             $data->destination_location = $request->destination_location;
             $data->save();
 
+            $item_details[] = [
+                'id' => $request->departure_id,
+                'quantity' => $request->total_seat,
+                'price' => $request->price,
+                'name' => $request->date,
+            ];
+
 
             //$midtrans = new Midtrans();
 
@@ -222,14 +229,7 @@ class UserController extends Controller
                     'email' => $data->user->email,
                     'telephone' => $data->user->telp,
                 ],
-                'item_details' => [
-                    [
-                        'id' => $data->departure_id,
-                        'quantity' => $data->total_seat,
-                        'price' => $data->price,
-                        'name' => $data->date,
-                    ]
-                ],
+                'item_details' => $item_details
             ];
 
             //$snap = $midtrans->getSnapToken($payload);
