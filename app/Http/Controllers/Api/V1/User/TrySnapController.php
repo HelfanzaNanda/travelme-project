@@ -20,12 +20,13 @@ class TrySnapController extends Controller
 
     public function store(Request $request)
     {
+        $output = new \Symfony\Component\Console\Output\ConsoleOutput(2);
 
         $result = [];
 
         $orders = $request->all();
 
-        $gross_amout = 0;
+       /* $gross_amout = 0;
         foreach ($orders as $order){
             array_push($result, $order);
         }
@@ -37,8 +38,10 @@ class TrySnapController extends Controller
             ],
             'item_details' => $request->all()
         ];
-        $snapToken = Snap::getSnapToken($payload);
-        
+        $snapToken = Snap::getSnapToken($payload);*/
+
+        $output->writeln($orders);
+       
         return response()->json(array_keys($orders));
     }
 }
