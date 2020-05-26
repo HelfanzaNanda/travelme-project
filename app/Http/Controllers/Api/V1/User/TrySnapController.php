@@ -42,10 +42,6 @@ class TrySnapController extends Controller
 
         $snapToken = Snap::getSnapToken($payload);
 
-        return response()->json([
-            'message' => 'successfully order travel',
-            'status' => true,
-            'data' => $snapToken
-        ]);
+        return response()->json($snapToken);
     }
 }
