@@ -22,10 +22,18 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        $this->validate($request, [
+        $rules = [
             'email' => 'required|string|email',
             'password' => 'required|string|min:6'
-        ]);
+        ];
+
+        $message = [
+          'required' => ':attribute tidak boleh kosong',
+          'email' => ':attribute harus berformat email',
+          'min'  => ':attribute minimal :min karakter'
+        ];
+
+        $this->validate($request, $rules, $message);
 
         $credential = [
             'email' => $request->email,
@@ -43,7 +51,8 @@ class LoginController extends Controller
                     ->with('error', 'Mohon Verifikasi Email Dahulu!');
             }
         }
-        return redirect()->back()->withInput($request->only('email'))->with('error', 'Salah');
+        return redirect()->back()->withInput($request->only('email'))
+            ->with('error', 'masukkan email dan passsword yang benar');
     }
 
     public function logout()

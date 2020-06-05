@@ -105,7 +105,8 @@
                                     <div class="form-group">
                                         <label for="projectinput3">Alamat</label>
                                         <textarea class="form-control {{$errors->has('address')?'is-invalid':''}}"
-                                                  name="address" rows="3" placeholder="Alamat">{{old('address')}}</textarea>
+                                                  name="address" rows="3"
+                                                  placeholder="Alamat">{{old('address')}}</textarea>
                                         @if ($errors->has('address'))
                                             <span class="invalid-feedback" role="alert">
                                                         <p><b>{{ $errors->first('address') }}</b></p>
@@ -115,12 +116,9 @@
 
                                     <div class="form-group">
                                         <label>Foto</label>
-                                        <input type="file" id="input-file-now {{$errors->has('avatar')?'is-invalid':''}}" class="dropify" name="avatar"/>
-                                        @if ($errors->has('avatar'))
-                                            <span class="invalid-feedback" role="alert">
-                                                <p><b>{{ $errors->first('avatar') }}</b></p>
-                                            </span>
-                                        @endif
+                                        <input type="file" id="photo" name="avatar" required
+                                               class="dropify" data-allowed-file-extensions="png jpeg jpg"
+                                               data-max-file-size="1M"/>
                                     </div>
                                 </div>
                             </div>

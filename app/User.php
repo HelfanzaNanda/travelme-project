@@ -2,11 +2,12 @@
 
 namespace App;
 
+use App\Notifications\ApiVerifyEmail;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
 
@@ -34,4 +35,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function sendApiEmailVerificationNotification()
+    {
+        $this->notify(new ApiVerifyEmail());
+    }
+
+    /*public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ApiResetPasswordNotification($token));
+    }*/
 }

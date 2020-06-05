@@ -53,20 +53,34 @@ class ScheduleController extends Controller
      */
     public function store(Request $request)
     {
-
-        $this->validate($request, [
-            'destination' => 'required',
-            'price' => 'required',
+        $rules = [
+            'destination' => 'required|regex:/^[\pL\s\-]+$/u',
+            'price' => 'required|numeric',
             'date' => 'required',
             'hour' => 'required'
-        ]);
+        ];
+
+        $message = [
+            'required' => ':attribute tidak boleh kosong',
+            'numeric' => ':attribute hanya boleh angka',
+            'regex' => ':attribute hanya boleh huruf'
+        ];
+
+        $this->validate($request, $rules, $message);
+
+        $car = Car::where('owner_id', Auth::guard('owner')->user()->id)->first();
+        if (!$car) {
+            return redirect()->back()->withInput()->WithErrors(['seat' => 'tambahkan mobil dahulu']);
+        }
+
+        $delete_full_stop = preg_replace('/[^\w\s]/', '', $request->price);
 
         $departure = new Departure();
         $departure->owner_id = Auth::guard('owner')->user()->id;
         $departure->from = 'Tegal';
         $departure->destination = ucwords($request->destination);
         $departure->photo_destination = ucwords($request->destination) . '.jpg';
-        $departure->price = $request->price;
+        $departure->price = $delete_full_stop;
         $departure->save();
 
         $dates = explode(',', (string)$request->date);
@@ -86,8 +100,8 @@ class ScheduleController extends Controller
                     'owner_id' => Auth::guard('owner')->user()->id,
                     'date_id' => $itemDateOfDeparture['id'],
                     'hour' => $hour,
-                    'seat' => 0,
-                    'remaining_seat' => 0
+                    'seat' => $car->seat,
+                    'remaining_seat' => $car->seat
                 ];
             };
         }
@@ -122,10 +136,9 @@ class ScheduleController extends Controller
         $hours = [];
         foreach ($dates as $val) {
             array_push($itemDate, Carbon::parse($val->date)->format('d-m-Y'));
-            foreach ($val->hourOfDeparture as $hour) {
+            foreach ($val->hours as $hour) {
                 $hours[$hour['hour']] = Carbon::parse($hour->hour)->format('H:i');
             }
-
         }
         $date = implode(",", $itemDate);
 
@@ -143,12 +156,30 @@ class ScheduleController extends Controller
 
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'destination' => 'required',
-            'price' => 'required',
+        $rules = [
+            'destination' => 'required|regex:/^[\pL\s\-]+$/u',
+            'price' => 'required|numeric',
             'date' => 'required',
             'hour' => 'required'
-        ]);
+        ];
+
+        $message = [
+            'required' => ':attribute tidak boleh kosong',
+            'numeric' => ':attribute hanya boleh angka',
+            'regex' => ':attribute hanya boleh huruf'
+        ];
+
+        $this->validate($request, $rules, $message);
+
+        $delete_full_stop = preg_replace('/[^\w\s]/', '', $request->price);
+
+        $departure = Departure::findOrFail($id);
+        $departure->owner_id = Auth::guard('owner')->user()->id;
+        $departure->from = 'Tegal';
+        $departure->destination = ucwords($request->destination);
+        $departure->photo_destination = ucwords($request->destination) . '.jpg';
+        $departure->price = $delete_full_stop;
+        $departure->update();
 
         $requestDates = explode(',', $request->date);
         $dbDates = DateOfDeparture::where('departure_id', $id)
@@ -182,18 +213,21 @@ class ScheduleController extends Controller
             foreach ($arrDiffReq as $value) {
                 $itemDate = [
                     'id' => $lastIdDate == null ? 1 : $lastIdDate->id + 1,
-                    'owner_id' => $id,
+                    'owner_id' => Auth::guard('owner')->user()->id,
+                    'departure_id' => $id,
                     'date' => $value
                 ];
                 DateOfDeparture::create($itemDate);
+
+                $car = Car::where('owner_id', Auth::guard('owner')->user()->id)->first();
                 $hours = $request->hour;
                 foreach ($hours as $hour) {
                     $itemHour[] = [
-                        'car_id' => $data->id,
-                        'date_id' => $item['id'],
+                        'owner_id' => Auth::guard('owner')->user()->id,
+                        'date_id' => $itemDate['id'],
                         'hour' => $hour,
-                        'seat' => 0,
-                        'remaining_seat' => 0
+                        'seat' => $car->seat,
+                        'remaining_seat' => $car->seat
                     ];
                 };
             }
@@ -214,6 +248,8 @@ class ScheduleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = Departure::findOrFail($id);
+        $data->delete();
+        return redirect()->route('schedule.index')->with('success', 'Berhasil Menghapus Data');
     }
 }

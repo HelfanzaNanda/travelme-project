@@ -19,6 +19,7 @@ class DateResource extends JsonResource
             'id' => $this->id,
             'date' => $this->date,
             'hours' => HourResource::collection($this->hours),
+            //'hour' => new HourResource($this->hour)
         ];
     }
 }

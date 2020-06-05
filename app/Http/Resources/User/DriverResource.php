@@ -20,10 +20,12 @@ class DriverResource extends JsonResource
             "sim"       => $this->sim,
             "name"      => $this->name,
             "gender"    => $this->gender,
+            "api_token" => $this->api_token,
             "email"     => $this->email,
             "avatar"    => $this->avatar,
             "address"   => $this->address,
-            "telephone" => $this->telephone
+            "telephone" => $this->telephone,
+            "active"    => $this->active,
         ];
     }
 }

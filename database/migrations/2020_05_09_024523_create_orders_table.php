@@ -15,6 +15,7 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('order_id')->unique();
             $table->integer('user_id')->unsigned();
             $table->integer('owner_id')->unsigned();
             $table->integer('departure_id')->unsigned();
@@ -25,12 +26,16 @@ class CreateOrdersTable extends Migration
             $table->integer('price');
             $table->integer('total_price');
             $table->integer('total_seat');
-            $table->enum('status', ['0', '1', '2'])->default('1');
+            $table->string('pickup_location', '100');
+            $table->string('destination_location', '100');
+            $table->enum('verify', ['0', '1', '2'])->default('1');
+            $table->string('status')->default('pending');
+            $table->string('snap_token')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('CASCADE');
             $table->foreign('owner_id')->references('id')->on('owners')->onDelete('CASCADE');
-            $table->foreign('departure_id')->references('id')->on('owners')->onDelete('CASCADE');
+            $table->foreign('departure_id')->references('id')->on('departures')->onDelete('CASCADE');
             $table->foreign('driver_id')->references('id')->on('drivers')->onDelete('CASCADE');
             $table->foreign('car_id')->references('id')->on('cars')->onDelete('CASCADE');
         });

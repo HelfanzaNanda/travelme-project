@@ -47,11 +47,20 @@ class CarController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
+        $rules = [
             'number_plate' => 'required|unique:cars',
             'seat' => 'required|numeric',
             'facility' => 'required',
-        ]);
+        ];
+
+        $message = [
+            "required" => ':attribute tidak boleh kosong',
+            'unique' => ':attribute sudah pernah di tambahkan',
+            'numeric' => ':attribute hanya boleh angka',
+            'regex' => ':attribute hanya boleh huruf'
+        ];
+
+        $this->validate($request, $rules, $message);
 
         $photo = $request->file('photo');
         $path = time() . '.' . $photo->getClientOriginalExtension();
@@ -107,6 +116,7 @@ class CarController extends Controller
         $this->validate($request, [
             'seat' => 'required|numeric',
             'facility' => 'required',
+            'photo' => 'image|file|mimes:jpg,png,jpeg|max:2048'
         ]);
 
         $data = Car::findOrFail($id);
@@ -125,7 +135,25 @@ class CarController extends Controller
         $data->status = '1';
         $data->update();
 
-        /*$data = Car::findOrFail($id);
+        return redirect()->route('car.index')->with('success', 'Berhasil Mengupdate Data');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $data = Car::findOrFail($id);
+        $data->update(['status' => '0']);
+        return redirect()->route('car.index')->with('success', 'Berhasil Menghapus Data');
+    }
+
+    /*private function get()
+    {
+        $data = Car::findOrFail($id);
         $data->owner_id = Auth::guard('owner')->user()->id;
         $data->name = $request->name;
         $data->from = 'Tegal';
@@ -200,21 +228,6 @@ class CarController extends Controller
                     DateResource::where('date', $date)->delete();
                 }
             }
-        }*/
-
-        return redirect()->route('car.index')->with('success', 'Berhasil Mengupdate Data');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        $data = Car::findOrFail($id);
-        $data->update(['status' => '0']);
-        return redirect()->route('car.index')->with('success', 'Berhasil Menghapus Data');
-    }
+        }
+    }*/
 }

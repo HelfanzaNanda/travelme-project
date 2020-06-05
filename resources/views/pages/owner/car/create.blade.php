@@ -61,14 +61,10 @@
 
                                     <div class="form-group">
                                         <label for="projectinput3">Foto</label>
-                                        <input type="file" id="input-file-now" name="photo"
-                                               class="dropify form-control {{$errors->has('photo')?'is-invalid':''}}" />
+                                        <input type="file" id="photo" name="photo" required
+                                               class="dropify" data-allowed-file-extensions="png jpeg jpg"
+                                               data-max-file-size="1M"/>
 
-                                        @if ($errors->has('photo'))
-                                            <span class="invalid-feedback" role="alert">
-                                                <p><b>{{ $errors->first('photo') }}</b></p>
-                                            </span>
-                                        @endif
                                     </div>
 
                                 </div>

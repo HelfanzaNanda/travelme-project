@@ -27,15 +27,23 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
-        $this->validate($request,[
+        $rules = [
             'license_number'    => 'required|unique:owners',
             'business_owner'    => 'required',
             'business_name'     => 'required',
             'address'           => 'required',
-            'email'             => 'required|unique:owners',
+            'email'             => 'required|unique:owners|email',
             'password'          => 'required|confirmed',
-            'telephone'         => 'required',
-        ]);
+            'telephone'         => 'required|unique:owners',
+        ];
+
+        $message = [
+            'required' => ':attribute tidak boleh kosong',
+            'unique' => ':attribute sudah terdaftar',
+            'confirmed' => ':attribute tidak cocok'
+        ];
+
+        $this->validate($request, $rules, $message);
 
         $a = Travel::all()->where('license_number', '=', $request->license_number)->toArray();
         if ($a){
