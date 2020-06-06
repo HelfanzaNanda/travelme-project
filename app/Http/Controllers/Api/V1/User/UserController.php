@@ -221,19 +221,57 @@ class UserController extends Controller
     }
 
 
+    // public function snapToken(Request $request)
+    // {
+    //     $order_id = rand();
+    //     $converted = $request->item_details;
+    //     $payload = [
+    //         'transaction_details' => [
+    //             'order_id' => $order_id
+    //         ],
+    //         'item_details' => $converted,
+    //         'customer_details' => [
+    //             'first_name' => 'admin',
+    //             'email' => 'admin@gmail.com',
+    //             'telephone' => '089663543354',
+    //         ],
+    //     ];
+
+    //     try {
+    //         $snapToken = Snap::getSnapToken($payload);
+    //         return response()->json($snapToken);
+    //     } catch (\Exception $exception) {
+    //         return response()->json($exception->getMessage());
+    //     }
+    // }
+
+
     public function snapToken(Request $request)
     {
-        $order_id = rand();
-        $converted = $request->item_details;
+        $orders = $request->item_details;
+        $order = Order::where('id', $orders['id'])->first();
+
+        $item_details = [];
+        foreach($orders as $val){
+            $item_details[] =[
+                'id' => $order->hour,
+                'price' => $val['price'],
+                'quantity' => $val['quantity'],
+                'name' => $val['name']
+            ];
+        }
+
+        //$order_id = rand();
+        //$converted = $request->item_details;
         $payload = [
             'transaction_details' => [
-                'order_id' => $order_id
+                'order_id' => $order->order_id
             ],
-            'item_details' => $converted,
+            'item_details' => $item_details,
             'customer_details' => [
-                'first_name' => 'admin',
-                'email' => 'admin@gmail.com',
-                'telephone' => '089663543354',
+                'first_name' => $order->user->name,
+                'email' => $order->user->email,
+                'telephone' => $order->user->telp,
             ],
         ];
 
