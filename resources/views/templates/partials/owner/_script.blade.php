@@ -33,13 +33,10 @@
 		format: 'dd-mm-yyyy',
         minDate: dateToday,
 	});
-
-
 	$('#onSubmit').click(function(){
 		var selectDate = $("#unavailable_date").val();
 		console.log(selectDate);
 	});
-
 </script>
 
 <script>
@@ -83,7 +80,6 @@
 				table.order([2, 'asc']).draw();
 			}
 		});
-
 		$('#example23').DataTable({
 			dom: 'Bfrtip',
 			buttons: [
@@ -92,12 +88,10 @@
 		});
 		$('.buttons-copy, .buttons-csv, .buttons-print, .buttons-pdf, .buttons-excel').addClass('btn btn-primary mr-1');
 	});
-
 </script>
 
 <script>
 	$(document).ready(function() {
-
 		// Translated
 		$('.dropify').dropify({
             messages: {
@@ -107,22 +101,17 @@
                 'error':   'Ups, terjadi kesalahan.'
             },
 		});
-
 		// Used events
 		var drEvent = $('#input-file-events').dropify();
-
 		drEvent.on('dropify.beforeClear', function(event, element) {
 			return confirm("Do you really want to delete \"" + element.file.name + "\" ?");
 		});
-
 		drEvent.on('dropify.afterClear', function(event, element) {
 			alert('File deleted');
 		});
-
 		drEvent.on('dropify.errors', function(event, element) {
 			console.log('Has Errors');
 		});
-
 		var drDestroy = $('#input-file-to-destroy').dropify();
 		drDestroy = drDestroy.data('dropify')
 		$('#toggleDropify').on('click', function(e) {
@@ -160,11 +149,11 @@
 			$(this).parents('.entry:first').remove();
 			return false;
 		});
-
 	});
 </script>
 
 <script>
+	
 	// Clock pickers
 	$('.clockpicker').clockpicker({
 		donetext: 'Done',

@@ -3,8 +3,7 @@
 namespace App\Http\Controllers\Web\Owner;
 
 use App\Car;
-use App\Date;
-use App\Hour;
+use App\Driver;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -124,9 +123,9 @@ class CarController extends Controller
         $data->seat = $request->seat;
         $data->facility = $request->facility;
         $photo = $request->file('photo');
-        if ($photo == ''){
+        if ($photo == '') {
             $data->photo = $request->old_photo;
-        }else{
+        } else {
             $path = time() . '.' . $photo->getClientOriginalExtension();
             $destinationPath = public_path('uploads/owner/car');
             $photo->move($destinationPath, $path);
@@ -148,6 +147,7 @@ class CarController extends Controller
     {
         $data = Car::findOrFail($id);
         $data->update(['status' => '0']);
+        Driver::where('car_id', $id)->update(['active' => false]);
         return redirect()->route('car.index')->with('success', 'Berhasil Menghapus Data');
     }
 

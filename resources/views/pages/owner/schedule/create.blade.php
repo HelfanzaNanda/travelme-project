@@ -23,16 +23,17 @@
 
                                     <div class="form-group">
                                         <label for="projectinput2">Tujuan</label>
-                                        <input type="text"
-                                               class="form-control {{$errors->has('destination')?'is-invalid':''}}"
-                                               placeholder="Tujuan" name="destination" value="{{old('destination')}}">
-                                        @if ($errors->has('destination'))
-                                            <span class="invalid-feedback" role="alert">
-                                                <p><b>{{ $errors->first('destination') }}</b></p>
-                                            </span>
-                                        @endif
+                                        @php
+                                            $destination = ['Bandung', 'Bekasi', 'Bogor', 'Jakarta', 
+                                            'Jogja', 'Magelang', 'Malang','Semarang', 'Solo', 
+                                            'Surabaya', 'Tanggerang'];
+                                        @endphp
+                                        <select name="destination" class="form-control">
+                                            @for ($i = 0; $i < count($destination); $i++)
+                                                <option value="{{ $destination[$i] }}">{{ $destination[$i] }}</option>
+                                            @endfor
+                                        </select>
                                     </div>
-
 
                                     <div class="form-group">
                                         <label for="projectinput2">Harga</label>
@@ -55,7 +56,7 @@
                                         <label for="projectinput2">Tanggal</label>
                                         <div class='input-group mb-3'>
                                             <input class="form-control {{$errors->has('date')?'is-invalid':''}} date"
-                                                   type="text" id="date" name="date">
+                                                   type="text" name="date">
                                             <div class="input-group-append">
                                                 <span class="input-group-text"><span class="ti-calendar"></span></span>
                                             </div>
@@ -111,6 +112,8 @@
 
 
 @section('script')
+
+
     <script>
         var rupiah = document.getElementById('rupiah')
         rupiah.addEventListener('keyup', function (e) {

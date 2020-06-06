@@ -36,7 +36,7 @@ class UserController extends Controller
         $data = Order::findOrFail($id);
         $data->driver_id = $request->driver_id;
         $data->car_id = $driver->car_id;
-        $data->status = '2';
+        $data->verify = '2';
         $data->update();
 
         return redirect()->route('owner.user.index')->with('success', 'Berhasil Mengkonfirmasi Pesanan');

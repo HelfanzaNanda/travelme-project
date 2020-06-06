@@ -23,14 +23,19 @@
                                 <div class="col-md-10">
                                     <div class="form-group">
                                         <label for="projectinput2">Tujuan</label>
-                                        <input type="text"
-                                               class="form-control {{$errors->has('destination')?'is-invalid':''}}"
-                                               name="destination" value="{{$departure->destination}}">
-                                        @if ($errors->has('destination'))
-                                            <span class="invalid-feedback" role="alert">
-                                                        <p><b>{{ $errors->first('destination') }}</b></p>
-                                                    </span>
-                                        @endif
+                                        @php
+                                            $destination = ['Bandung', 'Bekasi', 'Bogor', 'Jakarta', 
+                                            'Jogja', 'Magelang', 'Malang','Semarang', 'Solo', 
+                                            'Surabaya', 'Tanggerang'];
+                                        @endphp
+                                        <select name="destination" class="form-control">
+                                            @for ($i = 0; $i < count($destination); $i++)
+                                                <option value="{{ $destination[$i] }}" 
+                                                {{ $departure->destination == $destination[$i] ? 'selected' :'' }}>
+                                                    {{ $destination[$i] }}
+                                                </option>
+                                            @endfor
+                                        </select>
                                     </div>
 
                                     <div class="form-group">
@@ -89,9 +94,9 @@
                         </div>
 
                         <div class="form-actions">
-                            <button type="reset" class="btn btn-warning mr-1">
+                            <a href="{{ route('schedule.index') }}" type="button" class="btn btn-warning mr-1">
                                 <i class="fa fa-close"></i> Cancel
-                            </button>
+                            </a>
                             <button type="submit" class="btn btn-primary">
                                 <i class="fa fa-check-square-o"></i> Update
                             </button>
@@ -101,35 +106,4 @@
             </div>
         </div>
     </div>
-
-
-    {{--
-
-
-de$departure as $e => $dt)
-            <tr>
-                <td>{{$e+1}}</td>
-                <td>{{$dt->nama_tugas}}</td>
-                <td><span class="badge {{$dt->status == false ? 'danger' : 'success'}}">
-                        {{$dt->status == false ? 'belum selesai' : 'selesai'}}</span>
-                </td>
-                <td>
-                    <form method="post" action="">
-                        @csrf
-                        --}}
-    {{--<input type="checkbox">--}}{{--
-
-                        <button type="submit" class="btn btn-success btn-sm">Selesai</button>
-                    </form>
-                </td>
-            </tr>
-        @endforeach
-    --}}
-
-
-
-
-
-
-
 @endsection

@@ -32,6 +32,7 @@ use App\Http\Controllers\Midtrans\Snap;
 
 // Sanitization
 use App\Http\Controllers\Midtrans\Sanitizer;
+use Carbon\Carbon;
 
 /**
  * @property  response
@@ -68,12 +69,11 @@ class UserController extends Controller
         }
     }
 
-    public function getUserLogIn($api_token)
+    public function profile()
     {
         try{
-            $token = substr($api_token, '7', '87');
-            //dd($api_token, $token);
-            $user = User::where('api_token', $token)->first();
+
+            $user = User::where('id', Auth::guard('api')->user()->id)->first();
             return response()->json([
                 'message' => 'successfully get user is login',
                 'status' => true,
@@ -110,7 +110,11 @@ class UserController extends Controller
     public function departureByDestination($destination)
     {
         try{
-            $datas = Departure::where('destination', $destination)->get();
+
+            $now = Carbon::now();
+            $datas = Departure::with(['dates' => function($query) use($now){
+                $query->whereDate('date', '>=', $now);
+            }])->where('destination', $destination)->get();
 
             $results = [];
             foreach ($datas as $val){
@@ -140,19 +144,12 @@ class UserController extends Controller
             $validator = Validator::make($request->all(),['destination' => 'required', 'date' => 'required',]);
 
             if ($validator->fails()){
-                return response()->json([
-                    'message' => $validator->errors(),
-                    'status' => false,
-                    'data'=> (object)[],
-                ], 501);
+                return response()->json(['message' => $validator->errors(),'status' => false,'data'=> (object)[]], 501);
             }
 
-            /*$date = Carbon::parse($request->date)->format('Y-m-d');
-            $datas = Departure::with(['date' => function ($query) use ($date) {
-                $query->where('date', $date);
-            }])->where('destination', $request->destination)->get();*/
-
-            $datas = Departure::where('destination', $request->destination)->get();
+            $datas = Departure::with(['dates' => function($q) use($request){
+                $q->whereDate('date', $request->date);
+            }])->where('destination', $request->destination)->get();
 
             $results = [];
             foreach ($datas as $val){
@@ -164,13 +161,14 @@ class UserController extends Controller
             return response()->json([
                 'message' => 'successfully search departure',
                 'status' => true,
-                'data'=> DepartureSearchResource::collection(collect($results)),
+                'data'=> DepartureResource::collection(collect($results)),
             ], 200);
+
         }catch (\Exception $exception){
             return response()->json([
                 'message' => $exception->getMessage(),
                 'status' => false,
-                'data'=> (object)[]
+                    'data'=> (object)[]
             ], 200);
         }
     }
@@ -186,11 +184,14 @@ class UserController extends Controller
             ]);
 
             if ($validator->fails()){
-                return response()->json(['message' => $validator->errors(), 'status' => false, 'data'=> (object)[],]);
+                return response()->json(['message' => $validator->errors(), 'status' => false, 'data'=> (object)[]]);
             }
 
+            $order = Order::latest()->first();
+            $substr = $order ? substr($order->order_id, 6) : '';
+
             $data = new Order();
-            $data->order_id = rand();
+            $order ? $data->order_id = 'ORDER-'.($substr + 1) : $data->order_id = 'ORDER-101';
             $data->user_id = Auth::guard('api')->user()->id;
             $data->owner_id = $request->owner_id;
             $data->departure_id = $request->departure_id;
@@ -246,12 +247,15 @@ class UserController extends Controller
     public function orderByUser()
     {
         try{
-            $order = Order::where('user_id', Auth::guard('api')->user()->id)->get();
+            $order = Order::where('user_id', Auth::guard('api')->user()->id)
+            ->whereBetween('verify',['1', '2'])->get();
+            
             return response()->json([
                 'message' => 'successfully get order by user',
                 'status' => true,
                 'data'=> OrderResource::collection($order),
             ]);
+
         }catch (\Exception $exception){
             return response()->json([
                 'message' => $exception->getMessage(),
@@ -280,48 +284,39 @@ class UserController extends Controller
         }
     }
 
-    /*public function search(Request $request)
+    public function cancelorder($id)
     {
-        try{
-            $validator = Validator::make($request->all(),[
-                'destination' => 'required',
-                'date' => 'required',
-            ]);
+        $order = Order::where('id', $id)->first();
+        $order->verify = '0';
+        $order->update();
 
-            if ($validator->fails()){
-                return response()->json([
-                    'message' => $validator->errors(),
-                    'status' => false,
-                    'data'=> (object)[],
-                ], 501);
-            }
+        return response()->json([
+            'message' => 'successfully cancel order from user',
+            'status' => true,
+        ]);
+    }
 
-            $date = Carbon::parse($request->date)->format('Y-m-d');
-            $datas = Departure::with(['date' => function ($query) use ($date) {
-                $query->where('date', $date);
-            }])->where('destination', $request->destination)->get();
-
-            $results = [];
-            foreach ($datas as $val){
-                //$check = $val->date;
-                if (isset($val->date)){
-                    array_push($results, $val);
-                }
-            }
-
-            return response()->json([
-                'message' => 'successfully search',
-                'status' => true,
-                'data'=> DepartureResource::collection(collect($results)),
-            ], 200);
-
-        }catch (\Exception $exception){
-            return response()->json([
-                'message' => $exception->getMessage(),
-                'status' => false,
-                'data'=> (object)[],
-            ], 404);
+    public function updateprofile(Request $request)
+    {
+        $user = User::where('id', Auth::guard('api')->user()->id)->first();
+        $user->name = $request->name;
+        $user->password = $request->password;
+        $photo = $request->file('photo');
+        if($photo){
+            $path = time() . '.' . $photo->getClientOriginalExtension();
+            $destinationPath = public_path('uploads/owner/user');
+            $photo->move($destinationPath, $path);
+            $user->photo = $path;
+        }else{
+            $user->photo = $user->photo;
         }
-    }*/
+        $user->update();
+
+        return response()->json([
+            'message' => 'successfully update profile user',
+            'status' => true,
+            'data' => new UserResource($user)
+        ]);
+    }
 
 }

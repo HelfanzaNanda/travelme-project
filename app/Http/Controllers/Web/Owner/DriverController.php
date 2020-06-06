@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web\Owner;
 use App\Car;
 use App\Driver;
 use App\Http\Controllers\Controller;
+use Dotenv\Regex\Result;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -26,7 +27,9 @@ class DriverController extends Controller
      */
     public function index()
     {
+
         $datas = Driver::where('owner_id', Auth::guard('owner')->user()->id)->where('active', true)->get();
+
         return view('pages.owner.driver.index', compact('datas'));
     }
 
@@ -52,7 +55,7 @@ class DriverController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'id_car'        => 'unique:drivers',
+            'car_id'        => 'unique:drivers',
             'nik'           => 'required|unique:drivers|digits:16|numeric',
             'sim'           => 'required|unique:drivers|digits:12|numeric',
             'name'          => 'required|regex:/^[\pL\s\-]+$/u||min:5',

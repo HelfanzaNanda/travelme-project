@@ -36,7 +36,7 @@
                                     <td>{{$data->from .' - '. $data->destination}}</td>
                                     <td>{{'Rp.'.number_format($data->price)}}</td>
                                     <td>
-                                        <a href="{{route('driver.show', $data->id)}}" class="btn btn-info btn-sm"><i
+                                        <a href="{{route('schedule.show', $data->id)}}" class="btn btn-info btn-sm"><i
                                                 class="mdi mdi-eye"></i></a>
                                         <a href="{{route('schedule.edit', $data->id)}}" class="btn btn-warning btn-sm"><i
                                                 class="mdi mdi-pencil"></i></a>

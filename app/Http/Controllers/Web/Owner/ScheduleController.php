@@ -9,6 +9,7 @@ use App\Departure;
 use App\Hour;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
+use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -119,7 +120,27 @@ class ScheduleController extends Controller
      */
     public function show($id)
     {
-        //
+
+        $data = Departure::findOrFail($id);
+        
+        return view('pages.owner.schedule.show', compact('data'));
+
+        //return view('pages.owner.schedule.show', compact('data'));
+    }
+
+    public function getcallendar($id)
+    {
+        $data = Departure::findOrFail($id);
+        $result = [];
+        foreach($data->dates as $key => $date){
+            $result[] = [
+                'title' => $data->from .'-'. $data->destination,
+                'start' => $date->date,
+                'className' => 'fc-default'
+            ];
+        }
+
+        return response()->json($result);
     }
 
     /**

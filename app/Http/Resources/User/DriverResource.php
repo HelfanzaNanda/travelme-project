@@ -26,6 +26,7 @@ class DriverResource extends JsonResource
             "address"   => $this->address,
             "telephone" => $this->telephone,
             "active"    => $this->active,
+            "is_tegal"  => $this->is_tegal,
         ];
     }
 }
