@@ -147,8 +147,9 @@ class UserController extends Controller
                 return response()->json(['message' => $validator->errors(),'status' => false,'data'=> (object)[]], 501);
             }
 
-            $datas = Departure::with(['dates' => function($q) use($request){
-                $q->whereDate('date', $request->date);
+            $now = Carbon::now();
+            $datas = Departure::with(['dates' => function($q) use($request, $now){
+                $q->whereDate('date', $request->date)->whereDate('date', '>=', $now);
             }])->where('destination', $request->destination)->get();
 
             $results = [];
