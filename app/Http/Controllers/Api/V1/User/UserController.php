@@ -249,10 +249,10 @@ class UserController extends Controller
     public function snapToken(Request $request)
     {
         $orders = $request->item_details;
-        $order = Order::where('id', $orders['id'])->first();
-
+    
         $item_details = [];
         foreach($orders as $val){
+            $order = Order::where('id', $val['id'])->first();
             $item_details[] =[
                 'id' => $order->hour,
                 'price' => $val['price'],
@@ -261,8 +261,6 @@ class UserController extends Controller
             ];
         }
 
-        //$order_id = rand();
-        //$converted = $request->item_details;
         $payload = [
             'transaction_details' => [
                 'order_id' => $order->order_id
