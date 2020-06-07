@@ -48,6 +48,11 @@ class UserController extends Controller
         $data->status = '0';
         $data->update();
 
+        $date = DateOfDeparture::where('departure_id', $data->departure_id)->where('date', $data->date)->first();
+        $hour = HourOfDeparture::where('date_id', $date->id)->where('hour', $data->hour)->first();
+        $hour->remaining_seat += $data->total_seat;
+        $hour->update();
+
         return redirect()->route('owner.user.index')->with('success', 'Berhasil Mengkonfirmasi Pesanan');
     }
 }

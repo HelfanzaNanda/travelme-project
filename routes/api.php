@@ -24,18 +24,19 @@ Route::group(['prefix' => 'user'], function (){
 
 Route::get('users','Api\V1\User\UserController@getUsers');
 
-Route::get('destination', 'Api\V1\User\UserController@getDestination');
-Route::get('departure/{destination}', 'Api\V1\User\UserController@departureByDestination');
-Route::post('departure/search', 'Api\V1\User\UserController@search');
+Route::get('destination', 'Api\V1\User\DepartureController@getDestination');
+Route::get('departure/{destination}', 'Api\V1\User\DepartureController@departureByDestination');
+Route::post('departure/search', 'Api\V1\User\DepartureController@search');
 
-Route::get('order','Api\V1\User\UserController@orderByUser');
-Route::get('order/all', 'Api\V1\User\UserController@getAllOrder');
-Route::post('order/store','Api\V1\User\UserController@postOrder');
-Route::get('order/{id}/cancel/', 'Api\V1\User\UserController@cancelorder');
+Route::get('order','Api\V1\User\OrderController@orderByUser');
+Route::get('order/all', 'Api\V1\User\OrderController@getAllOrder');
+Route::post('order/store','Api\V1\User\OrderController@postOrder');
+Route::get('order/{id}/cancel/', 'Api\V1\Order\UserController@cancelorder');
+Route::get('order/{id}/update/', 'Api\V1\Order\UserController@updateorder');
 Route::get('order/driver', 'Api\V1\Driver\DriverController@order');
 
-Route::post('snap', 'Api\V1\User\UserController@snapToken');
-Route::post('snap/charge', 'Api\V1\User\UserController@snapToken');
+Route::post('snap', 'Api\V1\User\OrderController@snapToken');
+Route::post('snap/charge', 'Api\V1\User\OrderController@snapToken');
 
 
 Route::group(['prefix' => 'driver'], function (){
