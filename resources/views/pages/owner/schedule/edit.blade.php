@@ -40,14 +40,19 @@
 
                                     <div class="form-group">
                                         <label for="projectinput2">Harga</label>
-                                        <input type="text" id="rupiah"
-                                               class="form-control {{$errors->has('price')?'is-invalid':''}}"
-                                               name="price" value="{{$departure->price}}">
-                                        @if ($errors->has('price'))
-                                            <span class="invalid-feedback" role="alert">
+                                        <div class="input-group">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">Rp.</span>
+                                            </div>
+                                            <input type="text" id="rupiah"
+                                                   class="form-control {{$errors->has('price')?'is-invalid':''}}"
+                                                name="price" value="{{$departure->price}}">
+                                            @if ($errors->has('price'))
+                                                <span class="invalid-feedback" role="alert">
                                                         <p><b>{{ $errors->first('price') }}</b></p>
                                                     </span>
-                                        @endif
+                                            @endif
+                                        </div>
                                     </div>
 
                                     <div class="form-group">
@@ -61,8 +66,8 @@
                                             </div>
                                             @if ($errors->has('date'))
                                                 <span class="invalid-feedback" role="alert">
-                                                            <p><b>{{ $errors->first('date') }}</b></p>
-                                                        </span>
+                                                    <p><b>{{ $errors->first('date') }}</b></p>
+                                                </span>
                                             @endif
                                         </div>
                                     </div>
@@ -106,4 +111,34 @@
             </div>
         </div>
     </div>
+@endsection
+
+
+
+@section('script')
+
+
+    <script>
+        var rupiah = document.getElementById('rupiah')
+        rupiah.addEventListener('keyup', function (e) {
+            rupiah.value = formatRupiah(this.value)
+        })
+
+
+        function formatRupiah(angka) {
+            var number_string = angka.replace(/[^,\d]/g, '').toString(),
+                split = number_string.split(','),
+                sisa = split[0].length % 3,
+                rupiah = split[0].substr(0, sisa),
+                ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+            if(ribuan){
+                separator = sisa ? '.' : '';
+                rupiah += separator + ribuan.join('.');
+            }
+
+            rupiah = split[1] != undefined ? rupiah + '.' + split[1] : rupiah;
+            return rupiah;
+        }
+    </script>
 @endsection

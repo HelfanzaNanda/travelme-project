@@ -48,15 +48,16 @@ class CarController extends Controller
     {
         $rules = [
             'number_plate' => 'required|unique:cars',
-            'seat' => 'required|numeric',
+            'seat' => 'required|integer|min:1',
             'facility' => 'required',
         ];
 
         $message = [
             "required" => ':attribute tidak boleh kosong',
             'unique' => ':attribute sudah pernah di tambahkan',
-            'numeric' => ':attribute hanya boleh angka',
-            'regex' => ':attribute hanya boleh huruf'
+            'integer' => ':attribute hanya boleh angka',
+            'regex' => ':attribute hanya boleh huruf',
+            'min' => ':attribute minimal :min'
         ];
 
         $this->validate($request, $rules, $message);

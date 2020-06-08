@@ -36,7 +36,7 @@
 
                                     <div class="form-group">
                                         <label for="projectinput3">Kursi</label>
-                                        <input type="number"
+                                        <input type="tel"
                                                class="form-control {{$errors->has('seat')?'is-invalid':''}}"
                                                placeholder="Kursi" name="seat" value="{{old('seat')}}">
                                         @if ($errors->has('seat'))

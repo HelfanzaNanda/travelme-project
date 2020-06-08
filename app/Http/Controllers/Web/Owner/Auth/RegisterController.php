@@ -56,7 +56,6 @@ class RegisterController extends Controller
             $data->password         = Hash::make($request->password);
             $data->telephone        = $request->telephone;
             $data->activation_token = Str::random(100);
-            //dd($request->all());
             $data->save();
         }else{
             return redirect()->back()->with('error', 'Silahkan urus license number dahulu');

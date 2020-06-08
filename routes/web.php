@@ -24,6 +24,9 @@ Route::post('/finish', function(){
     return redirect()->route('welcome');
 })->name('donation.finish');
 
+Route::get('', function (){
+    return view('landing-page');
+});
 
 Route::group(['prefix' => 'admin'], function (){
     Route::get('', function (){
@@ -56,9 +59,6 @@ Route::group(['prefix' => 'owner'], function (){
     Route::get('/password/reset/{token}', 'Web\Owner\Auth\ResetPasswordController@showResetForm')->name('owner.password.reset');
     Route::post('/password/reset', 'Web\Owner\Auth\ResetPasswordController@reset')->name('owner.password.reset.submit');
 
-    Route::get('', function (){
-        return redirect()->route('tdashboard.index');
-    });
     Route::resource('tdashboard', 'Web\Owner\DashboardController');
     Route::resource('driver', 'Web\Owner\DriverController')->except('destroy');
     Route::get('driver/{driver}/destroy', 'Web\Owner\DriverController@destroy')->name('driver.destroy');

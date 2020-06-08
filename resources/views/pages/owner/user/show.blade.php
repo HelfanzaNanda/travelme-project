@@ -29,7 +29,7 @@
             <div class="card-body">
                 <div class="card-title">Driver</div>
                 <center class="mt-4">
-                    @if($data->driver)
+                    @if($data->verify == '2')
                     <img src="{{asset('uploads/owner/user/'.$data->car->photo)}}" class="img-circle" width="150" />
                     <h4 class="card-title mt-2">{{$data->driver->name}}</h4>
                     <h6 class="card-subtitle">{{$data->car->number_plate}}</h6>
@@ -39,7 +39,7 @@
                 </center>
             </div>
         </div>
-        @if(!$data->driver)
+        @if($data->verify == '1')
         <div class="card">
             <div class="card-body d-flex justify-content-center">
                 <div class="row">
@@ -98,35 +98,25 @@
         <div class="card">
             <!-- Nav tabs -->
             <ul class="nav nav-tabs profile-tab" role="tablist">
-                <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#profile" role="tab">Profile</a>
-                </li>
-                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#schedulle" role="tab">Jadwal</a>
+                <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#profile" role="tab">Detail</a>
                 </li>
 
             </ul>
             <!-- Tab panes -->
             <div class="tab-content">
-                <div class="tab-pane active" id="profile" role="tabpanel">
-                    <div class="card-body">
-                        <h5 class="mt-4">Perjalanan</h5>
-                        <p class="text-muted">{{$data->departure->from}} -> {{$data->departure->destination}}</p>
-                        <h5 class="mt-4">Alamat Penjemputan</h5>
-                        <p class="text-muted">{{$data->pickup_location}}</p>
-                        <h5 class="mt-4">Alamat Tujuan</h5>
-                        <p class="text-muted">{{$data->destination_location}}</p>
-                        <h5 class="mt-4">Total Harga</h5>
-                        <p class="text-muted">{{'Rp. '.number_format($data->total_price)}} / {{$data->total_seat}}
-                            Kursi</p>
-                        <h5 class="mt-4">Tanggal dan Jam</h5>
-                        <p class="text-muted">{{\Carbon\Carbon::parse($data->date)->format('d m Y')}} {{$data->hour}}
-                        </p>
-                    </div>
-                </div>
-                <div class="tab-pane" id="schedulle" role="tabpanel">
-                    <div class="card-body">
-                        <div id="calendar"></div>
-                        <h5 class="mt-2">Tanggal</h5>
-                    </div>
+                <div class="card-body">
+                    <h5 class="mt-4">Perjalanan</h5>
+                    <p class="text-muted">{{$data->departure->from}} -> {{$data->departure->destination}}</p>
+                    <h5 class="mt-4">Alamat Penjemputan</h5>
+                    <p class="text-muted">{{$data->pickup_location}}</p>
+                    <h5 class="mt-4">Alamat Tujuan</h5>
+                    <p class="text-muted">{{$data->destination_location}}</p>
+                    <h5 class="mt-4">Total Harga</h5>
+                    <p class="text-muted">{{'Rp. '.number_format($data->total_price)}} / {{$data->total_seat}}
+                        Kursi</p>
+                    <h5 class="mt-4">Tanggal dan Jam</h5>
+                    <p class="text-muted">{{\Carbon\Carbon::parse($data->date)->format('d m Y')}} {{$data->hour}}
+                    </p>
                 </div>
             </div>
         </div>

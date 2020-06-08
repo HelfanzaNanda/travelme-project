@@ -3,6 +3,7 @@
 
 
 <!-- Mirrored from www.wrappixel.com/demos/admin-templates/monster-admin/main/pages-login.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 10 Apr 2020 03:42:36 GMT -->
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -28,57 +29,75 @@
 
 <body>
 
-<section id="wrapper">
-    <div class="login-register" style="background-image:url({{asset('assets/images/background/login-register.jpg')}});">
-        <div class="login-box card">
-            <div class="card-header d-flex justify-content-center">Login Owner</div>
-            <div class="card-body">
-                <form class="form-horizontal form-material" action="{{route('owner.login.submit')}}" method="post">
-                    @csrf
-                    <div class="form-group ">
-                        <input type="text" class="form-control @error('email') is-invalid @enderror"
-                               name="email" value="{{ old('email') }}" required placeholder="Masukkan Email">
-                        @error('email')
+    <section id="wrapper">
+        <div class="login-register">
+            <div class="login-box card">
+
+                @if ($message = Session::get('success'))
+                <div class="alert alert-success">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span
+                            aria-hidden="true">×</span> </button>
+                    <h3 class="text-success"><i class="fa fa-check-circle"></i> Success</h3> {{ $message }}
+                </div>
+                @endif
+
+                @if ($message = Session::get('error'))
+                <div class="alert alert-warning">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span
+                            aria-hidden="true">×</span> </button>
+                    <h3 class="text-warning"><i class="fa fa-exclamation-triangle"></i> Warning</h3> {{ $message }}
+                </div>
+                @endif
+
+                <div class="card-header d-flex justify-content-center">Login Owner</div>
+                <div class="card-body">
+                    <form class="form-horizontal form-material" action="{{route('owner.login.submit')}}" method="post">
+                        @csrf
+                        <div class="form-group ">
+                            <input type="text" class="form-control @error('email') is-invalid @enderror" name="email"
+                                value="{{ old('email') }}" required placeholder="Masukkan Email">
+                            @error('email')
                             <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
-                        @enderror
-                    </div>
-                    <div class="form-group ">
-                        <input type="password" name="password" required autocomplete="current-password"
-                               class="form-control @error('password') is-invalid @enderror"
-                               placeholder="Masukkan Password">
-                        @error('password')
+                            @enderror
+                        </div>
+                        <div class="form-group ">
+                            <input type="password" name="password" required autocomplete="current-password"
+                                class="form-control @error('password') is-invalid @enderror"
+                                placeholder="Masukkan Password">
+                            @error('password')
                             <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
-                        @enderror
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-sm-6 col-12 text-center text-sm-left"></div>
-                        <div class="col-sm-6 col-12 float-sm-left text-center text-sm-right"><a
-                                href="{{route('owner.password.request')}}" class="card-link">Forgot Password?</a></div>
-                    </div>
-                    <button type="submit" class="btn btn-outline-primary btn-block"><i
-                            class="fa fa-unlock"></i> Login
-                    </button>
-                </form>
+                            @enderror
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-6 col-12 text-center text-sm-left"></div>
+                            <div class="col-sm-6 col-12 float-sm-left text-center text-sm-right"><a
+                                    href="{{route('owner.password.request')}}" class="card-link">Forgot Password?</a>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-outline-primary btn-block"><i class="fa fa-unlock"></i> Login</button>
+                        <a href="{{ route('owner.register') }}" type="button" class="btn btn-outline-warning btn-block"><i class="fa fa-registered"></i> Register</a>
+
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
 
-</section>
-<!-- ============================================================== -->
-<!-- End Wrapper -->
-<!-- ============================================================== -->
-<!-- ============================================================== -->
-<!-- All Jquery -->
-<!-- ============================================================== -->
-<script src="{{asset('assets/plugins/jquery/jquery.min.js')}}"></script>
-<script src="{{asset('assets/plugins/bootstrap/js/popper.min.js')}}"></script>
-<script src="{{asset('assets/plugins/bootstrap/js/bootstrap.min.js')}}"></script>
-<script src="{{asset('assets/js/jquery.slimscroll.js')}}"></script>
-<script src="{{asset('assets/js/waves.js')}}"></script>
-<script src="{{asset('assets/js/sidebarmenu.js')}}"></script>
-<script src="{{asset('assets/plugins/sticky-kit-master/dist/sticky-kit.min.js')}}"></script>
-<script src="{{asset('assets/js/custom.min.js')}}"></script>
-<script src="{{asset('assets/plugins/styleswitcher/jQuery.style.switcher.js')}}"></script>
+    </section>
+    <!-- ============================================================== -->
+    <!-- End Wrapper -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+    <script src="{{asset('assets/plugins/jquery/jquery.min.js')}}"></script>
+    <script src="{{asset('assets/plugins/bootstrap/js/popper.min.js')}}"></script>
+    <script src="{{asset('assets/plugins/bootstrap/js/bootstrap.min.js')}}"></script>
+    <script src="{{asset('assets/js/jquery.slimscroll.js')}}"></script>
+    <script src="{{asset('assets/js/waves.js')}}"></script>
+    <script src="{{asset('assets/js/sidebarmenu.js')}}"></script>
+    <script src="{{asset('assets/plugins/sticky-kit-master/dist/sticky-kit.min.js')}}"></script>
+    <script src="{{asset('assets/js/custom.min.js')}}"></script>
+    <script src="{{asset('assets/plugins/styleswitcher/jQuery.style.switcher.js')}}"></script>
 </body>
 
 

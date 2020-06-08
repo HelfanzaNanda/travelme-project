@@ -49,8 +49,8 @@
                                     <div class="form-group">
                                         <label for="projectinput2">Mobil</label>
                                         <select name="car_id" class="form-control">
-                                            @foreach($datas as $data)
-                                                <option value="{{$data->id}}">{{$data->number_plate}}</option>
+                                            @foreach($results as $val)
+                                                <option value="{{$val->id}}">{{$val->number_plate}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -91,7 +91,7 @@
 
                                     <div class="form-group">
                                         <label for="projectinput3">Telephone</label>
-                                        <input type="number"
+                                        <input type="tel"
                                                class="form-control {{$errors->has('telephone')?'is-invalid':''}}"
                                                placeholder="Telephone" name="telephone"
                                                value="{{old('telephone')}}">

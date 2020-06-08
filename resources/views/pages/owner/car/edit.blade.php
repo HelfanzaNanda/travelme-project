@@ -24,7 +24,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="projectinput3">Kursi</label>
-                                                <input type="number"
+                                                <input type="tel"
                                                        class="form-control {{$errors->has('seat')?'is-invalid':''}}"
                                                        name="seat" value="{{$data->seat}}">
                                                 @if ($errors->has('seat'))

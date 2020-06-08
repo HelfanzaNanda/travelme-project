@@ -16,6 +16,14 @@
 <!-- Start Page Content -->
 <div class="row">
     <div class="col-12">
+
+        @if ($message = Session::get('success'))
+        <div class="alert alert-success">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">×</span> </button>
+            <h3 class="text-success"><i class="fa fa-check-circle"></i> Success</h3> {{ $message }}
+        </div>
+        @endif
+
         <div class="card">
             <div class="card-body">
                 <h6 class="card-subtitle">Data Penumpang</h6>
@@ -39,19 +47,21 @@
                                 <td>{{$data->departure->from .' -> '. $data->departure->destination}}</td>
                                 <td>{{'Rp.'.number_format($data->total_price)}}/{{$data->total_seat}} Kursi</td>
 
-                                @if ($data->driver)
+                                @if ($data->verify == '2')
                                 <td><span class="badge badge-success">sudah di konfirmasi</span></td>
+                                @elseif ($data->verify == '0')
+                                <td><span class="badge badge-danger">pesanan di tolak</span></td>
                                 @else
-                                <td><span class="badge badge-danger">belum di konfirmasi</span></td>
+                                <td><span class="badge badge-warning">belum di konfirmasi</span></td>
                                 @endif
 
                                 <td>
                                     <a href="{{route('owner.user.show', $data->id)}}" class="btn btn-info btn-sm"><i
                                             class="mdi mdi-eye"></i></a>
-                                    @if (!$data->driver)
+                                    @if ($data->verify == '1')
                                     <a href="" class="btn btn-warning btn-sm" data-toggle="modal"
                                         data-target="#confirmedModal{{ $data->id }}">Konfirmasi</a>
-                                    <a href="{{route('schedule.destroy', $data->id)}}"
+                                    <a href="{{route('owner.user.decline', $data->id)}}"
                                         onclick="return confirm('apakah anda yakin ingin menghapus data ini?')"
                                         class="btn btn-danger btn-sm">
                                         Hapus</a>

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Web\Owner;
 
 use App\Car;
+use App\DateOfDeparture;
 use App\Driver;
+use App\HourOfDeparture;
 use App\Order;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -45,7 +47,7 @@ class UserController extends Controller
     public function decline($id)
     {
         $data = Order::findOrFail($id);
-        $data->status = '0';
+        $data->verify = '0';
         $data->update();
 
         $date = DateOfDeparture::where('departure_id', $data->departure_id)->where('date', $data->date)->first();
@@ -53,6 +55,6 @@ class UserController extends Controller
         $hour->remaining_seat += $data->total_seat;
         $hour->update();
 
-        return redirect()->route('owner.user.index')->with('success', 'Berhasil Mengkonfirmasi Pesanan');
+        return redirect()->route('owner.user.index')->with('success', 'Berhasil Menolak Pesanan');
     }
 }

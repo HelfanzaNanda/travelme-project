@@ -40,10 +40,27 @@ class DriverController extends Controller
      */
     public function create()
     {
-        //$datas = Car::where('owner_id', Auth::guard('owner')->user()->id)->where('status', '1')->get();
+        $car = Car::where('status', '1')->get()->count();
+
         $datas = Car::where('owner_id', Auth::guard('owner')->user()->id)
             ->where('status', '1')->get();
-        return view('pages.owner.driver.create', compact('datas'));
+
+        $results = [];
+        foreach ($datas as $data) {
+            $driver = Driver::where('car_id', $data->id)
+                ->where('active', '1')->first();
+            if (!$driver) {
+                array_push($results, $data);
+            }
+        }
+
+        if ($car > 0 && $results) {
+            return view('pages.owner.driver.create', compact('results'));
+        } else {
+            return redirect()->back()->with('warning', 'Silahkan Tambahkan Mobil Dahulu atau Mobil sudah di pakai driver lainnya');
+        }
+
+        //$datas = Car::where('owner_id', Auth::guard('owner')->user()->id)->where('status', '1')->get();
     }
 
     /**
@@ -80,7 +97,7 @@ class DriverController extends Controller
         $this->validate($request, $rules, $message);
 
         $avatar             = $request->file('avatar');
-        $filename           = time().'-driver'.'.'. $avatar->getClientOriginalExtension();
+        $filename           = time() . '-driver' . '.' . $avatar->getClientOriginalExtension();
         $destinationPath    = public_path('uploads/owner/driver');
         $avatar->move($destinationPath, $filename);
 
@@ -123,7 +140,21 @@ class DriverController extends Controller
     {
         $data = Driver::find($id);
         $cars = Car::all()->where('status', '1');
-        return view('pages.owner.driver.edit', compact('data', 'cars'));
+
+        $results = [];
+        foreach ($cars as $car) {
+            $driver = Driver::where('car_id', $car->id)
+                ->where('active', '1')->first();
+            if (!$driver) {
+                array_push($results, $car);
+            }
+        }
+
+        if($results){
+            return view('pages.owner.driver.edit', compact('data', 'results'));
+        }else{
+            return redirect()->back()->with('warning', 'Silahkan Tambahkan Mobil Dahulu atau Mobil sudah di pakai driver lainnya');
+        }
     }
 
     /**
@@ -136,10 +167,7 @@ class DriverController extends Controller
     public function update(Request $request, $id)
     {
         $rules = [
-            'nik'           => 'required|unique:drivers|digits:16|numeric',
-            'sim'           => 'required|unique:drivers|digits:12|numeric',
             'name'          => 'required|regex:/^[\pL\s\-]+$/u|min:5',
-            'email'         => 'required|unique:drivers|email',
             'telephone'     => 'required|numeric|digits_between:11,13|regex:/(08)[0-9]{9}/',
             'address'       => 'required|min:10',
         ];
@@ -165,20 +193,20 @@ class DriverController extends Controller
         $data->gender       = $request->gender;
         $data->telephone    = $request->telephone;
         $data->address      = $request->address;
-        if ($request->file('avatar') != ''){
+        if ($request->file('avatar') != '') {
             $avatar         = $request->file('avatar');
-            $filename       = time().'-driver'.'.'. $avatar->getClientOriginalExtension();
-            $destinationPath= public_path('uploads/owner/driver');
+            $filename       = time() . '-driver' . '.' . $avatar->getClientOriginalExtension();
+            $destinationPath = public_path('uploads/owner/driver');
             $avatar->move($destinationPath, $filename);
             $data->avatar = $filename;
-        }else{
+        } else {
             $data->avatar = $request->old_avatar;
         }
         $data->update();
 
-//        return response()->json([
-//            'data' => $data
-//        ], 201);
+        //        return response()->json([
+        //            'data' => $data
+        //        ], 201);
 
 
 

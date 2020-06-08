@@ -42,8 +42,15 @@ class ScheduleController extends Controller
      */
     public function create()
     {
-        $cars = Car::where('owner_id', Auth::guard('owner')->user()->id)->get();
-        return view('pages.owner.schedule.create', compact('cars'));
+        $car = Car::where('status', '1')->get()->count();
+
+        if($car > 0){
+            $cars = Car::where('owner_id', Auth::guard('owner')->user()->id)->get();
+            return view('pages.owner.schedule.create', compact('cars'));
+        }else{
+            return redirect()->back() ->with('warning', 'Silahkan Tambahkan Mobil Dahulu!');
+        }
+        
     }
 
     /**
@@ -70,9 +77,9 @@ class ScheduleController extends Controller
         $this->validate($request, $rules, $message);
 
         $car = Car::where('owner_id', Auth::guard('owner')->user()->id)->first();
-        if (!$car) {
-            return redirect()->back()->withInput()->WithErrors(['seat' => 'tambahkan mobil dahulu']);
-        }
+        // if (!$car) {
+        //     return redirect()->back()->withInput()->WithErrors(['seat' => 'tambahkan mobil dahulu']);
+        // }
 
         $delete_full_stop = preg_replace('/[^\w\s]/', '', $request->price);
 
