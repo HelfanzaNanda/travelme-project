@@ -13,11 +13,6 @@ use Illuminate\Support\Facades\Validator;
 class DepartureController extends Controller
 {
 
-    public function __construct()
-    {
-        $this->middleware('auth:api')->except('getUsers');
-    }
-
     public function getDestination()
     {
         try{
@@ -43,7 +38,7 @@ class DepartureController extends Controller
             $now = Carbon::now();
             $datas = Departure::with(['dates' => function($query) use($now){
                 $query->whereDate('date', '>=', $now);
-            }])->where('destination', $destination)->get();
+            }])->where('destination', $destination)->orderBy('id', 'ASC')->get();
 
             $results = [];
             foreach ($datas as $val){
@@ -79,7 +74,7 @@ class DepartureController extends Controller
             $now = Carbon::now();
             $datas = Departure::with(['dates' => function($q) use($request, $now){
                 $q->whereDate('date', $request->date)->whereDate('date', '>=', $now);
-            }])->where('destination', $request->destination)->get();
+            }])->where('destination', $request->destination)->orderBy('id', 'ASC')->get();
 
             $results = [];
             foreach ($datas as $val){

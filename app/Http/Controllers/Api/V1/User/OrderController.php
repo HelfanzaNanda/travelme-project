@@ -143,7 +143,7 @@ class OrderController extends Controller
     {
         try{
             $order = Order::where('user_id', Auth::guard('api')->user()->id)
-            ->whereBetween('verify',['1', '2'])->get();
+            ->whereBetween('verify',['1', '2'])->orderBy('id', 'ASC')->get();
             
             return response()->json([
                 'message' => 'successfully get order by user',
