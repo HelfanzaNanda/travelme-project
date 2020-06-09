@@ -31,7 +31,7 @@ class ScheduleController extends Controller
 
     public function index()
     {
-        $datas = Departure::where('owner_id', Auth::guard('owner')->user()->id)->get();
+        $datas = Departure::where('owner_id', Auth::guard('owner')->user()->id)->orderBy('id', 'ASC')->get();
         return view('pages.owner.schedule.index', compact('datas'));
     }
 
