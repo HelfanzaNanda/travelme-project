@@ -31,8 +31,8 @@ class OrderController extends Controller
 
             $validator = Validator::make($request->all(),[
                 'departure_id' => 'required',
-                'pickup_location' => 'required',
-                'destination_location' => 'required',
+                'pickup_point' => 'required',
+                'destination_point' => 'required',
             ]);
 
             if ($validator->fails()){
