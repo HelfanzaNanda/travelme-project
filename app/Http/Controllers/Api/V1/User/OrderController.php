@@ -58,6 +58,7 @@ class OrderController extends Controller
             $data->destination_point = $request->destination_point;
             $data->lat_destination_point = $request->lat_destination_point;
             $data->lng_destination_point = $request->lng_destination_point;
+            $data->verify = '1';
             $data->status = 'belum melakukan pembayaran';
             $data->save();
 
