@@ -52,8 +52,12 @@ class OrderController extends Controller
             $data->price = $request->price;
             $data->total_price = $request->price * $request->total_seat;
             $data->total_seat = $request->total_seat;
-            $data->pickup_location = $request->pickup_location;
-            $data->destination_location = $request->destination_location;
+            $data->pickup_point = $request->pickup_point;
+            $data->lat_pickup_point = $request->lat_pickup_point;
+            $data->lng_pickup_point = $request->lng_pickup_point;
+            $data->destination_point = $request->destination_point;
+            $data->lat_destination_point = $request->lat_destination_point;
+            $data->lng_destination_point = $request->lng_destination_point;
             $data->status = 'belum melakukan pembayaran';
             $data->save();
 

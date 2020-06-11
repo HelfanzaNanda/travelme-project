@@ -26,6 +26,7 @@ class CreateOwnersTable extends Migration
             $table->string('telephone', '13')->unique();
             $table->enum('active', ['0', '1', '2'])->default('1');
             $table->string('activation_token')->nullable();
+            $table->double('balance')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });
