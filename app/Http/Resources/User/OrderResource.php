@@ -30,6 +30,8 @@ class OrderResource extends JsonResource
             "lng_destination_point" => $this->lng_destination_point,
             "verify" => $this->verify,
             "status" => $this->status,
+            "arrived" => $this->arrived,
+            "done" => $this->done,
             "user" => new UserResource($this->user),
             "owner" => new OwnerResource($this->owner),
             "departure" => new DepartureResource($this->departure),
