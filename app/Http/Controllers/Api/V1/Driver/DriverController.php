@@ -18,26 +18,6 @@ class DriverController extends Controller
         $this->middleware('auth:driver-api');
     }
 
-    public function order()
-    {
-        try{
-            $order = Order::where('driver_id', Auth::guard('driver-api')->user()->id)
-            ->where('verify', '2')->get();
-
-            return response()->json([
-                'message' => 'succesfully get order by driver',
-                'status' => true,
-                'data' => OrderResource::collection($order)
-            ]);
-        }catch (\Exception $exception){
-            return response()->json([
-                'message' => $exception->getMessage(),
-                'status' => false,
-                'data' => (object)[]
-            ]);
-        }
-    }
-
     public function profile()
     {
         try{

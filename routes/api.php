@@ -33,7 +33,6 @@ Route::get('order/all', 'Api\V1\User\OrderController@getAllOrder');
 Route::post('order/store','Api\V1\User\OrderController@postOrder');
 Route::get('order/{id}/cancel/', 'Api\V1\Order\UserController@cancelorder');
 Route::get('order/{id}/update/', 'Api\V1\Order\UserController@updateorder');
-Route::get('order/driver', 'Api\V1\Driver\DriverController@order');
 
 Route::post('snap', 'Api\V1\User\OrderController@snapToken');
 Route::post('snap/charge', 'Api\V1\User\OrderController@snapToken');
@@ -41,7 +40,13 @@ Route::post('snap/charge', 'Api\V1\User\OrderController@snapToken');
 
 Route::group(['prefix' => 'driver'], function (){
    Route::post('login', 'Api\V1\Driver\Auth\LoginController@login');
+   Route::get('profile', 'Api\V1\Driver\DriverController@profile');
+   Route::post('profile', 'Api\V1\Driver\DriverController@updateProfile');
 });
+
+Route::get('order/driver', 'Api\V1\Driver\OrderController@getOrdersByDriver');
+Route::get('order/{id}/arrived', 'Api\V1\Driver\OrderController@arrived');
+Route::get('order/{id}/done', 'Api\V1\Driver\OrderController@done');
 
 Route::post('try','Api\V1\User\TrySnapController@store');
 Route::post('try/charge','Api\V1\User\TrySnapController@store');
