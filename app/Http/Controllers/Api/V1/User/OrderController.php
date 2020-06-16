@@ -60,6 +60,8 @@ class OrderController extends Controller
             $data->lng_destination_point = $request->lng_destination_point;
             $data->verify = '1';
             $data->status = 'belum melakukan pembayaran';
+            $data->arrived = false;
+            $data->done = false;
             $data->save();
 
             $date = DateOfDeparture::where('departure_id', $request->departure_id)->where('date', $request->date)->first();

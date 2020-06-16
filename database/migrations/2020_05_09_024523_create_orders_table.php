@@ -34,6 +34,8 @@ class CreateOrdersTable extends Migration
             $table->string('lng_destination_point');
             $table->enum('verify', ['0', '1', '2'])->default('1');
             $table->string('status')->default('pending');
+            $table->boolean('arrived')->default(false);
+            $table->boolean('done')->default(false);
             $table->string('snap_token')->nullable();
             $table->timestamps();
 

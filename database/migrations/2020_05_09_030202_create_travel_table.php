@@ -22,16 +22,6 @@ class CreateTravelTable extends Migration
             $table->enum('status', ['0', '1'])->default('1');
             $table->timestamps();
         });
-        DB::table('travel')->insert([
-            'license_number' => '12345',
-            'business_owner' => 'connext alpha',
-            'business_name' => 'connext tegal'
-        ]);
-        DB::table('travel')->insert([
-            'license_number' => '54321',
-            'business_owner' => 'oke trans',
-            'business_name' => 'oke trans'
-        ]);
     }
 
     /**

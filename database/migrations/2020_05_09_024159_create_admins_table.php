@@ -25,11 +25,7 @@ class CreateAdminsTable extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
-        DB::table('admins')->insert([
-            'name' => 'travelme',
-            'email' => 'travelme@gmail.com',
-            'password' => Hash::make('123456')
-        ]);
+    
     }
 
     /**
