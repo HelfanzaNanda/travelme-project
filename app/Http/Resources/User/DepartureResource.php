@@ -18,7 +18,7 @@ class DepartureResource extends JsonResource
             'id'                => $this->id,
             'from'              => $this->from,
             'destination'       => $this->destination,
-            'photo_destination' => $this->photo_destination,
+            'logo'              => $this->logo,
             'price'             => $this->price,
             'owner'             => new OwnerResource($this->owner),
             //'date'              => new DateResource($this->date),
