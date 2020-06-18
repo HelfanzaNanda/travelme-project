@@ -84,32 +84,6 @@ class OrderController extends Controller
         }
     }
 
-
-    // public function snapToken(Request $request)
-    // {
-    //     $order_id = rand();
-    //     $converted = $request->item_details;
-    //     $payload = [
-    //         'transaction_details' => [
-    //             'order_id' => $order_id
-    //         ],
-    //         'item_details' => $converted,
-    //         'customer_details' => [
-    //             'first_name' => 'admin',
-    //             'email' => 'admin@gmail.com',
-    //             'telephone' => '089663543354',
-    //         ],
-    //     ];
-
-    //     try {
-    //         $snapToken = Snap::getSnapToken($payload);
-    //         return response()->json($snapToken);
-    //     } catch (\Exception $exception) {
-    //         return response()->json($exception->getMessage());
-    //     }
-    // }
-
-
     public function snapToken(Request $request)
     {
         $orders = $request->item_details;

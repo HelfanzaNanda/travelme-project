@@ -19,7 +19,7 @@ class OrderController extends Controller
     {
         try{
             $order = Order::where('driver_id', Auth::guard('driver-api')->user()->id)
-            ->where('verify', '2')->get();
+            ->where('verify', '2')->orderBy('id', 'ASC')->get();
 
             return response()->json([
                 'message' => 'succesfully get order by driver',

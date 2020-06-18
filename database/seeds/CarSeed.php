@@ -31,7 +31,7 @@ class CarSeed extends Seeder
         ]);
 
         Car::create([
-            'owner_id' => 2,
+            'owner_id' => 3,
             'number_plate' => 'G 2030 RT',
             'photo' => 'G2030RT.jpg',
             'facility' => 'Ac, Air Minum',
@@ -40,7 +40,7 @@ class CarSeed extends Seeder
         ]);
 
         Car::create([
-            'owner_id' => 2,
+            'owner_id' => 3,
             'number_plate' => 'G 1030 RT',
             'photo' => 'G1030RT.jpg',
             'facility' => 'Ac, Air Minum',
@@ -49,7 +49,7 @@ class CarSeed extends Seeder
         ]);
 
         Car::create([
-            'owner_id' => 3,
+            'owner_id' => 5,
             'number_plate' => 'G 8493 OT',
             'photo' => 'G8493OT.jpg',
             'facility' => 'Ac, Air Minum',
@@ -58,7 +58,7 @@ class CarSeed extends Seeder
         ]);
 
         Car::create([
-            'owner_id' => 3,
+            'owner_id' => 5,
             'number_plate' => 'G 8433 OT',
             'photo' => 'G8433OT.jpg',
             'facility' => 'Ac, Air Minum',

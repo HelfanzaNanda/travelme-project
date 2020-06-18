@@ -26,7 +26,7 @@
 <script src="{{asset('assets/plugins/moment/moment.js')}}"></script>
 @yield('script')
 
-<script>
+{{-- <script>
     var dateToday = new Date();
 	$('.date').datepicker({
 		multidate: true,
@@ -37,7 +37,7 @@
 		var selectDate = $("#unavailable_date").val();
 		console.log(selectDate);
 	});
-</script>
+</script> --}}
 
 <script>
 	$(function () {

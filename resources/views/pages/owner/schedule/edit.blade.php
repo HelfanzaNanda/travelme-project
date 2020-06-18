@@ -22,19 +22,19 @@
                             <div class="row d-flex justify-content-center">
                                 <div class="col-md-10">
                                     <div class="form-group">
+                                        <label for="projectinput2">Dari</label>
+                                        <input class="form-control" name="from" readonly value="{{ $departure->from }}">
+                                    </div>
+
+                                    <div class="form-group">
                                         <label for="projectinput2">Tujuan</label>
-                                        @php
-                                            $destination = ['Bandung', 'Bekasi', 'Bogor', 'Jakarta', 
-                                            'Jogja', 'Magelang', 'Malang','Semarang', 'Solo', 
-                                            'Surabaya', 'Tanggerang'];
-                                        @endphp
                                         <select name="destination" class="form-control">
-                                            @for ($i = 0; $i < count($destination); $i++)
-                                                <option value="{{ $destination[$i] }}" 
-                                                {{ $departure->destination == $destination[$i] ? 'selected' :'' }}>
-                                                    {{ $destination[$i] }}
+                                            @foreach ($destinations as $destination)    
+                                                <option value="{{ $destination->domicile }}" 
+                                                    {{ $departure->destination == $destination->domicile ? 'selected' : ''}}>
+                                                    {{ $destination->domicile }}
                                                 </option>
-                                            @endfor
+                                            @endforeach
                                         </select>
                                     </div>
 
@@ -49,8 +49,8 @@
                                                 name="price" value="{{$departure->price}}">
                                             @if ($errors->has('price'))
                                                 <span class="invalid-feedback" role="alert">
-                                                        <p><b>{{ $errors->first('price') }}</b></p>
-                                                    </span>
+                                                    <p><b>{{ $errors->first('price') }}</b></p>
+                                                </span>
                                             @endif
                                         </div>
                                     </div>
@@ -59,8 +59,8 @@
                                         <label for="projectinput2">Tanggal</label>
                                         <div class='input-group mb-3'>
                                             <input type="text" id="unavailable_date"
-                                                   class="form-control {{$errors->has('date')?'is-invalid':''}} date"
-                                                   name="date" value="{{$date}}">
+                                                   class="form-control {{$errors->has('date')?'is-invalid':''}} tanggal"
+                                                   name="date" value="{{$date}}" id="tanggal">
                                             <div class="input-group-append">
                                                 <span class="input-group-text"><span class="ti-calendar"></span></span>
                                             </div>
@@ -141,4 +141,24 @@
             return rupiah;
         }
     </script>
+
+<script>
+    var dateToday = new Date();
+    
+	$('.tanggal').datepicker({
+		multidate: true,
+		format: 'dd-mm-yyyy',
+        todayHighlight: true,
+        clearBtn: true,
+        toggleActive: true,
+        minDate: dateToday
+	});
+
+    
+	// $('#onSubmit').click(function(){
+	// 	var selectDate = $("#unavailable_date").val();
+	// 	console.log(selectDate);
+	// });
+</script>
+
 @endsection

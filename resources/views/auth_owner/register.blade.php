@@ -150,6 +150,18 @@
                                                 </span>
                                                 @endif
                                             </fieldset>
+
+                                            <fieldset class="form-group floating-label-form-group">
+                                                <label for="user-password">Cabang</label>
+                                                <input type="text" class="form-control {{$errors->has('domicile')?'is-invalid':''}}"
+                                                    placeholder="Masukkan Cabang" name="domicile"
+                                                    value="{{old('domicile')}}">
+                                                @if ($errors->has('domicile'))
+                                                <span class="invalid-feedback" role="alert">
+                                                    <p><b>{{ $errors->first('domicile')}}</b></p>
+                                                </span>
+                                                @endif
+                                            </fieldset>
                                         </div>
                                         <div class="col-sm-6 col-12 text-center text-sm-left pr-0">
                                         </div>

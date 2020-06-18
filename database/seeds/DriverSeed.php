@@ -27,11 +27,11 @@ class DriverSeed extends Seeder
             'telephone' => '089663543354',
             'api_token' => 'ini api token gilang',
             'active' => true,
-            'is_tegal' => true
+            'you_are_domicilied' => true
         ]);
 
         Driver::create([
-            'owner_id' => 2,
+            'owner_id' => 3,
             'car_id' => 3,
             'nik' => '1234567890123455',
             'sim' => '123456789013',
@@ -44,11 +44,11 @@ class DriverSeed extends Seeder
             'telephone' => '089663543355',
             'api_token' => 'ini api token pardi',
             'active' => true,
-            'is_tegal' => true
+            'you_are_domicilied' => true
         ]);
 
         Driver::create([
-            'owner_id' => 3,
+            'owner_id' => 5,
             'car_id' => 5,
             'nik' => '1234567890123451',
             'sim' => '123456789011',
@@ -61,7 +61,7 @@ class DriverSeed extends Seeder
             'telephone' => '089663543359',
             'api_token' => 'ini api token hendi',
             'active' => true,
-            'is_tegal' => true
+            'you_are_domicilied' => true
         ]);
     }
 }

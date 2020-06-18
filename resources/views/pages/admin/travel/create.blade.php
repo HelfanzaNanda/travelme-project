@@ -41,6 +41,16 @@
                                 <span class="invalid-feedback" role="alert"><p><b>{{ $errors->first('business_name') }}</b></p></span>
                             @endif
                         </div>
+
+                        <div class="form-group">
+                            <label for="projectinput2">Cabang</label>
+                            <input type="text" class="form-control {{$errors->has('domicile')?'is-invalid':''}}"
+                                   placeholder="Cabang" name="domicile" value="{{old('domicile')}}">
+                            @if ($errors->has('domicile'))
+                                <span class="invalid-feedback" role="alert"><p><b>{{ $errors->first('domicile') }}</b></p></span>
+                            @endif
+                        </div>
+
                         <a href="{{route('owner')}}" class="btn btn-outline-dark">Cancel</a>
                         <button type="submit" class="btn btn-primary">Save</button>
                     </form>

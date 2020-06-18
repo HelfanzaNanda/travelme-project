@@ -15,23 +15,44 @@ class TravelSeed extends Seeder
         Travel::create([
             'license_number' => '12345',
             'business_owner' => 'connext alpha',
-            'business_name' => 'connext tegal',
-            'status' => '1'
+            'business_name' => 'Connext Tegal',
+            'domicile' => 'Tegal',
+        ]);
+
+        Travel::create([
+            'license_number' => '12346',
+            'business_owner' => 'connext alpha',
+            'business_name' => 'Connext Jogja',
+            'domicile' => 'Jogja',
         ]);
 
         Travel::create([
             'license_number' => '54321',
             'business_owner' => 'rama',
             'business_name' => 'Rama Tegal',
-            'status' => '1'
+            'domicile' => 'Tegal',
+        ]);
+
+        Travel::create([
+            'license_number' => '54322',
+            'business_owner' => 'rama',
+            'business_name' => 'Rama Bandung',
+            'domicile' => 'Bandung',
         ]);
 
 
         Travel::create([
             'license_number' => '12431',
             'business_owner' => 'oke trans',
-            'business_name' => 'Oke Trans',
-            'status' => '1'
+            'business_name' => 'Oke Trans Tegal',
+            'domicile' => 'Tegal',
+        ]);
+
+        Travel::create([
+            'license_number' => '12437',
+            'business_owner' => 'oke trans',
+            'business_name' => 'Oke Trans Jakarta',
+            'domicile' => 'Jakarta'
         ]);
     }
 }

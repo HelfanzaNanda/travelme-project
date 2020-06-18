@@ -35,6 +35,7 @@ class RegisterController extends Controller
             'email'             => 'required|unique:owners|email',
             'password'          => 'required|confirmed',
             'telephone'         => 'required|unique:owners',
+            'domicile'         => 'required',
         ];
 
         $message = [
@@ -55,6 +56,7 @@ class RegisterController extends Controller
             $data->email            = $request->email;
             $data->password         = Hash::make($request->password);
             $data->telephone        = $request->telephone;
+            $data->domicile         = $request->domicile;
             $data->activation_token = Str::random(100);
             $data->save();
         }else{

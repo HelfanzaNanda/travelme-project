@@ -17,9 +17,8 @@ class DateResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'date' => $this->date,
+            'date' => date('d-m-Y', strtotime($this->date)),
             'hours' => HourResource::collection($this->hours),
-            //'hour' => new HourResource($this->hour)
         ];
     }
 }

@@ -13,10 +13,29 @@ use Illuminate\Support\Facades\Validator;
 class DepartureController extends Controller
 {
 
-    public function getDestination()
+    // public function getDestinationFromTegal()
+    // {
+    //     try{
+    //         $datas = Departure::all();
+    //         return response()->json([
+    //             'message' => 'successfully get destination',
+    //             'status' => true,
+    //             'data' => $datas
+    //         ]);
+    //     }catch (\Exception $exception){
+    //         return response()->json([
+    //             'message' => $exception->getMessage(),
+    //             'status' => false,
+    //             'data' => (object)[]
+    //         ]);
+    //     }
+    // }
+
+
+    public function getDestinationTegal()
     {
         try{
-            $datas = Departure::all();
+            $datas = Departure::where('destination', 'Tegal')->get();
             return response()->json([
                 'message' => 'successfully get destination',
                 'status' => true,
@@ -30,6 +49,28 @@ class DepartureController extends Controller
             ]);
         }
     }
+
+
+    public function getDestinationOther()
+    {
+        try{
+            $datas = Departure::where('destination', '!=','Tegal')->get();
+            return response()->json([
+                'message' => 'successfully get destination',
+                'status' => true,
+                'data' => $datas
+            ]);
+        }catch (\Exception $exception){
+            return response()->json([
+                'message' => $exception->getMessage(),
+                'status' => false,
+                'data' => (object)[]
+            ]);
+        }
+    }
+
+
+    
 
     public function departureByDestination($destination)
     {

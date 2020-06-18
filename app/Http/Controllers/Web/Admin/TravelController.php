@@ -54,6 +54,7 @@ class TravelController extends Controller
         $travel->license_number = $request->license_number;
         $travel->business_owner = $request->business_owner;
         $travel->business_name = $request->business_name;
+        $data->domicile         = $request->domicile;
         $travel->save();
 
         return redirect()->route('owner.index')->with('create', 'Berhasil Menambahkan Data');

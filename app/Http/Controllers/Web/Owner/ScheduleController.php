@@ -8,6 +8,7 @@ use App\DateOfDeparture;
 use App\Departure;
 use App\Hour;
 use App\Http\Controllers\Controller;
+use App\Owner;
 use Carbon\Carbon;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Http\Request;
@@ -42,11 +43,14 @@ class ScheduleController extends Controller
      */
     public function create()
     {
+        $domicile = Owner::where('id', Auth::guard('owner')->user()->id)->pluck('domicile')->first();
+        $destinations = Owner::where('business_owner', Auth::guard('owner')->user()->business_owner)
+        ->where('domicile', '!=', $domicile)->get();
         $car = Car::where('status', '1')->get()->count();
 
         if($car > 0){
             $cars = Car::where('owner_id', Auth::guard('owner')->user()->id)->get();
-            return view('pages.owner.schedule.create', compact('cars'));
+            return view('pages.owner.schedule.create', compact(['cars', 'domicile', 'destinations']));
         }else{
             return redirect()->back() ->with('warning', 'Silahkan Tambahkan Mobil Dahulu!');
         }
@@ -77,17 +81,14 @@ class ScheduleController extends Controller
         $this->validate($request, $rules, $message);
 
         $car = Car::where('owner_id', Auth::guard('owner')->user()->id)->first();
-        // if (!$car) {
-        //     return redirect()->back()->withInput()->WithErrors(['seat' => 'tambahkan mobil dahulu']);
-        // }
 
         $delete_full_stop = preg_replace('/[^\w\s]/', '', $request->price);
 
         $departure = new Departure();
         $departure->owner_id = Auth::guard('owner')->user()->id;
-        $departure->from = 'Tegal';
+        $departure->from = $request->from;
         $departure->destination = ucwords($request->destination);
-        $departure->photo_destination = ucwords($request->destination) . '.jpg';
+        $departure->logo = ucwords($request->destination) . '.jpg';
         $departure->price = $delete_full_stop;
         $departure->save();
 
@@ -158,6 +159,11 @@ class ScheduleController extends Controller
      */
     public function edit($id)
     {
+        
+        $domicile = Owner::where('id', Auth::guard('owner')->user()->id)->pluck('domicile')->first();
+        $destinations = Owner::where('business_owner', Auth::guard('owner')->user()->business_owner)
+        ->where('domicile', '!=', $domicile)->get();
+
         $departure = Departure::findOrFail($id);
         $dates = DateOfDeparture::where('departure_id', $id)->get();
         $itemDate = [];
@@ -170,7 +176,7 @@ class ScheduleController extends Controller
         }
         $date = implode(",", $itemDate);
 
-        return view('pages.owner.schedule.edit', compact(['departure', 'date', 'hours']));
+        return view('pages.owner.schedule.edit', compact(['departure', 'date', 'hours', 'destinations']));
     }
 
     /**
@@ -205,7 +211,7 @@ class ScheduleController extends Controller
         $departure->owner_id = Auth::guard('owner')->user()->id;
         $departure->from = 'Tegal';
         $departure->destination = ucwords($request->destination);
-        $departure->photo_destination = ucwords($request->destination) . '.jpg';
+        $departure->logo = ucwords($request->destination) . '.jpg';
         $departure->price = $delete_full_stop;
         $departure->update();
 
