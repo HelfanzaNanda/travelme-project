@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class CarController extends Controller
 {
@@ -62,17 +63,24 @@ class CarController extends Controller
 
         $this->validate($request, $rules, $message);
 
+        // $photo = $request->file('photo');
+        // $path = time() . '.' . $photo->getClientOriginalExtension();
+        // $destinationPath = public_path('uploads/owner/car');
+        // $photo->move($destinationPath, $path);
+
+
         $photo = $request->file('photo');
-        $path = time() . '.' . $photo->getClientOriginalExtension();
-        $destinationPath = public_path('uploads/owner/car');
-        $photo->move($destinationPath, $path);
+        $filename = time() . '.' . $photo->getClientOriginalExtension();
+        $filepath = 'car/' . $filename;
+        Storage::disk('s3')->put($filepath, file_get_contents($photo));
+        // $photo->move($destinationPath, $path);
 
         $data = new Car();
         $data->owner_id = Auth::guard('owner')->user()->id;
         $data->number_plate = strtoupper($request->number_plate);
         $data->seat = $request->seat;
         $data->facility = $request->facility;
-        $data->photo = $path;
+        $data->photo = Storage::disk('s3')->url($filepath, $filename);
         $data->status = '1';
         $data->save();
 
@@ -127,10 +135,11 @@ class CarController extends Controller
         if ($photo == '') {
             $data->photo = $request->old_photo;
         } else {
-            $path = time() . '.' . $photo->getClientOriginalExtension();
-            $destinationPath = public_path('uploads/owner/car');
-            $photo->move($destinationPath, $path);
-            $data->photo = $path;
+            $photo = $request->file('photo');
+            $filename = time() . '.' . $photo->getClientOriginalExtension();
+            $filepath = 'car/' . $filename;
+            Storage::disk('s3')->put($filepath, file_get_contents($photo));
+            $data->photo = Storage::disk('s3')->url($filepath, $filename);
         }
         $data->status = '1';
         $data->update();

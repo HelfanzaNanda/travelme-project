@@ -9,6 +9,7 @@ use Dotenv\Regex\Result;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
@@ -40,7 +41,8 @@ class DriverController extends Controller
      */
     public function create()
     {
-        $car = Car::where('status', '1')->get()->count();
+        $car = Car::where('status', '1')
+        ->where('owner_id', Auth::guard('owner')->user()->id)->get()->count();
 
         $datas = Car::where('owner_id', Auth::guard('owner')->user()->id)
             ->where('status', '1')->get();
@@ -96,10 +98,10 @@ class DriverController extends Controller
 
         $this->validate($request, $rules, $message);
 
-        $avatar             = $request->file('avatar');
-        $filename           = time() . '-driver' . '.' . $avatar->getClientOriginalExtension();
-        $destinationPath    = public_path('uploads/owner/driver');
-        $avatar->move($destinationPath, $filename);
+        $photo = $request->file('avatar');
+        $filename = time() . '.' . $photo->getClientOriginalExtension();
+        $filepath = 'driver/' . $filename;
+        Storage::disk('s3')->put($filepath, file_get_contents($photo));
 
         $data               = new Driver();
         $data->owner_id     = Auth::guard('owner')->user()->id;
@@ -107,7 +109,7 @@ class DriverController extends Controller
         $data->sim          = $request->sim;
         $data->car_id       = $request->car_id;
         $data->name         = $request->name;
-        $data->avatar       = $filename;
+        $data->avatar       = Storage::disk('s3')->url($filepath, $filename);
         $data->gender       = $request->gender;
         $data->email        = $request->email;
         $data->password     = Hash::make($request->telephone);
@@ -193,12 +195,14 @@ class DriverController extends Controller
         $data->gender       = $request->gender;
         $data->telephone    = $request->telephone;
         $data->address      = $request->address;
+        
         if ($request->file('avatar') != '') {
-            $avatar         = $request->file('avatar');
-            $filename       = time() . '-driver' . '.' . $avatar->getClientOriginalExtension();
-            $destinationPath = public_path('uploads/owner/driver');
-            $avatar->move($destinationPath, $filename);
-            $data->avatar = $filename;
+            $photo = $request->file('avatar');
+            $filename = time() . '.' . $photo->getClientOriginalExtension();
+            $filepath = 'driver/' . $filename;
+            Storage::disk('s3')->put($filepath, file_get_contents($photo));
+            
+            $data->avatar = Storage::disk('s3')->url($filepath, $filename);;;
         } else {
             $data->avatar = $request->old_avatar;
         }

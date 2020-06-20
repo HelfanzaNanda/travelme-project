@@ -138,4 +138,22 @@ class DepartureController extends Controller
             ], 200);
         }
     }
+
+    public function searchOwner(Request $request)
+    {
+        $date = $request->date;
+        $from = $request->from;
+        $destination = $request->destination;
+        $now = Carbon::now();
+
+        $data = Departure::with(['dates' => function ($query) use ($date, $now){
+            $query->whereDate('date', '>=', $now)->whereDate('date', $date);
+        }])->where('from', $from)->where('destination', $destination)->get();
+
+        return response()->json([
+            'message' => 'successfully search travel',
+            'status' => true,
+            'data' => DepartureResource::collection($data)
+        ]);
+    }
 }

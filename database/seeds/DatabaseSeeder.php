@@ -15,8 +15,8 @@ class DatabaseSeeder extends Seeder
          $this->call(TravelSeed::class);
          $this->call(UserSeed::class);
          $this->call(OwnerSeed::class);
-         $this->call(CarSeed::class);
-         $this->call(DriverSeed::class);
+         //$this->call(CarSeed::class);
+         //$this->call(DriverSeed::class);
          //$this->call(DepartureSeed::class);
          //$this->call(DateSeed::class);
          //$this->call(HourSeed::class);

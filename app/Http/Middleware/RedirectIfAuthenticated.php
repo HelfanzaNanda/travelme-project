@@ -29,7 +29,7 @@ class RedirectIfAuthenticated
                 if (Auth::guard($guard)->check()){
                     $user = Auth::guard($guard)->user();
                     if ($user->active =='2'){
-                        return redirect()->route('tdashboard.index');
+                        return redirect()->route('owner.dashboard');
                     }
                 }
                 break;

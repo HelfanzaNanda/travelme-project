@@ -59,7 +59,8 @@ Route::group(['prefix' => 'owner'], function (){
     Route::get('/password/reset/{token}', 'Web\Owner\Auth\ResetPasswordController@showResetForm')->name('owner.password.reset');
     Route::post('/password/reset', 'Web\Owner\Auth\ResetPasswordController@reset')->name('owner.password.reset.submit');
 
-    Route::resource('tdashboard', 'Web\Owner\DashboardController');
+    
+    Route::get('/dashboard', 'Web\Owner\DashboardController@index')->name('owner.dashboard');
     Route::resource('driver', 'Web\Owner\DriverController')->except('destroy');
     Route::get('driver/{driver}/destroy', 'Web\Owner\DriverController@destroy')->name('driver.destroy');
     Route::resource('car', 'Web\Owner\CarController')->except('destroy');
@@ -74,4 +75,7 @@ Route::group(['prefix' => 'owner'], function (){
     Route::get('user/{id}', 'Web\Owner\UserController@show')->name('owner.user.show');
     Route::patch('user/{id}/confirmed', 'Web\Owner\UserController@confirmed')->name('owner.user.confirmed');
     Route::get('user/{id}/decline', 'Web\Owner\UserController@decline')->name('owner.user.decline');
+    
+    Route::get('report', 'Web\Owner\ReportController@index')->name('owner.report.index');
+    
 });

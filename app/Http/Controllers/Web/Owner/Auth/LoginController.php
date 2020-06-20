@@ -44,7 +44,7 @@ class LoginController extends Controller
         if (Auth::guard('owner')->attempt($credential)){
             $user = Auth::guard('owner')->user();
             if ($user->active == '2'){
-                return redirect()->intended(route('tdashboard.index'));
+                return redirect()->intended(route('owner.dashboard'));
             }else{
                 return redirect()->back()
                     ->withInput($request->only('email'))

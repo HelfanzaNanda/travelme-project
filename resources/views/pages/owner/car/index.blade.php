@@ -44,7 +44,7 @@
                                 <td>{{$loop->iteration}}</td>
                                 <td>
                                     <a data-toggle="modal" data-target="#default{{$loop->iteration}}" type="button">
-                                        <img src="{{asset('uploads/owner/car/'. $data->photo)}}" width="40px"
+                                        <img src="{{ $data->photo }}" width="40px"
                                             height="auto" alt="{{$data->photo}}">
                                     </a>
                                 </td>

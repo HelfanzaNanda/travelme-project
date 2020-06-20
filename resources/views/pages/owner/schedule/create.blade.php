@@ -92,16 +92,16 @@
                                             <span class="fa fa-plus" aria-hidden="true" style="font-size: 12px;"></span>
                                         </button>
                                     </div>
-                                    <input class="form-control {{$errors->has('hour')?'is-invalid':''}}" type="text"
+                                    <input class="form-control {{$errors->has('hour.0')?'is-invalid':''}}" type="text"
                                         name="hour[]">
-                                    @if ($errors->has('hour'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <p><b>{{ $errors->first('hour') }}</b></p>
-                                    </span>
-                                    @endif
                                     <div class="input-group-append">
                                         <span class="input-group-text"><i class="far fa-clock"></i></span>
                                     </div>
+                                    @if ($errors->has('hour.0'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <p><b>{{ $errors->first('hour.0') }}</b></p>
+                                    </span>
+                                    @endif
                                 </div>
                             </div>
 

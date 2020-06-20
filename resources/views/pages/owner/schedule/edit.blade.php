@@ -76,20 +76,18 @@
                                     <div id="myRepeatingFields" class="form-group">
                                         @foreach($hours as $hour)
                                             <div class="input-group clockpicker entry mt-1" id="time">
-                                                <div class="input-group-prepend">
-
-                                                </div>
+                                                <div class="input-group-prepend"></div>
                                                 <input type="text"
-                                                       class="form-control {{$errors->has('hour')?'is-invalid':''}}"
+                                                       class="form-control {{$errors->has('hour.0')?'is-invalid':''}}"
                                                        name="hour[]" value="{{$hour}}">
-                                                @if ($errors->has('hour'))
-                                                    <span class="invalid-feedback" role="alert">
-                                                            <p><b>{{ $errors->first('hour') }}</b></p>
-                                                        </span>
-                                                @endif
                                                 <div class="input-group-append">
                                                     <span class="input-group-text"><i class="far fa-clock"></i></span>
                                                 </div>
+                                                @if ($errors->has('hour.0'))
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <p><b>{{ $errors->first('hour.0') }}</b></p>
+                                                    </span>
+                                                @endif
                                             </div>
                                         @endforeach
                                     </div>
