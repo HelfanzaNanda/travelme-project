@@ -28,7 +28,7 @@ Route::get('destination/tegal', 'Api\V1\User\DepartureController@getDestinationT
 Route::get('destination/other','Api\V1\User\DepartureController@getDestinationOther');
 
 Route::get('departure/{destination}', 'Api\V1\User\DepartureController@departureByDestination');
-Route::post('departure/search', 'Api\V1\User\DepartureController@search');
+Route::post('departure/search', 'Api\V1\User\DepartureController@searchOwner');
 
 Route::get('order','Api\V1\User\OrderController@orderByUser');
 Route::get('order/all', 'Api\V1\User\OrderController@getAllOrder');
