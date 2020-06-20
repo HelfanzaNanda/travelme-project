@@ -148,7 +148,7 @@ class DepartureController extends Controller
 
         $data = Departure::with(['dates' => function ($query) use ($date, $now){
             $query->whereDate('date', '>=', $now)->whereDate('date', $date);
-        }])->where('from', $from)->where('destination', $destination)->get();
+        }])->where('from', $from)->where('destination', $destination)->orderBy('id', 'ASC')->get();
 
         return response()->json([
             'message' => 'successfully search travel',
