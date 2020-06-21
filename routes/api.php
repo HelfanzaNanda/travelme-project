@@ -40,6 +40,7 @@ Route::post('snap', 'Api\V1\User\OrderController@snapToken');
 Route::post('snap/charge', 'Api\V1\User\OrderController@snapToken');
 
 
+
 Route::group(['prefix' => 'driver'], function (){
    Route::post('login', 'Api\V1\Driver\Auth\LoginController@login');
    Route::get('profile', 'Api\V1\Driver\DriverController@profile');

@@ -14,6 +14,8 @@ use App\Owner;
 use Exception;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Veritrans_Notification;
 
 class OrderController extends Controller
 {
@@ -23,28 +25,28 @@ class OrderController extends Controller
         Config::$isSanitized = true;
         Config::$is3ds = true;
 
-        $this->middleware('auth:api')->except('snapToken');
+        $this->middleware('auth:api')->except(['snapToken', 'notificationHandler']);
     }
 
     public function postOrder(Request $request)
     {
-        try{
+        try {
 
-            $validator = Validator::make($request->all(),[
+            $validator = Validator::make($request->all(), [
                 'departure_id' => 'required',
                 'pickup_point' => 'required',
                 'destination_point' => 'required',
             ]);
 
-            if ($validator->fails()){
-                return response()->json(['message' => $validator->errors(), 'status' => false, 'data'=> (object)[]]);
+            if ($validator->fails()) {
+                return response()->json(['message' => $validator->errors(), 'status' => false, 'data' => (object) []]);
             }
 
             $order = Order::latest()->first();
             $substr = $order ? substr($order->order_id, 6) : '';
 
             $data = new Order();
-            $order ? $data->order_id = 'ORDER-'.($substr + 1) : $data->order_id = 'ORDER-101';
+            $order ? $data->order_id = 'ORDER-' . ($substr + 1) : $data->order_id = 'ORDER-101';
             $data->user_id = Auth::guard('api')->user()->id;
             $data->owner_id = $request->owner_id;
             $data->departure_id = $request->departure_id;
@@ -60,7 +62,7 @@ class OrderController extends Controller
             $data->lat_destination_point = $request->lat_destination_point;
             $data->lng_destination_point = $request->lng_destination_point;
             $data->verify = '1';
-            $data->status = 'belum melakukan pembayaran';
+            $data->status = 'aa';
             $data->arrived = false;
             $data->done = false;
             $data->save();
@@ -75,12 +77,11 @@ class OrderController extends Controller
                 'status' => true,
                 'data' => new OrderResource($data)
             ]);
-
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             return response()->json([
                 'message' => $exception->getMessage(),
                 'status' => false,
-                'data'=> (object)[],
+                'data' => (object) [],
             ]);
         }
     }
@@ -88,12 +89,12 @@ class OrderController extends Controller
     public function snapToken(Request $request)
     {
         $orders = $request->item_details;
-    
+
         $item_details = [];
-        foreach($orders as $val){
+        foreach ($orders as $val) {
             $order = Order::where('id', $val['id'])->first();
 
-            $item_details[] =[
+            $item_details[] = [
                 'id' => $order->hour,
                 'price' => $val['price'],
                 'quantity' => $val['quantity'],
@@ -121,43 +122,76 @@ class OrderController extends Controller
         }
     }
 
+    public function notificationHandler(Request $request)
+    {
+        $notif = new Veritrans_Notification();
+        DB::transaction(function () use ($notif) {
+            $transaction = $notif->transaction_status;
+            $type = $notif->payment_type;
+            $orderId = $notif->order_id;
+            $fraud = $notif->fraud_status;
+
+            $order = Order::findOrFail($orderId);
+
+            if ($transaction == 'capture') {
+                if ($type == 'credit_card') {
+                    if ($fraud == 'challenge') {
+                        $order->setPending();
+                    } else {
+                        $order->setSuccess();
+                    }
+                }
+            } elseif ($transaction == 'settlement') {
+                $order->setSuccess();
+            } elseif ($transaction == 'pending') {
+                $order->setPending();
+            } elseif ($transaction == 'deny') {
+                $order->setFailed();
+            } elseif ($transaction == 'expire') {
+                $order->setExpired();
+            } elseif ($transaction == 'cancel') {
+                $order->setFailed();
+            }
+        });
+
+        return;
+    }
+
 
     public function orderByUser()
     {
-        try{
+        try {
             $order = Order::where('user_id', Auth::guard('api')->user()->id)
-            ->whereBetween('verify',['1', '2'])->orderBy('id', 'ASC')->get();
-            
+                ->whereBetween('verify', ['1', '2'])->orderBy('id', 'ASC')->get();
+
             return response()->json([
                 'message' => 'successfully get order by user',
                 'status' => true,
-                'data'=> OrderResource::collection($order),
+                'data' => OrderResource::collection($order),
             ]);
-
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             return response()->json([
                 'message' => $exception->getMessage(),
                 'status' => false,
-                'data'=> (object)[]
+                'data' => (object) []
             ]);
         }
     }
 
     public function getAllOrder()
     {
-        try{
+        try {
             $orders = Order::all();
             return response()->json([
                 'message' => 'successfully get all orders',
                 'status' => true,
-                'data'=> OrderResource::collection($orders)
+                'data' => OrderResource::collection($orders)
             ]);
-
-        }catch(Exception $exception){
+        } catch (Exception $exception) {
             return response()->json([
                 'message' => $exception->getMessage(),
                 'status' => false,
-                'data'=> (object)[]
+                'data' => (object) []
             ]);
         }
     }
@@ -184,6 +218,5 @@ class OrderController extends Controller
             'message' => 'successfully update status order from user',
             'status' => true,
         ]);
-
     }
 }
