@@ -10,6 +10,7 @@ use App\HourOfDeparture;
 use App\Order;
 use App\Http\Controllers\Midtrans\Snap;
 use App\Http\Controllers\Midtrans\Config;
+use App\Owner;
 use Exception;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
@@ -119,6 +120,7 @@ class OrderController extends Controller
             return response()->json($exception->getMessage());
         }
     }
+
 
     public function orderByUser()
     {

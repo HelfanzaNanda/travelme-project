@@ -61,6 +61,9 @@ Route::group(['prefix' => 'owner'], function (){
 
     
     Route::get('/dashboard', 'Web\Owner\DashboardController@index')->name('owner.dashboard');
+    Route::post('/dashboard/balance/take', 'Web\Owner\DashboardController@take')->name('owner.take.balance');
+
+
     Route::resource('driver', 'Web\Owner\DriverController')->except('destroy');
     Route::get('driver/{driver}/destroy', 'Web\Owner\DriverController@destroy')->name('driver.destroy');
     Route::resource('car', 'Web\Owner\CarController')->except('destroy');
@@ -77,5 +80,7 @@ Route::group(['prefix' => 'owner'], function (){
     Route::get('user/{id}/decline', 'Web\Owner\UserController@decline')->name('owner.user.decline');
     
     Route::get('report', 'Web\Owner\ReportController@index')->name('owner.report.index');
+    Route::post('report/search', 'Web\Owner\ReportController@search')->name('owner.report.search');
+    Route::get('report/{month}/print','Web\Owner\ReportController@print')->name('owner.report.print');
     
 });

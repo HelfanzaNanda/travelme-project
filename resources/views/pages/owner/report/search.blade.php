@@ -32,11 +32,11 @@
                             @php($month = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli',
                             'Agustus', 'September', 'Oktober', 'November', 'Desember'])
                             <select name="month" class="form-control">
-                                @for ($i = 0; $i < count($month); $i++)
+                                @for ($i = 0; $i < count($month); $i++) 
                                     <option value="{{ $i }}"
-                                    {{ $number_month == $i ? 'selected' : ''}}>
-                                        {{ $month[$i] }}
-                                    </option>
+                                    {{ $number_month == $i ? 'selected' : '' }}>
+                                    {{ $month[$i] }}
+                                </option>
                                 @endfor
                             </select>
                         </div>
@@ -45,7 +45,7 @@
                         </div>
 
                         <div class="col-md-1">
-                            <a href="" type="button" class="btn btn-primary">print</a>
+                            <a href="{{ route('owner.report.print', $number_month) }}" type="button" class="btn btn-primary">print</a>
                         </div>
 
                     </div>

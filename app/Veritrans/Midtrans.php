@@ -145,7 +145,6 @@ class Midtrans {
 
     public static function getSnapToken($params)
     {
-
         $result = Midtrans::post(
             Midtrans::getSnapBaseUrl() . '/transactions',
             Midtrans::$serverKey,

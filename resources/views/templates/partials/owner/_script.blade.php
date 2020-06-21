@@ -13,35 +13,35 @@
 <!--Custom JavaScript -->
 <script src="{{asset('assets/js/custom.min.js')}}"></script>
 <!-- This is data table -->
+
+<script src="{{asset('assets/plugins/moment/moment.js')}}"></script>
+
+
 <script src="{{asset('assets/plugins/datatables.net/js/jquery.dataTables.min.js')}}"></script>
 <script src="{{asset('assets/plugins/datatables.net-bs4/js/dataTables.responsive.min.js')}}"></script>
+
+<script src="{{ asset('assets/js/bootstrap-table.init.js') }}"></script>
+
 <script src="{{asset('assets/plugins/dropify/dist/js/dropify.min.js')}}"></script>
 
 <script src="{{asset('assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.js')}}"></script>
-
 <script src="{{asset('assets/plugins/clockpicker/dist/jquery-clockpicker.min.js')}}"></script>
 <script src="{{asset('assets/plugins/jquery-asColor/dist/jquery-asColor.js')}}"></script>
 <script src="{{asset('assets/plugins/jquery-asColorPicker-master/dist/jquery-asColorPicker.min.js')}}"></script>
 <script src="{{asset('assets/plugins/timepicker/bootstrap-timepicker.min.js')}}"></script>
-<script src="{{asset('assets/plugins/moment/moment.js')}}"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" charset="utf-8"></script>
+{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" charset="utf-8"></script> --}}
 
-@yield('script')
-
-{{-- <script>
-    var dateToday = new Date();
-	$('.date').datepicker({
-		multidate: true,
-		format: 'dd-mm-yyyy',
-        minDate: dateToday,
-	});
-	$('#onSubmit').click(function(){
-		var selectDate = $("#unavailable_date").val();
-		console.log(selectDate);
-	});
-</script> --}}
-
+{{-- <script src="{{ asset('assets/cdn/cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js') }}"></script>
+<script src="{{ asset('assets/cdn/cdn.datatables.net/buttons/1.2.2/js/buttons.flash.min.js') }}"></script>
+<script src="{{ asset('assets/cdn/cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js') }}"></script>
+<script src="{{ asset('assets/cdn/cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js') }}"></script>
+<script src="{{ asset('assets/cdn/cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js') }}"></script>
+<script src="{{ asset('assets/cdn/cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js') }}"></script>
+<script src="{{ asset('assets/cdn/cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js') }}"></script>
+<script data-cfasync="false"
+	src="{{ asset('assets/cdn/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js') }}"></script>
+<script src="{{asset('assets/plugins/styleswitcher/jQuery.style.switcher.js')}}"></script> --}}
 <script>
 	$(function () {
 		$('#myTable').DataTable();
@@ -83,6 +83,7 @@
 				table.order([2, 'asc']).draw();
 			}
 		});
+
 		$('#example23').DataTable({
 			dom: 'Bfrtip',
 			buttons: [
@@ -91,7 +92,25 @@
 		});
 		$('.buttons-copy, .buttons-csv, .buttons-print, .buttons-pdf, .buttons-excel').addClass('btn btn-primary mr-1');
 	});
+
 </script>
+
+
+
+@yield('script')
+
+{{-- <script>
+    var dateToday = new Date();
+	$('.date').datepicker({
+		multidate: true,
+		format: 'dd-mm-yyyy',
+        minDate: dateToday,
+	});
+	$('#onSubmit').click(function(){
+		var selectDate = $("#unavailable_date").val();
+		console.log(selectDate);
+	});
+</script> --}}
 
 <script>
 	$(document).ready(function() {
@@ -156,7 +175,6 @@
 </script>
 
 <script>
-	
 	// Clock pickers
 	$('.clockpicker').clockpicker({
 		donetext: 'Done',
@@ -168,4 +186,3 @@
 <!-- ============================================================== -->
 <!-- Style switcher -->
 <!-- ============================================================== -->
-<script src="{{asset('assets/plugins/styleswitcher/jQuery.style.switcher.js')}}"></script>
