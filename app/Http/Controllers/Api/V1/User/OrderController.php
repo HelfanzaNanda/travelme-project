@@ -207,7 +207,7 @@ class OrderController extends Controller
         ]);
     }
 
-    public function driverArrived()
+    public function orderArrived()
     {
         $order = Order::where('user_id', Auth::guard('api')->user()->id)
         ->where('arrived', true)->orderBy('id', 'ASC')->get();
