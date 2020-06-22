@@ -7,15 +7,15 @@ use Illuminate\Support\Str;
 
 class OwnerSeed extends Seeder
 {
-     **
+    /**
      * Run the database seeds.
      *
      * @return void
-     * 
+     */
     public function run()
     {
         Owner::create([
-            'license_number' => 'connext tegal 12345',
+            'license_number' => 'connext/tegal/12345',
             'business_owner' => 'connext',
             'business_name' => 'Connext Tegal',
             'address' => 'gili tugel',
@@ -30,7 +30,7 @@ class OwnerSeed extends Seeder
         ]);
 
         Owner::create([
-            'license_number' => 'connext semarang 12345',
+            'license_number' => 'connext/semarang/12345',
             'business_owner' => 'connext',
             'business_name' => 'Connext Semarang',
             'address' => 'jl. gajahmada',
@@ -45,7 +45,7 @@ class OwnerSeed extends Seeder
         ]);
 
         Owner::create([
-            'license_number' => 'connext cirebon 12345',
+            'license_number' => 'connext/cirebon/12345',
             'business_owner' => 'connext',
             'business_name' => 'Connext Cirebon',
             'address' => 'Jl. mangkukusumo',
@@ -60,7 +60,7 @@ class OwnerSeed extends Seeder
         ]);
 
         Owner::create([
-            'license_number' => 'rama sakti tegal 54321',
+            'license_number' => 'rama sakti/tegal/54321',
             'business_owner' => 'rama sakti',
             'business_name' => 'Rama Sakti Tegal',
             'address' => 'jl. kol sudiarto',
@@ -75,7 +75,7 @@ class OwnerSeed extends Seeder
         ]);
 
         Owner::create([
-            'license_number' => 'rama sakti bandung 54321',
+            'license_number' => 'rama sakti/bandung/54321',
             'business_owner' => 'rama sakti',
             'business_name' => 'Rama Sakti Bandung',
             'address' => 'stasiun bandung',
@@ -90,7 +90,7 @@ class OwnerSeed extends Seeder
         ]);
 
         Owner::create([
-            'license_number' => 'rama sakti jogja 54321',
+            'license_number' => 'rama sakti/jogja/54321',
             'business_owner' => 'rama sakti',
             'business_name' => 'Rama Sakti Jogja',
             'address' => 'stasiun jogja',
@@ -106,7 +106,7 @@ class OwnerSeed extends Seeder
 
 
         Owner::create([
-            'license_number' => 'Oke Trans Tegal 12431',
+            'license_number' => 'Oke Trans/Tegal/12431',
             'business_owner' => 'oke trans',
             'business_name' => 'Oke Trans Tegal',
             'address' => 'tegal',
@@ -121,7 +121,7 @@ class OwnerSeed extends Seeder
         ]);
 
         Owner::create([
-            'license_number' => 'Oke Trans jakarta 12431',
+            'license_number' => 'Oke Trans/jakarta/12431',
             'business_owner' => 'oke trans',
             'business_name' => 'Oke Trans Jakarta',
             'address' => 'jakarta',
@@ -136,7 +136,7 @@ class OwnerSeed extends Seeder
         ]);
 
         Owner::create([
-            'license_number' => 'Oke Trans surabaya 12431',
+            'license_number' => 'Oke Trans/surabaya/12431',
             'business_owner' => 'oke trans',
             'business_name' => 'Oke Trans Surabaya',
             'address' => 'surabaya',
@@ -151,7 +151,7 @@ class OwnerSeed extends Seeder
         ]);
 
         Owner::create([
-            'license_number' => 'andis tegal 12458',
+            'license_number' => 'andis/tegal/12458',
             'business_owner' => 'andis travel',
             'business_name' => 'andis Tegal',
             'address' => 'Tegal',
@@ -166,7 +166,7 @@ class OwnerSeed extends Seeder
         ]);
 
         Owner::create([
-            'license_number' => 'andis bandung 12453',
+            'license_number' => 'andis/bandung/12453',
             'business_owner' => 'andis travel',
             'business_name' => 'andis Bandung',
             'address' => 'Bandung',
@@ -181,7 +181,7 @@ class OwnerSeed extends Seeder
         ]);
 
         Owner::create([
-            'license_number' => 'daffa Tegal 52458',
+            'license_number' => 'daffa/Tegal/52458',
             'business_owner' => 'daffa travel',
             'business_name' => 'daffa Tegal',
             'address' => 'Tegal',
@@ -196,7 +196,7 @@ class OwnerSeed extends Seeder
         ]);
 
         Owner::create([
-            'license_number' => 'daffa solo 52458',
+            'license_number' => 'daffa/solo/52458',
             'business_owner' => 'daffa travel',
             'business_name' => 'daffa Solo',
             'address' => 'Solo',
@@ -211,7 +211,7 @@ class OwnerSeed extends Seeder
         ]);
 
         Owner::create([
-            'license_number' => 'daffa jogja 52458',
+            'license_number' => 'daffa/jogja/52458',
             'business_owner' => 'daffa travel',
             'business_name' => 'daffa Jogja',
             'address' => 'Jogja',
@@ -226,7 +226,7 @@ class OwnerSeed extends Seeder
         ]);
 
         Owner::create([
-            'license_number' => 'alvaro tegal 52458',
+            'license_number' => 'alvaro/tegal/52458',
             'business_owner' => 'alvaro travel',
             'business_name' => 'alvaro Tegal',
             'address' => 'Tegal',
@@ -241,7 +241,7 @@ class OwnerSeed extends Seeder
         ]);
 
         Owner::create([
-            'license_number' => 'alvaro semarang 52458',
+            'license_number' => 'alvaro/semarang/52458',
             'business_owner' => 'alvaro travel',
             'business_name' => 'alvaro Semarang',
             'address' => 'Semarang',
@@ -256,7 +256,7 @@ class OwnerSeed extends Seeder
         ]);
 
         Owner::create([
-            'license_number' => 'baharitrans tegal 52451',
+            'license_number' => 'baharitrans/tegal/52451',
             'business_owner' => 'Bahari Trans travel',
             'business_name' => 'Bahari Trans Tegal',
             'address' => 'Tegal',
@@ -271,7 +271,7 @@ class OwnerSeed extends Seeder
         ]);
 
         Owner::create([
-            'license_number' => 'baharitrans jakarta 52451',
+            'license_number' => 'baharitrans/jakarta/52451',
             'business_owner' => 'Bahari Trans travel',
             'business_name' => 'Bahari Trans Jakarta',
             'address' => 'Jakarta',
@@ -286,7 +286,7 @@ class OwnerSeed extends Seeder
         ]);
 
         Owner::create([
-            'license_number' => 'madatrans tegal 52451',
+            'license_number' => 'madatrans/tegal/52451',
             'business_owner' => 'Mada Trans travel',
             'business_name' => 'Mada Trans Tegal',
             'address' => 'Tegal',
@@ -301,7 +301,7 @@ class OwnerSeed extends Seeder
         ]);
 
         Owner::create([
-            'license_number' => 'madatrans jogja 52451',
+            'license_number' => 'madatrans/jogja/52451',
             'business_owner' => 'Mada Trans travel',
             'business_name' => 'Mada Trans Jogja',
             'address' => 'Jogja',
@@ -316,7 +316,7 @@ class OwnerSeed extends Seeder
         ]);
 
         Owner::create([
-            'license_number' => 'dragonjayaexpress tegal 52451',
+            'license_number' => 'dragonjayaexpress/tegal/52451',
             'business_owner' => 'Dragon Jaya Express travel',
             'business_name' => 'Dragon Jaya Express Tegal',
             'address' => 'Tegal',
@@ -331,7 +331,7 @@ class OwnerSeed extends Seeder
         ]);
 
         Owner::create([
-            'license_number' => 'dragonjayaexpress jakarta 52451',
+            'license_number' => 'dragonjayaexpress/jakarta/52451',
             'business_owner' => 'Dragon Jaya Express travel',
             'business_name' => 'Dragon Jaya Express Jakarta',
             'address' => 'Jakarta',

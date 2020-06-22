@@ -19,7 +19,7 @@ class CreateOwnersTable extends Migration
             $table->string('business_owner', '30');
             $table->string('business_name', '30');
             $table->text('address');
-            $table->string('email', '30')->unique();
+            $table->string('email', '50')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->text ('password')->nullable();
             $table->text('photo')->nullable();
