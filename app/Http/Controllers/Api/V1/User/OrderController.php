@@ -14,8 +14,6 @@ use App\Owner;
 use Exception;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Veritrans_Notification;
 use Carbon\Carbon;
 
 class OrderController extends Controller
@@ -45,11 +43,12 @@ class OrderController extends Controller
 
             $dateFormat = Carbon::parse($request->date)->format('Y-m-d');
 
-            $order = Order::latest()->first();
-            $substr = $order ? substr($order->order_id, 6) : '';
+            //$order = Order::latest()->first();
+            //$substr = $order ? substr($order->order_id, 6) : '';
 
             $data = new Order();
-            $order ? $data->order_id = 'ORDER-' . ($substr + 1) : $data->order_id = 'ORDER-101';
+            $data->order_id = rand();
+            //$order ? $data->order_id = 'ORDER-' . ($substr + 1) : $data->order_id = 'ORDER-101';
             $data->user_id = Auth::guard('api')->user()->id;
             $data->owner_id = $request->owner_id;
             $data->departure_id = $request->departure_id;
@@ -65,7 +64,7 @@ class OrderController extends Controller
             $data->lat_destination_point = $request->lat_destination_point;
             $data->lng_destination_point = $request->lng_destination_point;
             $data->verify = '1';
-            $data->status = 'aa';
+            $data->status = 'none';
             $data->arrived = false;
             $data->done = false;
             $data->save();

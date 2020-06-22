@@ -24,7 +24,7 @@ Route::post('/finish', function(){
     return redirect()->route('welcome');
 })->name('donation.finish');
 
-Route::post('notification/handler', 'Api\V1\User\OrderController@notificationHandler')->name('notification.handler');
+//Route::post('notification/handler', 'Api\V1\User\OrderController@notificationHandler')->name('notification.handler');
 
 Route::get('', function (){
     return view('landing-page');
