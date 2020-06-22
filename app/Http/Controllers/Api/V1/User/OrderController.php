@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Veritrans_Notification;
+use Carbon\Carbon;
 
 class OrderController extends Controller
 {
@@ -50,7 +51,7 @@ class OrderController extends Controller
             $data->user_id = Auth::guard('api')->user()->id;
             $data->owner_id = $request->owner_id;
             $data->departure_id = $request->departure_id;
-            $data->date = $request->date;
+            $data->date = Carbon::parse($request->date)->format('Y-m-d');
             $data->hour = $request->hour;
             $data->price = $request->price;
             $data->total_price = $request->price * $request->total_seat;
