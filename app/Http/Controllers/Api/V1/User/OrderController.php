@@ -119,7 +119,10 @@ class OrderController extends Controller
 
         try {
             $snapToken = Snap::getSnapToken($payload);
-            return response()->json($snapToken);
+            $snapOrder = Order::where('id', $request->item_details[0]['id'])->first();
+            $snapOrder->snap_token = $snapToken;
+            $snapOrder->update();
+            return response()->json($snapToken->token);
         } catch (\Exception $exception) {
             return response()->json($exception->getMessage());
         }
