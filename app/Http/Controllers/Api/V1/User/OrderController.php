@@ -195,4 +195,26 @@ class OrderController extends Controller
             'status' => true,
         ]);
     }
+
+    public function orderVerify()
+    {
+        $order = Order::where('user_id', Auth::guard('api')->user()->id)
+        ->where('verify', '2')->orderBy('id', 'ASC')->get();
+        return response()->json([
+            'message' => 'successfully get order verify by user',
+            'status' => true,
+            'data' => OrderResource::collection($order),
+        ]);
+    }
+
+    public function driverArrived()
+    {
+        $order = Order::where('user_id', Auth::guard('api')->user()->id)
+        ->where('arrived', true)->orderBy('id', 'ASC')->get();
+        return response()->json([
+            'message' => 'successfully get order arrived by user',
+            'status' => true,
+            'data' => OrderResource::collection($order),
+        ]);
+    }
 }

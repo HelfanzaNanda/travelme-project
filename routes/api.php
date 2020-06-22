@@ -35,6 +35,8 @@ Route::get('order/all', 'Api\V1\User\OrderController@getAllOrder');
 Route::post('order/store','Api\V1\User\OrderController@postOrder');
 Route::get('order/{id}/cancel/', 'Api\V1\User\OrderController@cancelorder');
 Route::post('order/{id}/update/', 'Api\V1\User\OrderController@updateorder');
+Route::get('order/arrived', 'Api\V1\User\OrderController@orderArrived');
+Route::get('order/verify', 'Api\V1\User\OrderController@orderVerify');
 
 Route::post('snap', 'Api\V1\User\OrderController@snapToken');
 Route::post('snap/charge', 'Api\V1\User\OrderController@snapToken');
