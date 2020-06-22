@@ -43,6 +43,8 @@ class OrderController extends Controller
                 return response()->json(['message' => $validator->errors(), 'status' => false, 'data' => (object) []]);
             }
 
+            $dateFormat = Carbon::parse($request->date)->format('Y-m-d');
+
             $order = Order::latest()->first();
             $substr = $order ? substr($order->order_id, 6) : '';
 
@@ -51,7 +53,7 @@ class OrderController extends Controller
             $data->user_id = Auth::guard('api')->user()->id;
             $data->owner_id = $request->owner_id;
             $data->departure_id = $request->departure_id;
-            $data->date = Carbon::parse($request->date)->format('Y-m-d');
+            $data->date = $dateFormat;
             $data->hour = $request->hour;
             $data->price = $request->price;
             $data->total_price = $request->price * $request->total_seat;
@@ -68,7 +70,8 @@ class OrderController extends Controller
             $data->done = false;
             $data->save();
 
-            $date = DateOfDeparture::where('departure_id', $request->departure_id)->where('date', $request->date)->first();
+            $date = DateOfDeparture::where('departure_id', $request->departure_id)
+            ->where('date', $dateFormat)->first();
             $hour = HourOfDeparture::where('date_id', $date->id)->where('hour', $request->hour)->first();
             $hour->remaining_seat -= $request->total_seat;
             $hour->update();
