@@ -126,42 +126,6 @@ class OrderController extends Controller
         }
     }
 
-    public function notificationHandler(Request $request)
-    {
-        $notif = new Veritrans_Notification();
-        DB::transaction(function () use ($notif) {
-            $transaction = $notif->transaction_status;
-            $type = $notif->payment_type;
-            $orderId = $notif->order_id;
-            $fraud = $notif->fraud_status;
-
-            $order = Order::findOrFail($orderId);
-
-            if ($transaction == 'capture') {
-                if ($type == 'credit_card') {
-                    if ($fraud == 'challenge') {
-                        $order->setPending();
-                    } else {
-                        $order->setSuccess();
-                    }
-                }
-            } elseif ($transaction == 'settlement') {
-                $order->setSuccess();
-            } elseif ($transaction == 'pending') {
-                $order->setPending();
-            } elseif ($transaction == 'deny') {
-                $order->setFailed();
-            } elseif ($transaction == 'expire') {
-                $order->setExpired();
-            } elseif ($transaction == 'cancel') {
-                $order->setFailed();
-            }
-        });
-
-        return;
-    }
-
-
     public function orderByUser()
     {
         try {
@@ -217,6 +181,12 @@ class OrderController extends Controller
         $order = Order::where('id', $id)->first();
         $order->status = $request->status;
         $order->update();
+
+        if($request->status == 'pending'){
+            $owner = Owner::where('id', $order->owner_id)->first();
+            $owner->balance += $order->total_price;
+            $owner->update();
+        }
 
         return response()->json([
             'message' => 'successfully update status order from user',
