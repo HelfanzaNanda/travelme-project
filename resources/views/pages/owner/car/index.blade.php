@@ -73,7 +73,7 @@
                                         </div>
                                         <div class="modal-body">
                                             <div class="d-flex justify-content-center">
-                                                <img src="{{asset('uploads/owner/car/'. $data->photo)}}"
+                                                <img src="{{$data->photo}}"
                                                     style="height: auto; width: 480px;">
                                             </div>
                                         </div>

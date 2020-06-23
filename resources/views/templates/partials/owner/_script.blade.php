@@ -20,7 +20,7 @@
 <script src="{{asset('assets/plugins/datatables.net/js/jquery.dataTables.min.js')}}"></script>
 <script src="{{asset('assets/plugins/datatables.net-bs4/js/dataTables.responsive.min.js')}}"></script>
 
-<script src="{{ asset('assets/js/bootstrap-table.init.js') }}"></script>
+{{-- <script src="{{ asset('assets/js/bootstrap-table.init.js') }}"></script> --}}
 
 <script src="{{asset('assets/plugins/dropify/dist/js/dropify.min.js')}}"></script>
 

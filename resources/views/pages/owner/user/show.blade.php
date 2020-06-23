@@ -39,7 +39,7 @@
                 </center>
             </div>
         </div>
-        @if($data->verify == '1')
+        @if($data->verify == '1' && $data->driver)
         <div class="card">
             <div class="card-body d-flex justify-content-center">
                 <div class="row">
@@ -108,9 +108,9 @@
                     <h5 class="mt-4">Perjalanan</h5>
                     <p class="text-muted">{{$data->departure->from}} -> {{$data->departure->destination}}</p>
                     <h5 class="mt-4">Alamat Penjemputan</h5>
-                    <p class="text-muted">{{$data->pickup_location}}</p>
+                    <p class="text-muted">{{$data->pickup_point}}</p>
                     <h5 class="mt-4">Alamat Tujuan</h5>
-                    <p class="text-muted">{{$data->destination_location}}</p>
+                    <p class="text-muted">{{$data->destination_point}}</p>
                     <h5 class="mt-4">Total Harga</h5>
                     <p class="text-muted">{{'Rp. '.number_format($data->total_price)}} / {{$data->total_seat}}
                         Kursi</p>

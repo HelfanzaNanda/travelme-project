@@ -34,7 +34,6 @@ class UserController extends Controller
     public function confirmed(Request $request,$id)
     {
         $driver = Driver::where('id', $request->driver_id)->first();
-
         $data = Order::findOrFail($id);
         $data->driver_id = $request->driver_id;
         $data->car_id = $driver->car_id;

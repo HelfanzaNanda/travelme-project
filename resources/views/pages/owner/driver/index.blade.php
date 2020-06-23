@@ -10,7 +10,7 @@
     </div>
     <div class="col-md-6 col-4 align-self-center">
         <a href="{{route('driver.create')}}" class="btn float-right hidden-sm-down btn-success"><i
-                class="mdi mdi-plus-circle"></i>Create</a>
+                class="mdi mdi-plus-circle"></i>Tambah</a>
     </div>
 </div>
 <!-- Start Page Content -->
@@ -51,7 +51,7 @@
                                 <td>{{$loop->iteration}}</td>
                                 <td><a class="avatar bg-danger" data-toggle="modal"
                                         data-target="#default{{$loop->iteration}}" type="button">
-                                        <img src="{{asset('uploads/owner/driver/'.$data->avatar)}}" width="40"
+                                        <img src="{{$data->avatar}}" width="40"
                                             height="40">
                                     </a>
                                 </td>
@@ -83,7 +83,7 @@
                                         </div>
                                         <div class="modal-body">
                                             <div class="d-flex justify-content-center">
-                                                <img src="{{asset('uploads/owner/driver/'.$data->avatar)}}"
+                                                <img src="{{$data->avatar}}"
                                                     style="height: 480px; width: 480px;">
                                             </div>
 

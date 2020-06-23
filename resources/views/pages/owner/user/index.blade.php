@@ -55,6 +55,7 @@
                                 <td><span class="badge badge-warning">belum di konfirmasi</span></td>
                                 @endif
 
+                                @if ($data->driver)
                                 <td>
                                     <a href="{{route('owner.user.show', $data->id)}}" class="btn btn-info btn-sm"><i
                                             class="mdi mdi-eye"></i></a>
@@ -67,6 +68,9 @@
                                         Hapus</a>
                                     @endif
                                 </td>
+                                @else
+                                    <td><span class="badge badge-danger">silahkan tambahkan driver dahulu</span></td>
+                                @endif
 
                                 <div class="modal fade" id="confirmedModal{{ $data->id }}" tabindex="-1" role="dialog"
                                     aria-labelledby="exampleModalLabel" aria-hidden="true">

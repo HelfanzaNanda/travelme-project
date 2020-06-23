@@ -51,7 +51,7 @@
                                                 <input type="hidden" value="{{$data->photo}}" name="old_photo">
                                                 <input type="file" id="input-file-now-custom-1"
                                                        name="photo" class="dropify"
-                                                       data-default-file="{{asset('/uploads/owner/car/'.$data->photo)}}"
+                                                       data-default-file="{{$data->photo}}"
                                                        data-allowed-file-extensions="png jpeg jpg"
                                                        data-max-file-size="1M"/>
                                             </div>
@@ -63,9 +63,7 @@
                                 </div>
 
                                 <div class="form-actions">
-                                    <button type="reset" class="btn btn-warning mr-1">
-                                        <i class="fa fa-close"></i> Cancel
-                                    </button>
+                                    <a href="{{ route('car.index') }}" type="button" class="btn btn-warning mr-1"><i class="fa fa-close"></i> Cancel</a>
                                     <button type="submit" class="btn btn-primary">
                                         <i class="fa fa-check-square-o"></i> Update
                                     </button>

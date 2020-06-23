@@ -35,13 +35,8 @@
 
                                     <div class="form-group">
                                         <label for="projectinput2">Mobil</label>
-                                        <select name="car_id" class="form-control">
-                                            @foreach($results as $val)
-                                                <option value="{{$val->id}}" {{ $val->id == $data->id_car ? "selected" : '' }}>
-                                                    {{$val->number_plate}}
-                                                </option>
-                                            @endforeach
-                                        </select>
+                                        <input type="text" class="form-control" value="{{$data->car->number_plate}}"
+                                               readonly>
                                     </div>
 
                                     <div class="form-group">
@@ -106,16 +101,14 @@
                                         <input type="file" id="photo" name="avatar"
                                                class="dropify" data-allowed-file-extensions="png jpeg jpg"
                                                data-max-file-size="1M"
-                                               data-default-file="{{asset('uploads/owner/driver/'.$data->avatar)}}"/>
+                                               data-default-file="{{$data->avatar}}"/>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="form-actions">
-                            <button type="reset" class="btn btn-warning mr-1">
-                                <i class="fa fa-close"></i> Cancel
-                            </button>
+                            <a href="{{ route('driver.index') }}" type="button" class="btn btn-warning mr-1"><i class="fa fa-close"></i> Cancel</a>
                             <button type="submit" class="btn btn-primary">
                                 <i class="fa fa-check-square-o"></i> Save
                             </button>
