@@ -33,6 +33,7 @@ class OrderResource extends JsonResource
             "arrived" => $this->arrived,
             "done" => $this->done,
             "snap_token" => $this->snap_token,
+            "domicile" => $this->domicile,
             "user" => new UserResource($this->user),
             "owner" => new OwnerResource($this->owner),
             "departure" => new DepartureResource($this->departure),
