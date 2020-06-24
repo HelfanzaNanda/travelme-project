@@ -24,6 +24,8 @@ Route::group(['prefix' => 'user'], function (){
 
 Route::get('users','Api\V1\User\UserController@getUsers');
 
+Route::get('domicile', 'Api\V1\User\DepartureController@getDomicile');
+
 Route::get('destination/tegal', 'Api\V1\User\DepartureController@getDestinationTegal');
 Route::get('destination/other','Api\V1\User\DepartureController@getDestinationOther');
 

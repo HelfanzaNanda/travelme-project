@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Departure;
 use App\Http\Resources\User\DepartureResource;
+use App\Owner;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\Validator;
@@ -30,6 +31,18 @@ class DepartureController extends Controller
     //         ]);
     //     }
     // }
+
+
+    public function getDomicile()
+    {
+        $domicile = Owner::all('domicile');
+
+        return response()->json([
+            'message' => 'successfully get domicile',
+            'status' => true,
+            'data' => $domicile
+        ]);
+    }
 
 
     public function getDestinationTegal()
