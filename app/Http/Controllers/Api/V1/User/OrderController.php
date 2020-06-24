@@ -4,12 +4,12 @@ namespace App\Http\Controllers\Api\V1\User;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\User\OrderResource;
 use App\DateOfDeparture;
 use App\HourOfDeparture;
 use App\Order;
 use App\Http\Controllers\Midtrans\Snap;
 use App\Http\Controllers\Midtrans\Config;
+use App\Http\Resources\v2\OrderResource;
 use App\Owner;
 use Exception;
 use Illuminate\Support\Facades\Validator;
@@ -132,7 +132,7 @@ class OrderController extends Controller
     {
         try {
             $order = Order::where('user_id', Auth::guard('api')->user()->id)
-                ->whereBetween('verify', ['1', '2'])->orderBy('id', 'ASC')->get();
+                ->whereBetween('verify', ['1', '2'])->orderBy('id', 'DESC')->get();
 
             return response()->json([
                 'message' => 'successfully get order by user',

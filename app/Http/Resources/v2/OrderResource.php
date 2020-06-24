@@ -17,8 +17,8 @@ class OrderResource extends JsonResource
         return [
             "id" => $this->id,
             "order_id" => $this->order_id,
-            "date" => $this->date,
-            "hour" => $this->hour,
+            'date' => date('d-m-Y', strtotime($this->date)),
+            'hour' => date('H:i', strtotime($this->hour)),
             "price" => $this->price,
             "total_price" => $this->total_price,
             "total_seat" => $this->total_seat,

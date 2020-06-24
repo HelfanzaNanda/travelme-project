@@ -4,13 +4,12 @@ namespace App\Http\Controllers\Api\V1\User;
 
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\User\UserResource;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 use App\Http\Controllers\Midtrans\Config;
-
+use App\Http\Resources\v2\UserResource;
 use Carbon\Carbon;
 
 /**
