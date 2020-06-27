@@ -273,10 +273,10 @@ class ScheduleController extends Controller
                 ]);
             }
         } elseif (count($requestDates) > count($dbDates)) {
-            $lastIdDate = DateOfDeparture::latest('id')->first();
             foreach ($arrDiffReq as $value) {
+                $lastIdDate = DateOfDeparture::latest('id')->pluck('id')->first();
                 $itemDate = [
-                    'id' => $lastIdDate == null ? 1 : $lastIdDate->id + 1,
+                    'id' => $lastIdDate == null ? 1 : $lastIdDate + 1,
                     'owner_id' => Auth::guard('owner')->user()->id,
                     'departure_id' => $id,
                     'date' => $value

@@ -190,7 +190,6 @@ class DriverController extends Controller
 
         $data               = Driver::findOrFail($id);
         $data->owner_id     = Auth::guard('owner')->user()->id;
-        $data->car_id       = $request->car_id;
         $data->name         = $request->name;
         $data->gender       = $request->gender;
         $data->telephone    = $request->telephone;

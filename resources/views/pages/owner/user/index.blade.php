@@ -55,7 +55,7 @@
                                 <td><span class="badge badge-warning">belum di konfirmasi</span></td>
                                 @endif
 
-                                @if ($data->driver)
+                                @if (count($drivers) > 0)
                                 <td>
                                     <a href="{{route('owner.user.show', $data->id)}}" class="btn btn-info btn-sm"><i
                                             class="mdi mdi-eye"></i></a>

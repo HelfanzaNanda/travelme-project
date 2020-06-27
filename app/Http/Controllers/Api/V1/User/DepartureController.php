@@ -39,7 +39,7 @@ class DepartureController extends Controller
             ->whereHas('departure', function($q) use($from, $destination){
                 $q->where('from', $from)->where('destination', $destination);
             });
-        })->orderBy('id', 'ASC')->get();
+        })->where('remaining_seat','!=', 0)->orderBy('hour', 'ASC')->get();
 
         return response()->json([
             'message' => 'successfully search travel',
@@ -61,7 +61,7 @@ class DepartureController extends Controller
             ->whereHas('departure', function($q) use ($from, $destination){
                 $q->where('from', $from)->where('destination', $destination);
             });
-        })->where('hour', $hour)->orderBy('id', 'ASC')->get();
+        })->where('hour', $hour)->where('remaining_seat','!=', 0)->orderBy('id', 'ASC')->get();
 
         return response()->json([
             'message' => 'successfully search travel',

@@ -155,6 +155,8 @@
 
 <script>
     var dateToday = new Date();
+    console.log(dateToday);
+    
     
 	$('.tanggal').datepicker({
 		multidate: true,
@@ -162,7 +164,7 @@
         todayHighlight: true,
         clearBtn: true,
         toggleActive: true,
-        minDate: dateToday
+        startDate: new Date()
 	});
 
     
