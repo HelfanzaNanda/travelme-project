@@ -86,10 +86,22 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <input type="text" name="account_number" class="form-control" placeholder="Nomor Rekening">
+                        <input type="text" name="account_number" class="form-control {{$errors->has('account_number')?'is-invalid':''}}" 
+                        placeholder="Nomor Rekening" value="{{ old('account_number') }}">
+                        @if ($errors->has('account_number'))
+                        <span class="invalid-feedback" role="alert">
+                            <p><b>{{ $errors->first('account_number') }}</b></p>
+                        </span>
+                        @endif
                     </div>
                     <div class="form-group">
-                        <input type="text" name="account_name" class="form-control" placeholder="Atas Nama Rekening">
+                        <input type="text" name="account_name" class="form-control {{$errors->has('account_name')?'is-invalid':''}}" 
+                        placeholder="Atas Nama Rekening" value="{{ old('account_name') }}">
+                        @if ($errors->has('account_name'))
+                        <span class="invalid-feedback" role="alert">
+                            <p><b>{{ $errors->first('account_name') }}</b></p>
+                        </span>
+                        @endif
                     </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-success">tarik saldo</button>

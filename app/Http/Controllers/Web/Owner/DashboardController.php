@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Web\Owner;
 
+use App\Car;
 use App\Charts\DashboardChart;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ChartResource;
 use App\Order;
 use App\Owner;
+use Carbon\Carbon;
 use FontLib\Table\Type\name;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -39,6 +41,19 @@ class DashboardController extends Controller
 
     public function take(Request $request)
     {
+
+        $rules = [
+            'account_number' => 'required',
+            'account_name' => 'required|regex:/^[\pL\s\-]+$/u|min:5'
+        ];
+
+        $message =[
+            'required'  => ':attribute tidak boleh kosong',
+            'name.regex'     => ':attribute harus huruf semua'
+        ];
+
+        $this->validate($request, $rules, $message);
+
         $balance = Auth::guard('owner')->user()->balance;
 
         if ($request->balance > $balance) {
@@ -50,12 +65,14 @@ class DashboardController extends Controller
     {
         $orders = Order::where('owner_id', Auth::guard('owner')->user()->id)->get(['departure_id', 'date']);
         $results = [];
+        $year = Carbon::now()->year;
+
         foreach ($orders as $key => $order) {
             $departure = $order->departure->from . ' -> ' . $order->departure->destination;
             $count = [];
                 for ($i = 1; $i <= 12; $i++) {
                     $order_count = Order::where('owner_id', Auth::guard('owner')->user()->id)
-                        ->whereMonth('date', $i)
+                        ->whereMonth('date', $i)->whereYear('date', $year)
                         ->where('done', true)->get()->count();
                     array_push($count, $order_count);
                 }
@@ -68,6 +85,7 @@ class DashboardController extends Controller
                     $results[$key] = $item;
                 }
         }
+
         return response()->json($results);
     }
 }

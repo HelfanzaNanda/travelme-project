@@ -22,7 +22,8 @@ class UserController extends Controller
     {
         $drivers = Driver::where('owner_id', Auth::guard('owner')->user()->id)
         ->where('you_are_domicilied', true)->get();
-        $datas = Order::where('owner_id', Auth::guard('owner')->user()->id)->get();
+        $datas = Order::where('owner_id', Auth::guard('owner')->user()->id)
+        ->orderBy('id', 'ASC')->get();
         return view('pages.owner.user.index', compact(['datas', 'drivers']));
     }
 

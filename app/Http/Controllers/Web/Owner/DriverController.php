@@ -29,7 +29,8 @@ class DriverController extends Controller
     public function index()
     {
 
-        $datas = Driver::where('owner_id', Auth::guard('owner')->user()->id)->where('active', true)->get();
+        $datas = Driver::where('owner_id', Auth::guard('owner')->user()->id)->where('active', true)
+        ->orderBy('id', 'ASC')->get();
 
         return view('pages.owner.driver.index', compact('datas'));
     }
@@ -183,7 +184,8 @@ class DriverController extends Controller
             'digits_between' => ':attribute setidaknya :min sampai :max karakter',
             'numeric'   => ':attribute hanya boleh angka',
             'digits'    => ':attribute harus :digits karakter',
-            'regex'     => ':attribute harus sesuai format 08xx-xxxx-xxxx'
+            'telephone.regex'     => ':attribute harus sesuai format 08xx-xxxx-xxxx',
+            'name.regex'     => ':attribute harus huruf semua'
         ];
 
         $this->validate($request, $rules, $message);
