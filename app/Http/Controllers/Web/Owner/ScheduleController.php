@@ -45,25 +45,33 @@ class ScheduleController extends Controller
     {
         $domicile = Owner::where('id', Auth::guard('owner')->user()->id)->pluck('domicile')->first();
 
+        if ($domicile == "Tegal") {
+            $departures = Departure::where('owner_id', Auth::guard('owner')->user()->id)->get();
 
-        $departures = Departure::where('owner_id', Auth::guard('owner')->user()->id)->get();
+            if (count($departures) == 0) {
+                $destinations = Owner::where('business_owner', Auth::guard('owner')->user()->business_owner)
+                    ->where('domicile', '!=', $domicile)->get();
+            } else {
+                $destinations = [];
+                $dests = Owner::where('business_owner', Auth::guard('owner')->user()->business_owner)->where('domicile', '!=', $domicile)->get();
+                foreach ($dests as $key => $value) {
+                    $departure = Departure::where('owner_id', Auth::guard('owner')->user()->id)
+                        ->where('destination', $value->domicile)->first();
 
-        if (count($departures) == 0) {
-            $destinations = Owner::where('business_owner', Auth::guard('owner')->user()->business_owner)
-                ->where('domicile', '!=', $domicile)->get();
-        } else {
-            $destinations = [];
-            $dests = Owner::where('business_owner', Auth::guard('owner')->user()->business_owner)->where('domicile', '!=', $domicile)->get();
-            foreach ($dests as $key => $value) {
-                $departure = Departure::where('owner_id', Auth::guard('owner')->user()->id)
-                    ->where('destination', $value->domicile)->first();
-
-                if (!$departure) {
-                    array_push($destinations, $value);
+                    if (!$departure) {
+                        array_push($destinations, $value);
+                    }
                 }
             }
-        }
 
+            $arrDest = [];
+            foreach ($destinations as $dest) {
+                array_push($arrDest, $dest->domicile);
+            }
+        }else{
+            $departure = Departure::where('owner_id', Auth::guard('owner')->user()->id)->first();
+            $departure ? $arrDest = [] : $arrDest = ['Tegal'];
+        }
 
 
         // $destinations = Owner::where('business_owner', Auth::guard('owner')->user()->business_owner)
@@ -72,9 +80,9 @@ class ScheduleController extends Controller
             ->where('owner_id', Auth::guard('owner')->user()->id)->get()->count();
 
         if ($car > 0) {
-            if (count($destinations) > 0) {
+            if (count($arrDest) > 0) {
                 $cars = Car::where('owner_id', Auth::guard('owner')->user()->id)->get();
-                return view('pages.owner.schedule.create', compact(['cars', 'domicile', 'destinations']));
+                return view('pages.owner.schedule.create', compact(['cars', 'domicile', 'arrDest']));
             } else {
                 return redirect()->back()->with('warning', 'harus ada agent travel di kota lain yg sudah terdaftar di sistem ini, atau agent travel di kota lain sudah di tambahkan semua');
             }

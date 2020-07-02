@@ -17,7 +17,7 @@ class DepartureController extends Controller
 
     public function getDomicile()
     {
-        $domicile = Owner::where('domicile', '!=', 'Tegal')->orderBy('domicile', 'DESC')->get('domicile');
+        $domicile = Owner::where('domicile', '!=', 'Tegal')->orderBy('domicile', 'ASC')->get('domicile');
 
         return response()->json([
             'message' => 'successfully get domicile',

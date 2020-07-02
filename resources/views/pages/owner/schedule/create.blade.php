@@ -29,27 +29,14 @@
                                 <div class="form-group">
                                     <label for="projectinput2">Tujuan</label>
 
-                                    <select name="destination" class="form-control">
-                                        @foreach ($destinations as $destination)
-                                        <option value="{{ $destination->domicile }}">{{ $destination->domicile }}
+                                    <select name="destination" class="form-control"
+                                    {{ $arrDest[0] == 'Tegal' ? 'readonly' : '' }}>
+                                        @foreach ($arrDest as $dest)
+                                        <option value="{{ $dest }}">{{ $dest }}
                                         </option>
                                         @endforeach
                                     </select>
                                 </div>
-
-                                {{-- <div class="form-group">
-                                        <label for="projectinput2">Tujuan</label>
-                                        @php
-                                            $destination = ['Bandung', 'Bekasi', 'Bogor', 'Jakarta',
-                                            'Jogja', 'Magelang', 'Malang','Semarang', 'Solo',
-                                            'Surabaya', 'Tanggerang'];
-                                        @endphp
-                                        <select name="destination" class="form-control">
-                                            @for ($i = 0; $i < count($destination); $i++)
-                                                <option value="{{ $destination[$i] }}">{{ $destination[$i] }}</option>
-                                @endfor
-                                </select>
-                            </div> --}}
 
                             <div class="form-group">
                                 <label for="projectinput2">Harga</label>
@@ -72,7 +59,7 @@
                                 <label for="projectinput2">Tanggal</label>
                                 <div class='input-group mb-3'>
                                     <input class="form-control {{$errors->has('date')?'is-invalid':''}} tanggal"
-                                        type="text" name="date" id="tanggal" readonly style="cursor: pointer;">
+                                        type="text" name="date" id="tanggal" readonly style="cursor: pointer; background: white">
                                     <div class="input-group-append">
                                         <span class="input-group-text"><span class="ti-calendar"></span></span>
                                     </div>
@@ -93,7 +80,7 @@
                                         </button>
                                     </div>
                                     <input class="form-control {{$errors->has('hour.0')?'is-invalid':''}}" type="text"
-                                        name="hour[]" readonly style="cursor: pointer;">
+                                        name="hour[]" readonly style="cursor: pointer; background: white">
                                     <div class="input-group-append">
                                         <span class="input-group-text"><i class="far fa-clock"></i></span>
                                     </div>
