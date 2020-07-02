@@ -56,11 +56,11 @@ class UserController extends Controller
         $dataBuilder->addData(['a_data' => 'my_data']);
         $option = $optionBuilder->build();
         $notification = $notificationBuilder->build();
-        $data = $dataBuilder->build();
+        $_data = $dataBuilder->build();
         
         // You must change it to get your tokens
         $token = $data->user->fcm_token;
-        $downstreamResponse = FacadesFCM::sendTo($token, $option, $notification, $data);
+        $downstreamResponse = FacadesFCM::sendTo($token, $option, $notification, $_data);
 
         return redirect()->route('owner.user.index')->with('success', 'Berhasil Mengkonfirmasi Pesanan');
     }
