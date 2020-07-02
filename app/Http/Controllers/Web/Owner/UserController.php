@@ -10,6 +10,10 @@ use App\Order;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use LaravelFCM\Message\OptionsBuilder;
+use LaravelFCM\Message\PayloadDataBuilder;
+use LaravelFCM\Message\PayloadNotificationBuilder;
+use LaravelFCM\Facades\FCM as FacadesFCM;
 
 class UserController extends Controller
 {
@@ -42,6 +46,21 @@ class UserController extends Controller
         $data->car_id = $driver->car_id;
         $data->verify = '2';
         $data->update();
+
+        $optionBuilder = new OptionsBuilder();
+        $optionBuilder->setTimeToLive(60*20);
+        $notificationBuilder = new PayloadNotificationBuilder('my title');
+        $notificationBuilder->setBody('Hello world')->setSound('default');
+        
+        $dataBuilder = new PayloadDataBuilder();
+        $dataBuilder->addData(['a_data' => 'my_data']);
+        $option = $optionBuilder->build();
+        $notification = $notificationBuilder->build();
+        $data = $dataBuilder->build();
+        
+        // You must change it to get your tokens
+        $token = $data->user->fcm_token;
+        $downstreamResponse = FacadesFCM::sendTo($token, $option, $notification, $data);
 
         return redirect()->route('owner.user.index')->with('success', 'Berhasil Mengkonfirmasi Pesanan');
     }
