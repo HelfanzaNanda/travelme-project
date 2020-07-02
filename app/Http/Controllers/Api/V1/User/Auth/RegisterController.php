@@ -40,6 +40,7 @@ class RegisterController extends Controller
             $data->password = Hash::make($request->password);
             $data->telp = $request->telp;
             $data->api_token = Str::random(80);
+            $data->fcm_token = $request->fcm_token;
             $data->active =  true;
             $data->save();
             $data->sendApiEmailVerificationNotification();

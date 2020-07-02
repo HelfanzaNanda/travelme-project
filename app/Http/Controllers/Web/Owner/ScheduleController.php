@@ -57,7 +57,6 @@ class ScheduleController extends Controller
                 foreach ($dests as $key => $value) {
                     $departure = Departure::where('owner_id', Auth::guard('owner')->user()->id)
                         ->where('destination', $value->domicile)->first();
-
                     if (!$departure) {
                         array_push($destinations, $value);
                     }
