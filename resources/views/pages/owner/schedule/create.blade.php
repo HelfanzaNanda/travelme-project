@@ -40,8 +40,8 @@
                                 {{-- <div class="form-group">
                                         <label for="projectinput2">Tujuan</label>
                                         @php
-                                            $destination = ['Bandung', 'Bekasi', 'Bogor', 'Jakarta', 
-                                            'Jogja', 'Magelang', 'Malang','Semarang', 'Solo', 
+                                            $destination = ['Bandung', 'Bekasi', 'Bogor', 'Jakarta',
+                                            'Jogja', 'Magelang', 'Malang','Semarang', 'Solo',
                                             'Surabaya', 'Tanggerang'];
                                         @endphp
                                         <select name="destination" class="form-control">
@@ -72,7 +72,7 @@
                                 <label for="projectinput2">Tanggal</label>
                                 <div class='input-group mb-3'>
                                     <input class="form-control {{$errors->has('date')?'is-invalid':''}} tanggal"
-                                        type="text" name="date" id="tanggal">
+                                        type="text" name="date" id="tanggal" readonly style="cursor: pointer;">
                                     <div class="input-group-append">
                                         <span class="input-group-text"><span class="ti-calendar"></span></span>
                                     </div>
@@ -93,7 +93,7 @@
                                         </button>
                                     </div>
                                     <input class="form-control {{$errors->has('hour.0')?'is-invalid':''}}" type="text"
-                                        name="hour[]">
+                                        name="hour[]" readonly style="cursor: pointer;">
                                     <div class="input-group-append">
                                         <span class="input-group-text"><i class="far fa-clock"></i></span>
                                     </div>
@@ -156,8 +156,8 @@
 <script>
     var dateToday = new Date();
     console.log(dateToday);
-    
-    
+
+
 	$('.tanggal').datepicker({
 		multidate: true,
 		format: 'dd-mm-yyyy',
@@ -167,7 +167,7 @@
         startDate: new Date()
 	});
 
-    
+
 	// $('#onSubmit').click(function(){
 	// 	var selectDate = $("#unavailable_date").val();
 	// 	console.log(selectDate);

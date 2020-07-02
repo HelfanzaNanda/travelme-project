@@ -17,7 +17,7 @@ class DepartureController extends Controller
 
     public function getDomicile()
     {
-        $domicile = Owner::where('domicile', '!=', 'Tegal')->get('domicile');
+        $domicile = Owner::where('domicile', '!=', 'Tegal')->orderBy('domicile', 'DESC')->get('domicile');
 
         return response()->json([
             'message' => 'successfully get domicile',
@@ -34,17 +34,26 @@ class DepartureController extends Controller
         $destination = $request->destination;
         $now = Carbon::now();
 
-        $data = HourOfDeparture::whereHas('date', function($query) use ($date, $now, $from, $destination){
+        $hours = HourOfDeparture::whereHas('date', function($query) use ($date, $now, $from, $destination){
             $query->whereDate('date', '>=', $now)->whereDate('date', $date)
             ->whereHas('departure', function($q) use($from, $destination){
                 $q->where('from', $from)->where('destination', $destination);
             });
         })->where('remaining_seat','!=', 0)->orderBy('hour', 'ASC')->get();
 
+        $results = [];
+        foreach($hours as $hour){
+            $minute = substr($hour, 3);
+            if($minute != '00'){
+                $minute = '00';
+                array_push($results, $hour);
+            }
+        }
+
         return response()->json([
             'message' => 'successfully search travel',
             'status' => true,
-            'data' => HourResource::collection($data)
+            'data' => HourResource::collection(collect($results))
         ]);
     }
 
