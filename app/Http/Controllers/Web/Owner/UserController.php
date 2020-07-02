@@ -49,8 +49,9 @@ class UserController extends Controller
 
         $optionBuilder = new OptionsBuilder();
         $optionBuilder->setTimeToLive(60*20);
-        $notificationBuilder = new PayloadNotificationBuilder('my title');
-        $notificationBuilder->setBody('Hello world')->setSound('default');
+        $message = "Pesanan Anda Sudah Di Verifikasi Admin, Silahkan Lanjutkan Pembayaran";
+        $notificationBuilder = new PayloadNotificationBuilder('travelme');
+        $notificationBuilder->setBody($message)->setSound('default');
         
         $dataBuilder = new PayloadDataBuilder();
         $dataBuilder->addData(['a_data' => 'my_data']);
