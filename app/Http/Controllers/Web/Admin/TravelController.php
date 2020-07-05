@@ -23,7 +23,7 @@ class TravelController extends Controller
     {
         $datas = Travel::all()->where('status', '1');
         //dd($datas);
-        return  view('pages.admin.owner.index', compact('datas'));
+        return  view('pages.admin.travel.index', compact('datas'));
     }
 
     /**
@@ -33,7 +33,7 @@ class TravelController extends Controller
      */
     public function create()
     {
-        return view('pages.admin.owner.create');
+        return view('pages.admin.travel.create');
     }
 
     /**
@@ -44,20 +44,28 @@ class TravelController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,[
-            'license_number' => 'required|unique:travels|max:11',
-            'business_owner' => 'required',
-            'business_name' => 'required',
-        ]);
+        $rules = [
+            'license_number'    => 'required|unique:travels',
+            'business_owner'    => 'required',
+            'business_name'     => 'required',
+            'domicile'         => 'required',
+        ];
+
+        $message = [
+            'required' => ':attribute tidak boleh kosong',
+            'unique' => ':attribute sudah terdaftar',
+        ];
+
+        $this->validate($request, $rules, $message);
 
         $travel = new Travel();
         $travel->license_number = $request->license_number;
         $travel->business_owner = $request->business_owner;
-        $travel->business_name = $request->business_name;
-        $data->domicile         = $request->domicile;
+        $travel->business_name  = $request->business_name;
+        $travel->domicile       = ucwords($request->domicile);
         $travel->save();
 
-        return redirect()->route('owner.index')->with('create', 'Berhasil Menambahkan Data');
+        return redirect()->route('admin.travel.index')->with('success', 'Berhasil Menambahkan Data');
     }
 
     /**
@@ -80,7 +88,7 @@ class TravelController extends Controller
     public function edit($id)
     {
         $data = Travel::findOrFail($id);
-        return view('pages.admin.owner.edit', compact('data'));
+        return view('pages.admin.travel.edit', compact('data'));
     }
 
     /**
@@ -104,7 +112,7 @@ class TravelController extends Controller
 
         //dd($request->all());
 
-        return redirect()->route('owner.index')->with('update', 'Berhasil Mengupdate Data!');
+        return redirect()->route('admin.travel.index')->with('success', 'Berhasil Mengupdate Data!');
     }
 
     /**
@@ -117,6 +125,6 @@ class TravelController extends Controller
     {
         $data = Travel::find($id);
         $data->update(['status' => '0']);
-        return redirect()->route('owner.index')->with('delete', 'Berhasil Menghapus Data!');
+        return redirect()->route('admin.travel.index')->with('success', 'Berhasil Menghapus Data!');
     }
 }

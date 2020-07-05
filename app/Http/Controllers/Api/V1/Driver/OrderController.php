@@ -7,6 +7,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\User\OrderResource;
 use App\Order;
 use Illuminate\Support\Facades\Auth;
+use LaravelFCM\Message\OptionsBuilder;
+use LaravelFCM\Message\PayloadDataBuilder;
+use LaravelFCM\Message\PayloadNotificationBuilder;
+use LaravelFCM\Facades\FCM as FacadesFCM;
 
 class OrderController extends Controller
 {
@@ -40,6 +44,22 @@ class OrderController extends Controller
         $order = Order::findOrFail($id);
         $order->arrived = true;
         $order->update();
+
+        $optionBuilder = new OptionsBuilder();
+        $optionBuilder->setTimeToLive(60*20);
+        $message = "Pesanan Anda Di Tolak";
+        $notificationBuilder = new PayloadNotificationBuilder('travelme');
+        $notificationBuilder->setBody($message)->setSound('default');
+
+        $dataBuilder = new PayloadDataBuilder();
+        $dataBuilder->addData(['a_data' => 'my_data']);
+        $option = $optionBuilder->build();
+        $notification = $notificationBuilder->build();
+        $_data = $dataBuilder->build();
+
+        // You must change it to get your tokens
+        $token = $data->user->fcm_token;
+        $downstreamResponse = FacadesFCM::sendTo($token, $option, $notification, $_data);
 
         return response()->json([
             'message' => 'the driver arrived at the pickup location',

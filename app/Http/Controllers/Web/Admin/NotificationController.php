@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web\Admin;
 use App\Http\Controllers\Controller;
 use App\Owner;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class NotificationController extends Controller
 {
@@ -29,7 +30,18 @@ class NotificationController extends Controller
     {
         $data = Owner::findOrFail($id);
         $data->update(['active' => '2']);
-        return redirect()->route('notification.index')->with('create', 'Berhasil Mengkonfirmasi Travel');
+        $this->sendEmail($data);
+        return redirect()->route('notification.index')->with('success', 'Berhasil Mengkonfirmasi Travel');
+    }
+
+
+    private function sendEmail($owner)
+    {
+        Mail::send('send_email.email.acc', function ($message) use($owner){
+            $message->from('travelme@gmail.com', 'Travelme');
+            $message->to($owner->email, $owner->business_name);
+            $message->subject('Akun Anda Telah DiVerifikasi');
+        });
     }
 
     /**
@@ -42,6 +54,6 @@ class NotificationController extends Controller
     {
         $data = Owner::find($id);
         $data->update(['active' => '0']);
-        return redirect()->route('notification.index')->with('create', 'Berhasil Tidak Mengkonfirmasi Travel');
+        return redirect()->route('notification.index')->with('success   ', 'Berhasil Tidak Mengkonfirmasi Travel');
     }
 }

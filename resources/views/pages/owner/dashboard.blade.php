@@ -1,16 +1,4 @@
 @extends('templates.owner')
-{{-- @section('head')
-<link rel="stylesheet" href="{{ asset('css/highcharts.css') }}">
-@endsection --}}
-@section('head')
-{{-- <link href="{{ asset('assets/plugins/chartist-js/dist/chartist.min.css') }}" rel="stylesheet">
-<link href="{{ asset('assets/plugins/chartist-js/dist/chartist-init.css') }}" rel="stylesheet">
-<link href="{{ asset('assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.css') }}"
-    rel="stylesheet">
-<link href="{{ asset('assets/plugins/css-chart/css-chart.css') }}" rel="stylesheet"> --}}
-
-@endsection
-
 @section('content')
 <div class="row page-titles">
     <div class="col-md-6 col-8 align-self-center">
@@ -26,6 +14,14 @@
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">×</span>
     </button>
     <h3 class="text-danger"> Error</h3> {{ $message }}
+</div>
+@endif
+
+@if ($message = Session::get('success'))
+<div class="alert alert-success">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">×</span>
+    </button>
+    <h3 class="text-success"> Berhasil</h3> {{ $message }}
 </div>
 @endif
 
@@ -76,34 +72,16 @@
                     <h2 class="card-text font-light mb-0">Rp. {{ number_format($owner->balance) }}</h2>
                 </div>
                 @php($dummy_balance = ['500000', '1000000', '2000000'])
-                <form action="{{ route('owner.take.balance') }}" method="POST">
+                <form action="{{ route('owner.take.balance') }}" method="POST" class="row">
                     @csrf
-                    <div class="form-group">
+                    <div class="form-group col-md-8">
                         <select name="balance" class="form-control">
                             @for ($i = 0; $i < count($dummy_balance); $i++) <option value="{{ $dummy_balance[$i] }}">Rp.
                                 {{ number_format($dummy_balance[$i]) }}</option>
                                 @endfor
                         </select>
                     </div>
-                    <div class="form-group">
-                        <input type="text" name="account_number" class="form-control {{$errors->has('account_number')?'is-invalid':''}}" 
-                        placeholder="Nomor Rekening" value="{{ old('account_number') }}">
-                        @if ($errors->has('account_number'))
-                        <span class="invalid-feedback" role="alert">
-                            <p><b>{{ $errors->first('account_number') }}</b></p>
-                        </span>
-                        @endif
-                    </div>
-                    <div class="form-group">
-                        <input type="text" name="account_name" class="form-control {{$errors->has('account_name')?'is-invalid':''}}" 
-                        placeholder="Atas Nama Rekening" value="{{ old('account_name') }}">
-                        @if ($errors->has('account_name'))
-                        <span class="invalid-feedback" role="alert">
-                            <p><b>{{ $errors->first('account_name') }}</b></p>
-                        </span>
-                        @endif
-                    </div>
-                    <div class="form-group">
+                    <div class="form-group col-md-4">
                         <button type="submit" class="btn btn-success">tarik saldo</button>
                     </div>
                 </form>
@@ -140,10 +118,9 @@
 
 <script>
 const url = '{{ config('app.url') }}';
-// console.log(url);
 
 async function dashboard() {
-    
+
     "use strict";
 
     const data = await getData();
@@ -162,50 +139,24 @@ async function dashboard() {
         },
         xaxis: {
           categories: ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'],
-          
+
         },
         yaxis: {
-            onlyInteger: false, 
+            onlyInteger: false,
             offsetY: 0,
             labels:{
                 formater: function(val){return val}
-            } 
+            }
             // labelInterpolationFnc: function (value) {
             //     // console.log(value);
             //     return (value );
             // }
         }
-        
+
         };
 
         var chart = new ApexCharts(document.querySelector("#chart"), options);
         chart.render();
-
-
-
-
-    
-    // new Chartist.Line('.total-revenue4', {
-    //     labels: ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'],
-    //     series: data
-    // }, 
-    // {
-    //     high: 15, 
-    //     low: 0, 
-    //     showArea: true, 
-    //     fullWidth: true,
-    //     plugins: [
-    //         Chartist.plugins.tooltip()
-    //     ],
-    //     axisY: {
-    //         onlyInteger: true, 
-    //         offset: 20, 
-    //         labelInterpolationFnc: function (value) {
-    //             return (value / 1);
-    //         }
-    //     }
-        
-    // }); 
 }
 
 dashboard();

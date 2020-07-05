@@ -19,7 +19,7 @@ class OwnerSeed extends Seeder
             'business_owner' => 'connext',
             'business_name' => 'Connext Tegal',
             'address' => 'gili tugel',
-            'email' => 'connexttegal@mail.com',
+            'email' => 'connexttegal@gmail.com',
             'password' => Hash::make('12345678'),
             'photo' => 'connext.jpg',
             'telephone' => '089663543355',
@@ -34,7 +34,7 @@ class OwnerSeed extends Seeder
             'business_owner' => 'connext',
             'business_name' => 'Connext Semarang',
             'address' => 'jl. gajahmada',
-            'email' => 'connextsemarang@mail.com',
+            'email' => 'connextsemarang@gmail.com',
             'password' => Hash::make('12345678'),
             'photo' => 'connext.jpg',
             'telephone' => '089432432123',
@@ -49,7 +49,7 @@ class OwnerSeed extends Seeder
             'business_owner' => 'connext',
             'business_name' => 'Connext Cirebon',
             'address' => 'Jl. mangkukusumo',
-            'email' => 'connextcirebon@mail.com',
+            'email' => 'connextcirebon@gmail.com',
             'password' => Hash::make('12345678'),
             'photo' => 'connext.jpg',
             'telephone' => '089442432123',
@@ -64,7 +64,7 @@ class OwnerSeed extends Seeder
             'business_owner' => 'rama sakti',
             'business_name' => 'Rama Sakti Tegal',
             'address' => 'jl. kol sudiarto',
-            'email' => 'ramategal@mail.com',
+            'email' => 'ramategal@gmail.com',
             'password' => Hash::make('12345678'),
             'photo' => 'rama.jpg',
             'telephone' => '089663543354',
@@ -79,7 +79,7 @@ class OwnerSeed extends Seeder
             'business_owner' => 'rama sakti',
             'business_name' => 'Rama Sakti Bandung',
             'address' => 'stasiun bandung',
-            'email' => 'ramabandung@mail.com',
+            'email' => 'ramabandung@gmail.com',
             'password' => Hash::make('12345678'),
             'photo' => 'rama.jpg',
             'telephone' => '089663543369',
@@ -94,7 +94,7 @@ class OwnerSeed extends Seeder
             'business_owner' => 'rama sakti',
             'business_name' => 'Rama Sakti Jogja',
             'address' => 'stasiun jogja',
-            'email' => 'ramajogja@mail.com',
+            'email' => 'ramajogja@gmail.com',
             'password' => Hash::make('12345678'),
             'photo' => 'rama.jpg',
             'telephone' => '089663543366',
@@ -104,13 +104,28 @@ class OwnerSeed extends Seeder
             'balance' => 0
         ]);
 
+        Owner::create([
+            'license_number' => 'rama sakti/semarang/54321',
+            'business_owner' => 'rama sakti',
+            'business_name' => 'Rama Sakti Semarang',
+            'address' => 'stasiun semarang',
+            'email' => 'ramasemarang@gmail.com',
+            'password' => Hash::make('12345678'),
+            'photo' => 'rama.jpg',
+            'telephone' => '089163543366',
+            'active' => '2',
+            'activation_token' => Str::random(80),
+            'domicile' => 'Semarang',
+            'balance' => 0
+        ]);
+
 
         Owner::create([
             'license_number' => 'Oke Trans/Tegal/12431',
             'business_owner' => 'oke trans',
             'business_name' => 'Oke Trans Tegal',
             'address' => 'tegal',
-            'email' => 'oketranstegal@mail.com',
+            'email' => 'oketranstegal@gmail.com',
             'password' => Hash::make('12345678'),
             'photo' => 'oketrans.jpg',
             'telephone' => '089663543353',
@@ -125,7 +140,7 @@ class OwnerSeed extends Seeder
             'business_owner' => 'oke trans',
             'business_name' => 'Oke Trans Jakarta',
             'address' => 'jakarta',
-            'email' => 'oketransjakarta@mail.com',
+            'email' => 'oketransjakarta@gmail.com',
             'password' => Hash::make('12345678'),
             'photo' => 'oketrans.jpg',
             'telephone' => '089663543345',
@@ -140,7 +155,7 @@ class OwnerSeed extends Seeder
             'business_owner' => 'oke trans',
             'business_name' => 'Oke Trans Surabaya',
             'address' => 'surabaya',
-            'email' => 'oketranssurabaya@mail.com',
+            'email' => 'oketranssurabaya@gmail.com',
             'password' => Hash::make('12345678'),
             'photo' => 'oketrans.jpg',
             'telephone' => '089663543344',
@@ -155,7 +170,7 @@ class OwnerSeed extends Seeder
             'business_owner' => 'andis travel',
             'business_name' => 'andis Tegal',
             'address' => 'Tegal',
-            'email' => 'andistegal@mail.com',
+            'email' => 'andistegal@gmail.com',
             'password' => Hash::make('12345678'),
             'photo' => 'andis.jpg',
             'telephone' => '08966575454',
@@ -170,7 +185,7 @@ class OwnerSeed extends Seeder
             'business_owner' => 'andis travel',
             'business_name' => 'andis Bandung',
             'address' => 'Bandung',
-            'email' => 'andisbandung@mail.com',
+            'email' => 'andisbandung@gmail.com',
             'password' => Hash::make('12345678'),
             'photo' => 'andis.jpg',
             'telephone' => '08966495454',
@@ -185,7 +200,7 @@ class OwnerSeed extends Seeder
             'business_owner' => 'daffa travel',
             'business_name' => 'daffa Tegal',
             'address' => 'Tegal',
-            'email' => 'daffategal@mail.com',
+            'email' => 'daffategal@gmail.com',
             'password' => Hash::make('12345678'),
             'photo' => 'daffa.jpg',
             'telephone' => '08986475489',
@@ -200,7 +215,7 @@ class OwnerSeed extends Seeder
             'business_owner' => 'daffa travel',
             'business_name' => 'daffa Solo',
             'address' => 'Solo',
-            'email' => 'daffasolo@mail.com',
+            'email' => 'daffasolo@gmail.com',
             'password' => Hash::make('12345678'),
             'photo' => 'daffa.jpg',
             'telephone' => '08986475335',
@@ -215,7 +230,7 @@ class OwnerSeed extends Seeder
             'business_owner' => 'daffa travel',
             'business_name' => 'daffa Jogja',
             'address' => 'Jogja',
-            'email' => 'daffajogja@mail.com',
+            'email' => 'daffajogja@gmail.com',
             'password' => Hash::make('12345678'),
             'photo' => 'daffa.jpg',
             'telephone' => '08586475335',
@@ -230,7 +245,7 @@ class OwnerSeed extends Seeder
             'business_owner' => 'alvaro travel',
             'business_name' => 'alvaro Tegal',
             'address' => 'Tegal',
-            'email' => 'alvarotegal@mail.com',
+            'email' => 'alvarotegal@gmail.com',
             'password' => Hash::make('12345678'),
             'photo' => 'alvaro.jpg',
             'telephone' => '08536475335',
@@ -245,7 +260,7 @@ class OwnerSeed extends Seeder
             'business_owner' => 'alvaro travel',
             'business_name' => 'alvaro Semarang',
             'address' => 'Semarang',
-            'email' => 'alvarosemarang@mail.com',
+            'email' => 'alvarosemarang@gmail.com',
             'password' => Hash::make('12345678'),
             'photo' => 'alvaro.jpg',
             'telephone' => '08536475395',
@@ -260,7 +275,7 @@ class OwnerSeed extends Seeder
             'business_owner' => 'Bahari Trans travel',
             'business_name' => 'Bahari Trans Tegal',
             'address' => 'Tegal',
-            'email' => 'baharitranstegal@mail.com',
+            'email' => 'baharitranstegal@gmail.com',
             'password' => Hash::make('12345678'),
             'photo' => 'baharitrans.jpg',
             'telephone' => '08536475391',
@@ -275,7 +290,7 @@ class OwnerSeed extends Seeder
             'business_owner' => 'Bahari Trans travel',
             'business_name' => 'Bahari Trans Jakarta',
             'address' => 'Jakarta',
-            'email' => 'baharitransjakarta@mail.com',
+            'email' => 'baharitransjakarta@gmail.com',
             'password' => Hash::make('12345678'),
             'photo' => 'baharitrans.jpg',
             'telephone' => '08536275391',
@@ -290,7 +305,7 @@ class OwnerSeed extends Seeder
             'business_owner' => 'Mada Trans travel',
             'business_name' => 'Mada Trans Tegal',
             'address' => 'Tegal',
-            'email' => 'madatranstegal@mail.com',
+            'email' => 'madatranstegal@gmail.com',
             'password' => Hash::make('12345678'),
             'photo' => 'madatrans.jpg',
             'telephone' => '08736275391',
@@ -305,7 +320,7 @@ class OwnerSeed extends Seeder
             'business_owner' => 'Mada Trans travel',
             'business_name' => 'Mada Trans Jogja',
             'address' => 'Jogja',
-            'email' => 'madatransjogja@mail.com',
+            'email' => 'madatransjogja@gmail.com',
             'password' => Hash::make('12345678'),
             'photo' => 'madatrans.jpg',
             'telephone' => '08339375391',
@@ -320,7 +335,7 @@ class OwnerSeed extends Seeder
             'business_owner' => 'Dragon Jaya Express travel',
             'business_name' => 'Dragon Jaya Express Tegal',
             'address' => 'Tegal',
-            'email' => 'dragonjayaexpresstegal@mail.com',
+            'email' => 'dragonjayaexpresstegal@gmail.com',
             'password' => Hash::make('12345678'),
             'photo' => 'dragonjayaexpress.jpg',
             'telephone' => '08336275390',
@@ -335,7 +350,7 @@ class OwnerSeed extends Seeder
             'business_owner' => 'Dragon Jaya Express travel',
             'business_name' => 'Dragon Jaya Express Jakarta',
             'address' => 'Jakarta',
-            'email' => 'dragonjayaexpressjakarta@mail.com',
+            'email' => 'dragonjayaexpressjakarta@gmail.com',
             'password' => Hash::make('12345678'),
             'photo' => 'dragonjayaexpress.jpg',
             'telephone' => '08336275323',
@@ -344,5 +359,201 @@ class OwnerSeed extends Seeder
             'domicile' => 'Jakarta',
             'balance' => 0
         ]);
+
+        Owner::create([
+            'license_number' => 'dragonjayaexpress/cirebon/52451',
+            'business_owner' => 'Dragon Jaya Express travel',
+            'business_name' => 'Dragon Jaya Express Cirebon',
+            'address' => 'Cirebon',
+            'email' => 'dragonjayaexpresscirebon@gmail.com',
+            'password' => Hash::make('12345678'),
+            'photo' => 'dragonjayaexpress.jpg',
+            'telephone' => '08336275321',
+            'active' => '2',
+            'activation_token' => Str::random(80),
+            'domicile' => 'Cirebon',
+            'balance' => 0
+        ]);
+
+        Owner::create([
+            'license_number' => 'himatrans/tegal/52451',
+            'business_owner' => 'Hima Trans',
+            'business_name' => 'Hima Trans Tegal',
+            'address' => 'Tegal',
+            'email' => 'himatranstegal@gmail.com',
+            'password' => Hash::make('12345678'),
+            'photo' => 'himatrans.jpg',
+            'telephone' => '08236275321',
+            'active' => '2',
+            'activation_token' => Str::random(80),
+            'domicile' => 'Tegal',
+            'balance' => 0
+        ]);
+
+        Owner::create([
+            'license_number' => 'himatrans/jogja/52451',
+            'business_owner' => 'Hima Trans',
+            'business_name' => 'Hima Trans Jogja',
+            'address' => 'Jogja',
+            'email' => 'himatransjogja@gmail.com',
+            'password' => Hash::make('12345678'),
+            'photo' => 'himatrans.jpg',
+            'telephone' => '08236275311',
+            'active' => '2',
+            'activation_token' => Str::random(80),
+            'domicile' => 'Jogja',
+            'balance' => 0
+        ]);
+
+        Owner::create([
+            'license_number' => 'arjunoshuttle/tegal/52451',
+            'business_owner' => 'Arjuno Shuttle',
+            'business_name' => 'Arjuno Shuttle Tegal',
+            'address' => 'Tegal',
+            'email' => 'arjunoshuttletegal@gmail.com',
+            'password' => Hash::make('12345678'),
+            'photo' => 'arjunoshuttle.jpg',
+            'telephone' => '08236225311',
+            'active' => '2',
+            'activation_token' => Str::random(80),
+            'domicile' => 'Tegal',
+            'balance' => 0
+        ]);
+
+        Owner::create([
+            'license_number' => 'arjunoshuttle/semarang/52451',
+            'business_owner' => 'Arjuno Shuttle',
+            'business_name' => 'Arjuno Shuttle Semarang',
+            'address' => 'Semarang',
+            'email' => 'arjunoshuttlesemarang@gmail.com',
+            'password' => Hash::make('12345678'),
+            'photo' => 'arjunoshuttle.jpg',
+            'telephone' => '08236225315',
+            'active' => '2',
+            'activation_token' => Str::random(80),
+            'domicile' => 'Semarang',
+            'balance' => 0
+        ]);
+
+        Owner::create([
+            'license_number' => 'alloytravel/cirebon/52451',
+            'business_owner' => 'Alloy Travel',
+            'business_name' => 'Alloy Travel Cirebon',
+            'address' => 'Cirebon',
+            'email' => 'alloytravelcirebon@gmail.com',
+            'password' => Hash::make('12345678'),
+            'photo' => 'alloytravel.jpg',
+            'telephone' => '08236265311',
+            'active' => '2',
+            'activation_token' => Str::random(80),
+            'domicile' => 'Cirebon',
+            'balance' => 0
+        ]);
+
+        Owner::create([
+            'license_number' => 'alloytravel/bandung/52451',
+            'business_owner' => 'Alloy Travel',
+            'business_name' => 'Alloy Travel Bandung',
+            'address' => 'Bandung',
+            'email' => 'alloytravelbandung@gmail.com',
+            'password' => Hash::make('12345678'),
+            'photo' => 'alloytravel.jpg',
+            'telephone' => '08236265319',
+            'active' => '2',
+            'activation_token' => Str::random(80),
+            'domicile' => 'Bandung',
+            'balance' => 0
+        ]);
+
+        Owner::create([
+            'license_number' => 'fortunatravel/tegal/52451',
+            'business_owner' => 'Fortuna Travel',
+            'business_name' => 'Fortuna Travel Tegal',
+            'address' => 'Tegal',
+            'email' => 'fortunatraveltegal@gmail.com',
+            'password' => Hash::make('12345678'),
+            'photo' => 'fortunatravel.jpg',
+            'telephone' => '08236269319',
+            'active' => '2',
+            'activation_token' => Str::random(80),
+            'domicile' => 'Tegal',
+            'balance' => 0
+        ]);
+
+        Owner::create([
+            'license_number' => 'fortunatravel/bandung/52451',
+            'business_owner' => 'Fortuna Travel',
+            'business_name' => 'Fortuna Travel Bandung',
+            'address' => 'Bandung',
+            'email' => 'fortunatravelbandung@gmail.com',
+            'password' => Hash::make('12345678'),
+            'photo' => 'fortunatravel.jpg',
+            'telephone' => '08236269399',
+            'active' => '2',
+            'activation_token' => Str::random(80),
+            'domicile' => 'Bandung',
+            'balance' => 0
+        ]);
+
+        Owner::create([
+            'license_number' => 'zafiratrans/tegal/52451',
+            'business_owner' => 'Zafira Trans',
+            'business_name' => 'Zafira Trans Tegal',
+            'address' => 'Tegal',
+            'email' => 'zafiratranstegal@gmail.com',
+            'password' => Hash::make('12345678'),
+            'photo' => 'zafiratrans.jpg',
+            'telephone' => '08236369399',
+            'active' => '2',
+            'activation_token' => Str::random(80),
+            'domicile' => 'Tegal',
+            'balance' => 0
+        ]);
+
+        Owner::create([
+            'license_number' => 'zafiratrans/solo/52451',
+            'business_owner' => 'Zafira Trans',
+            'business_name' => 'Zafira Trans Solo',
+            'address' => 'Solo',
+            'email' => 'zafiratranssolo@gmail.com',
+            'password' => Hash::make('12345678'),
+            'photo' => 'zafiratrans.jpg',
+            'telephone' => '08236369391',
+            'active' => '2',
+            'activation_token' => Str::random(80),
+            'domicile' => 'Solo',
+            'balance' => 0
+        ]);
+
+        Owner::create([
+            'license_number' => 'tmtravel/tegal/52451',
+            'business_owner' => 'TM Travel',
+            'business_name' => 'TM Travel Tegal',
+            'address' => 'Tegal',
+            'email' => 'tmtraveltegal@gmail.com',
+            'password' => Hash::make('12345678'),
+            'photo' => 'tmtravel.jpg',
+            'telephone' => '08236369392',
+            'active' => '2',
+            'activation_token' => Str::random(80),
+            'domicile' => 'Tegal',
+            'balance' => 0
+        ]);
+
+        Owner::create([
+            'license_number' => 'tmtravel/solo/52451',
+            'business_owner' => 'TM Travel',
+            'business_name' => 'TM Travel Solo',
+            'address' => 'Solo',
+            'email' => 'tmtravelsolo@gmail.com',
+            'password' => Hash::make('12345678'),
+            'photo' => 'tmtravel.jpg',
+            'telephone' => '08232319391',
+            'active' => '2',
+            'activation_token' => Str::random(80),
+            'domicile' => 'Solo',
+            'balance' => 0
+        ]);
+
     }
 }

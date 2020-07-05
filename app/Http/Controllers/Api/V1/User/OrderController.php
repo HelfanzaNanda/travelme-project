@@ -70,7 +70,7 @@ class OrderController extends Controller
             $data->save();
 
             $date = DateOfDeparture::where('departure_id', $request->departure_id)
-            ->where('date', $dateFormat)->first();
+                ->where('date', $dateFormat)->first();
             $hour = HourOfDeparture::where('date_id', $date->id)->where('hour', $request->hour)->first();
             $hour->remaining_seat -= $request->total_seat;
             $hour->update();
@@ -169,13 +169,21 @@ class OrderController extends Controller
     public function cancelorder($id)
     {
         $order = Order::where('id', $id)->first();
-        $order->verify = '0';
-        $order->update();
 
-        return response()->json([
-            'message' => 'successfully cancel order from user',
-            'status' => true,
-        ]);
+        if ($order->verify == '2') {
+            return response()->json([
+                'message' => 'pesanan sudah di konfirmasi oleh pihak travel',
+                'status' => false,
+            ]);
+        } else {
+            $order->verify = '0';
+            $order->update();
+
+            return response()->json([
+                'message' => 'successfully cancel order from user',
+                'status' => true,
+            ]);
+        }
     }
 
     public function updateorder($id, Request $request)
@@ -184,7 +192,7 @@ class OrderController extends Controller
         $order->status = $request->status;
         $order->update();
 
-        if($request->status == 'pending'){
+        if ($request->status == 'pending') {
             $owner = Owner::where('id', $order->owner_id)->first();
             $owner->balance += $order->total_price;
             $owner->update();
@@ -199,7 +207,7 @@ class OrderController extends Controller
     public function orderVerify()
     {
         $order = Order::where('user_id', Auth::guard('api')->user()->id)
-        ->where('verify', '2')->orderBy('id', 'ASC')->get();
+            ->where('verify', '2')->orderBy('id', 'ASC')->get();
         return response()->json([
             'message' => 'successfully get order verify by user',
             'status' => true,
@@ -210,7 +218,7 @@ class OrderController extends Controller
     public function orderArrived()
     {
         $order = Order::where('user_id', Auth::guard('api')->user()->id)
-        ->where('arrived', true)->orderBy('id', 'ASC')->get();
+            ->where('arrived', true)->orderBy('id', 'ASC')->get();
         return response()->json([
             'message' => 'successfully get order arrived by user',
             'status' => true,

@@ -107,8 +107,6 @@
                                                 </span>
                                                 @endif
                                             </fieldset>
-                                        </div>
-                                        <div class="col-md-6">
 
                                             <fieldset class="form-group floating-label-form-group">
                                                 <label for="user-email">Your Email Address</label>
@@ -121,6 +119,7 @@
                                                 </span>
                                                 @endif
                                             </fieldset>
+
                                             <fieldset class="form-group floating-label-form-group">
                                                 <label for="user-password">Enter Password</label>
                                                 <input type="password"
@@ -132,6 +131,10 @@
                                                 </span>
                                                 @endif
                                             </fieldset>
+
+                                        </div>
+                                        <div class="col-md-6">
+
                                             <fieldset class="form-group floating-label-form-group">
                                                 <label for="user-password">Repeat Enter Password</label>
                                                 <input type="password" class="form-control" name="password_confirmation"
@@ -162,6 +165,41 @@
                                                 </span>
                                                 @endif
                                             </fieldset>
+
+                                            <fieldset class="form-group floating-label-form-group">
+                                                <label for="user-password">Nama Bank</label>
+                                                <select name="name_bank" class="form-control">
+                                                    <option value="BRI">BRI</option>
+                                                    <option value="BNI">BNI</option>
+                                                    <option value="BCA">BCA</option>
+                                                    <option value="Mandiri">Mandiri</option>
+                                                </select>
+                                            </fieldset>
+
+                                            <fieldset class="form-group floating-label-form-group">
+                                                <label for="user-password">Nomor Rekening</label>
+                                                <input type="tel" class="form-control {{$errors->has('account_number')?'is-invalid':''}}"
+                                                    placeholder="Masukkan Nomor Rekening" name="account_number"
+                                                    value="{{old('account_number')}}">
+                                                @if ($errors->has('account_number'))
+                                                <span class="invalid-feedback" role="alert">
+                                                    <p><b>{{ $errors->first('account_number')}}</b></p>
+                                                </span>
+                                                @endif
+                                            </fieldset>
+
+                                            <label for="user-password">Nama Rekening</label>
+                                            <fieldset class="form-group floating-label-form-group">
+                                                <input type="text" class="form-control {{$errors->has('account_name')?'is-invalid':''}}"
+                                                    placeholder="Masukkan Nama Rekening" name="account_name"
+                                                    value="{{old('account_name')}}">
+                                                @if ($errors->has('account_name'))
+                                                <span class="invalid-feedback" role="alert">
+                                                    <p><b>{{ $errors->first('account_name')}}</b></p>
+                                                </span>
+                                                @endif
+                                            </fieldset>
+
                                         </div>
                                         <div class="col-sm-6 col-12 text-center text-sm-left pr-0">
                                         </div>

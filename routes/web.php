@@ -34,18 +34,27 @@ Route::group(['prefix' => 'admin'], function (){
     Route::get('', function (){
         return redirect()->route('adashboard.index');
     });
+
     Route::get('/login', 'Web\Admin\AuthController@getLogin')->name('admin.login');
     Route::post('/login', 'Web\Admin\AuthController@login')->name('admin.login.submit');
     Route::get('/logout', 'Web\Admin\AuthController@logout')->name('admin.logout');
 
-    Route::resource('adashboard', 'Web\Admin\DashboardController');
-    Route::resource('owner', 'Web\Admin\ownerController')->except(['show', 'destroy']);
-    Route::get('owner/{owner}', 'Web\Admin\ownerController@destroy')->name('owner.destroy');
-    Route::resource('owner','Web\Admin\OwnerController')->only('index');
-    Route::get('owner/destroy/{id}', 'Web\Admin\OwnerController@destroy')->name('owner.destroy');
-    Route::resource('notification','Web\Admin\NotificationController')->only('index');
-    Route::get('notification/{notification}', 'Web\Admin\NotificationController@update')->name('notification.update');
-    Route::get('notification/{notification}/destroy', 'Web\Admin\NotificationController@destroy')->name('notification.destroy');
+    Route::get('dashboard', 'Web\Admin\DashboardController@index')->name('admin.owner.dashboard');
+
+    Route::get('owner','Web\Admin\OwnerController@index')->name('admin.owner.index');
+    Route::get('owner/{id}/destroy','Web\Admin\OwnerController@destroy')->name('admin.owner.destroy');
+    Route::get('owner/{id}/show','Web\Admin\OwnerController@show')->name('admin.owner.show');
+
+    Route::get('notification','Web\Admin\NotificationController@index')->name('admin.notification.index');
+    Route::get('notification/{id}/update', 'Web\Admin\NotificationController@update')->name('notification.update');
+    Route::get('notification/{id}/destroy', 'Web\Admin\NotificationController@destroy')->name('notification.destroy');
+
+    Route::get('travel', 'Web\Admin\TravelController@index')->name('admin.travel.index');
+    Route::get('travel/create', 'Web\Admin\TravelController@create')->name('admin.travel.create');
+    Route::post('travel/store', 'Web\Admin\TravelController@store')->name('admin.travel.store');
+    Route::get('travel/{id}/edit', 'Web\Admin\TravelController@edit')->name('admin.travel.edit');
+    Route::patch('travel/{id}/update', 'Web\Admin\TravelController@update')->name('admin.travel.update');
+    Route::get('travel/{id}/destroy', 'Web\Admin\TravelController@destroy')->name('admin.travel.destroy');
 });
 
 Route::group(['prefix' => 'owner'], function (){
@@ -61,7 +70,7 @@ Route::group(['prefix' => 'owner'], function (){
     Route::get('/password/reset/{token}', 'Web\Owner\Auth\ResetPasswordController@showResetForm')->name('owner.password.reset');
     Route::post('/password/reset', 'Web\Owner\Auth\ResetPasswordController@reset')->name('owner.password.reset.submit');
 
-    
+
     Route::get('/dashboard', 'Web\Owner\DashboardController@index')->name('owner.dashboard');
     Route::post('/dashboard/balance/take', 'Web\Owner\DashboardController@take')->name('owner.take.balance');
     Route::get('/dashboard/chart', 'Web\Owner\DashboardController@chart')->name('owner.dashboard.chart');
@@ -69,9 +78,10 @@ Route::group(['prefix' => 'owner'], function (){
 
     Route::resource('driver', 'Web\Owner\DriverController')->except('destroy');
     Route::get('driver/{driver}/destroy', 'Web\Owner\DriverController@destroy')->name('driver.destroy');
+
     Route::resource('car', 'Web\Owner\CarController')->except('destroy');
     Route::get('car/{id}/destroy', 'Web\Owner\CarController@destroy')->name('car.destroy');
-    
+
     Route::resource('schedule', 'Web\Owner\ScheduleController')->except('destroy');
     Route::get('schedule/{id}/destroy', 'Web\Owner\ScheduleController@destroy')->name('schedule.destroy');
     Route::get('schedule/calendar/{id}', 'Web\Owner\ScheduleController@getcallendar')->name('schedule.callendar');
@@ -80,13 +90,13 @@ Route::group(['prefix' => 'owner'], function (){
     Route::get('user', 'Web\Owner\UserController@index')->name('owner.user.index');
     Route::get('user/{id}', 'Web\Owner\UserController@show')->name('owner.user.show');
     Route::patch('user/{id}/confirmed', 'Web\Owner\UserController@confirmed')->name('owner.user.confirmed');
-    Route::get('user/{id}/decline', 'Web\Owner\UserController@decline')->name('owner.user.decline');
-    
+    Route::patch('user/{id}/decline', 'Web\Owner\UserController@decline')->name('owner.user.decline');
+
     Route::get('report', 'Web\Owner\ReportController@index')->name('owner.report.index');
     Route::post('report/search', 'Web\Owner\ReportController@search')->name('owner.report.search');
     Route::get('report/{month}/print','Web\Owner\ReportController@print')->name('owner.report.print');
 
     Route::get('profile','Web\Owner\ProfileController@index')->name('owner.profile.index');
     Route::patch('profile/update','Web\Owner\ProfileController@update')->name('owner.profile.update');
-    
+
 });

@@ -15,7 +15,7 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Tambah Travel</h4>
-                    <form class="mt-4" method="post" action="{{route('owner')}}">
+                    <form class="mt-4" method="post" action="{{route('admin.travel.store')}}">
                         @csrf
                         <div class="form-group">
                             <label for="projectinput1">License Number</label>
@@ -51,7 +51,7 @@
                             @endif
                         </div>
 
-                        <a href="{{route('owner')}}" class="btn btn-outline-dark">Cancel</a>
+                        <a href="{{route('admin.travel.index')}}" class="btn btn-outline-dark" type="button">Cancel</a>
                         <button type="submit" class="btn btn-primary">Save</button>
                     </form>
                 </div>

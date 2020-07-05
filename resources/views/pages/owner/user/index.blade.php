@@ -8,10 +8,6 @@
             <li class="breadcrumb-item active">Table Data Penumpang</li>
         </ol>
     </div>
-    <div class="col-md-6 col-4 align-self-center">
-        <a href="{{route('schedule.create')}}" class="btn float-right hidden-sm-down btn-success"><i
-                class="mdi mdi-plus-circle"></i>Create</a>
-    </div>
 </div>
 <!-- Start Page Content -->
 <div class="row">
@@ -19,7 +15,8 @@
 
         @if ($message = Session::get('success'))
         <div class="alert alert-success">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">×</span> </button>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span
+                    aria-hidden="true">×</span> </button>
             <h3 class="text-success"><i class="fa fa-check-circle"></i> Success</h3> {{ $message }}
         </div>
         @endif
@@ -42,7 +39,7 @@
                         <tbody>
                             @foreach($datas as $key => $data)
                             <tr>
-                                <td>{{$loop->iteration}}</td>
+                                <td>{{ $loop->iteration }}</td>
                                 <td>{{$data->user->name}}</td>
                                 <td>{{$data->departure->from .' -> '. $data->departure->destination}}</td>
                                 <td>{{'Rp.'.number_format($data->total_price)}}/{{$data->total_seat}} Kursi</td>
@@ -57,19 +54,22 @@
 
                                 @if (count($drivers) > 0)
                                 <td>
-                                    <a href="{{route('owner.user.show', $data->id)}}" class="btn btn-info btn-sm"><i
-                                            class="mdi mdi-eye"></i></a>
+                                    {{-- <a href="{{route('owner.user.show', $data->id)}}" class="btn btn-info
+                                    btn-sm"><i class="mdi mdi-eye"></i></a> --}}
+                                    <a href="" class="btn btn-info btn-sm" data-toggle="collapse"
+                                        data-target="#collapse{{$data->id}}" aria-expanded="false"
+                                        aria-controls="collapseA1">
+                                        <i class="mdi mdi-eye"></i></a>
                                     @if ($data->verify == '1')
                                     <a href="" class="btn btn-warning btn-sm" data-toggle="modal"
                                         data-target="#confirmedModal{{ $data->id }}">Konfirmasi</a>
-                                    <a href="{{route('owner.user.decline', $data->id)}}"
-                                        onclick="return confirm('apakah anda yakin ingin menghapus data ini?')"
+                                    <a href="" data-toggle="modal" data-target="#declineModal{{ $data->id }}"
                                         class="btn btn-danger btn-sm">
-                                        Hapus</a>
+                                        Tolak</a>
                                     @endif
                                 </td>
                                 @else
-                                    <td><span class="badge badge-danger">silahkan tambahkan driver dahulu</span></td>
+                                <td><span class="badge badge-danger">silahkan tambahkan driver dahulu</span></td>
                                 @endif
 
                                 <div class="modal fade" id="confirmedModal{{ $data->id }}" tabindex="-1" role="dialog"
@@ -94,7 +94,8 @@
 
                                                         <select name="driver_id" class="form-control">
                                                             @foreach ($drivers as $driver)
-                                                            <option value="{{ $driver->id }}">{{ $driver->name }}</option>
+                                                            <option value="{{ $driver->id }}">{{ $driver->name }}
+                                                            </option>
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -108,6 +109,70 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="modal fade" id="declineModal{{ $data->id }}" tabindex="-1" role="dialog"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Menolak Karena Apa?</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <form action="{{ route('owner.user.decline', $data->id) }}" method="post">
+                                                @csrf
+                                                @method('patch')
+                                                <div class="modal-body">
+                                                    <div class="form-group">
+                                                        @php($reasons = ['--- Pilih ---','Terlalu Jauh', 'Yang Lain'])
+                                                        <select name="driver_id" class="form-control"
+                                                            id="select-reason">
+                                                            @for ($i = 0; $i < count($reasons); $i++) <option
+                                                                value="{{ $i }}"
+                                                                {{ $i == 0 ? 'selected disabled' : '' }}>
+                                                                {{ $reasons[$i] }}
+                                                                </option>
+                                                                @endfor
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" id="reason"
+                                                            style="display: none;" name="reason">
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" id="additional-price"
+                                                            style="display: none;" name="additional_price">
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary">Lanjutkan</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </tr>
+
+                            <tr id="collapse{{$data->id}}" class="collapse" aria-labelledby="headingAOne">
+                                <td>#</td>
+                                <td colspan="4">
+                                    <div>
+                                        <p>{{$data->pickup_point}}</p>
+                                        <p>{{$data->destination_point}}</p>
+                                        <div class="row">
+                                            <div class="col-md-6">Tanggal :
+                                                {{\Carbon\Carbon::parse($data->date)->format('d m Y')}}</div>
+                                            <div class="col-md-6">Jam :
+                                                {{ \Carbon\carbon::parse($data->hour)->format('H:i') }}</div>
+                                        </div>
+                                    </div>
+                                </td>
+
                             </tr>
                             @endforeach
                         </tbody>
@@ -118,4 +183,58 @@
 
     </div>
 </div>
+@endsection
+
+
+@section('script')
+<script>
+    const selectReason = document.querySelector("#select-reason")
+    const reason = document.querySelector("#reason")
+    const additionalPrice = document.querySelector("#additional-price")
+
+    selectReason.addEventListener('change', function () {
+
+        function handle() {
+            this.value = formatRupiah(this.value)
+        }
+
+        if (this.value == 1) {
+            reason.value = ''
+            reason.style.display = 'none'
+
+            additionalPrice.value = ''
+            additionalPrice.style.display = ''
+            additionalPrice.placeholder = 'Masukkan Biaya Tambahan'
+            additionalPrice.type = 'tel'
+            additionalPrice.addEventListener('input', handle, true)
+
+        } else if (this.value == 2) {
+            additionalPrice.value = ''
+            additionalPrice.style.display = 'none'
+
+            reason.value = ''
+            reason.style.display = ''
+
+            reason.placeholder = 'Masukkan Alasan Di Tolak'
+            reason.type = 'text'
+        }
+    })
+
+    function formatRupiah(angka) {
+        var number_string = angka.replace(/[^,\d]/g, '').toString(),
+            split = number_string.split(','),
+            sisa = split[0].length % 3,
+            rupiah = split[0].substr(0, sisa),
+            ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+        if (ribuan) {
+            separator = sisa ? '.' : '';
+            rupiah += separator + ribuan.join('.');
+        }
+
+        rupiah = split[1] != undefined ? rupiah + '.' + split[1] : rupiah;
+        return rupiah;
+    }
+
+</script>
 @endsection

@@ -15,7 +15,7 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Edit Travel</h4>
-                    <form class="mt-4" method="post" action="{{route('owner', $data->id)}}">
+                    <form class="mt-4" method="post" action="{{route('admin.travel.update', $data->id)}}">
                         @csrf
                         @method('patch')
                         <div class="form-group">
@@ -48,7 +48,7 @@
                             @endif
                         </div>
 
-                        <a href="{{route('travel.index')}}" class="btn btn-outline-dark">Cancel</a>
+                        <a href="{{route('admin.travel.index')}}" class="btn btn-outline-dark">Cancel</a>
                         <button type="submit" class="btn btn-primary">Save</button>
                     </form>
                 </div>

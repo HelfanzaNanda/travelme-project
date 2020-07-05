@@ -10,6 +10,7 @@ use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
@@ -36,18 +37,23 @@ class RegisterController extends Controller
             'password'          => 'required|confirmed',
             'telephone'         => 'required|unique:owners',
             'domicile'         => 'required',
+            'account_name'      => 'required|regex:/^[\pL\s\-]+$/u||min:5',
+            'account_number'    => 'required|numeric|digits_between:10,16',
         ];
 
         $message = [
             'required' => ':attribute tidak boleh kosong',
             'unique' => ':attribute sudah terdaftar',
-            'confirmed' => ':attribute tidak cocok'
+            'confirmed' => ':attribute tidak cocok',
+            'digits_between' => ':attribute setidaknya :min sampai :max karakter',
+            'name.regex'     => ':attribute harus huruf semua',
+            'numeric'   => ':attribute hanya boleh angka',
         ];
 
         $this->validate($request, $rules, $message);
 
         $a = Travel::all()->where('license_number', '=', $request->license_number)->toArray();
-        if ($a){
+        if ($a) {
             $data = new Owner();
             $data->license_number   = $request->license_number;
             $data->business_owner   = $request->business_owner;
@@ -56,14 +62,36 @@ class RegisterController extends Controller
             $data->email            = $request->email;
             $data->password         = Hash::make($request->password);
             $data->telephone        = $request->telephone;
-            $data->domicile         = $request->domicile;
+            if ($request->domicile == 'Jogja' || $request->domicile == 'Jogjakarta') {
+                $data->domicile         = 'Yogyakarta';
+            } else {
+                $data->domicile         = ucwords($request->domicile);
+            }
             $data->activation_token = Str::random(100);
+            $data->name_bank        = $request->name_bank;
+            $data->account_number   = $request->account_number;
+            $data->account_name     = $request->account_name;
             $data->save();
-        }else{
+
+            $this->sendEmail($data);
+        } else {
             return redirect()->back()->with('error', 'Silahkan urus license number dahulu');
         }
 
         //event(new AdminTravelActivationEmail($data));
-        return redirect()->route('owner.login')->with('success', 'Berhasil Register, Silahkan Verifikasi Email Dulu ');
+        return redirect()->route('owner.login')->with('success', 'Berhasil Register, Silahkan Menunggu Verifikasi Dari Admin');
+    }
+
+    private function sendEmail($user)
+    {
+        Mail::send('send_email.email-register',
+        [
+            'content' => $user . 'telah mendaftar di sistem kita, silahkan cek lalu konfirmasi'
+        ],
+        function ($message)  use($user){
+            $message->from($user->email, $user->business_name);
+            $message->to('travelme@gmail.com', 'Travelme');
+            $message->subject('Travel Mendaftar di Sistem Travelme');
+        });
     }
 }

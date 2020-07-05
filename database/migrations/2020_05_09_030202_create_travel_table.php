@@ -14,9 +14,9 @@ class CreateTravelTable extends Migration
      */
     public function up()
     {
-        Schema::create('travel', function (Blueprint $table) {
+        Schema::create('travels', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('license_number', '20')->unique();
+            $table->string('license_number', '50')->unique();
             $table->string('business_owner', '30');
             $table->string('business_name', '30');
             $table->string('domicile', '50');
@@ -32,6 +32,6 @@ class CreateTravelTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('travel');
+        Schema::dropIfExists('travels');
     }
 }

@@ -24,14 +24,16 @@ class CreateOrdersTable extends Migration
             $table->date('date');
             $table->time('hour');
             $table->integer('price');
-            $table->integer('total_price');
+            $table->integer('additional_price')->default(0);
             $table->integer('total_seat');
+            $table->integer('total_price');
             $table->string('pickup_point');
             $table->string('lat_pickup_point');
             $table->string('lng_pickup_point');
             $table->string('destination_point');
             $table->string('lat_destination_point');
             $table->string('lng_destination_point');
+            $table->string('reason_for_refusing')->nullable();
             $table->enum('verify', ['0', '1', '2'])->default('1');
             $table->string('status')->default('pending');
             $table->boolean('arrived')->default(false);
