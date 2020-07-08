@@ -48,9 +48,13 @@
                             @foreach($datas as $key => $data)
                             <tr>
                                 <td>{{$loop->iteration}}</td>
-                                <td>{{$data->from .' - '. $data->destination}}</td>
+                                <td>{{$data->from .' -> '. $data->destination}}</td>
                                 <td>{{'Rp.'.number_format($data->price)}}</td>
                                 <td>
+                                    <a href="" class="btn btn-info btn-sm" data-toggle="collapse"
+                                        data-target="#collapse{{$data->id}}" aria-expanded="false"
+                                        aria-controls="collapseA1">
+                                        <i class="mdi mdi-eye"></i></a>
                                     <a href="{{route('schedule.show', $data->id)}}" class="btn btn-info btn-sm"><i
                                             class="mdi mdi-eye"></i></a>
                                     <a href="{{route('schedule.edit', $data->id)}}" class="btn btn-warning btn-sm"><i
@@ -60,6 +64,64 @@
                                         class="btn btn-danger btn-sm">
                                         <i class="mdi mdi-delete"></i></a>
                                 </td>
+                            </tr>
+
+                            <tr id="collapse{{$data->id}}" class="collapse" aria-labelledby="headingAOne">
+                                <td>#</td>
+                                <td colspan="4">
+                                    <div class="container">
+                                        <div class="row">
+                                        @foreach ($data->dates->take(7) as $key => $date)
+
+                                        <div class="col-md-3 flex-fill text-center">
+                                            <div class="card border-success shadow-sm bg-white rounded ">
+                                                <div class="card-header bg-info text-white">{{ Carbon\Carbon::parse($date->date)->format('l') }}</div>
+                                                <div class="card-body text-black pull-left">
+                                                  <h5 class="card-title">{{ $date->date }}</h5>
+                                                  @foreach ($date->hours as $hour)
+                                                  <div class="panel panel-info border-success shadow-sm bg-white rounded">
+                                                    <div class="panel-heading bg-success text-white">Jam : {{ Carbon\Carbon::parse($hour->hour)->format("H:i") }} WIB</div>
+                                                    <div class="panel-body">Total Kursi : {{ $hour->seat }}</div>
+                                                    <div class="panel-body">Sisa Kursi : {{ $hour->remaining_seat }}</div>
+                                                  </div>
+                                                  @endforeach
+                                                </div>
+                                              </div>
+
+
+
+
+                                            <p></p>
+                                            <p></p>
+
+                                        </div>
+
+                                        {{-- <div class="col-md-6">
+
+                                            <p>{{ $date->date }}</p>
+
+                                        </div> --}}
+
+                                        @endforeach
+                                        </div>
+                                    </div>
+
+                                    <div>
+
+
+
+
+                                        {{-- <p>{{$data->pickup_point}}</p>
+                                        <p>{{$data->destination_point}}</p>
+                                        <div class="row">
+                                            <div class="col-md-6">Tanggal :
+                                                {{\Carbon\Carbon::parse($data->date)->format('d m Y')}}</div>
+                                            <div class="col-md-6">Jam :
+                                                {{ \Carbon\carbon::parse($data->hour)->format('H:i') }}</div>
+                                        </div> --}}
+                                    </div>
+                                </td>
+
                             </tr>
                             @endforeach
                         </tbody>

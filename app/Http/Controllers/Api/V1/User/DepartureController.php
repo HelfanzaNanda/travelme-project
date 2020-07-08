@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Validator;
 class DepartureController extends Controller
 {
 
-    public function getDomicile()
+    public function getDomicileForDestinationOther()
     {
         $domicile = Owner::where('domicile', '!=', 'Tegal')->orderBy('domicile', 'ASC')->get('domicile');
 
@@ -26,6 +26,16 @@ class DepartureController extends Controller
         ]);
     }
 
+    public function getDomicileForDestinationTegal()
+    {
+        $domicile = Owner::where('domicile', '!=', 'Tegal')->orderBy('domicile', 'ASC')->get('domicile');
+
+        return response()->json([
+            'message' => 'successfully get domicile',
+            'status' => true,
+            'data' => $domicile
+        ]);
+    }
 
     public function searchHour(Request $request)
     {
@@ -33,13 +43,14 @@ class DepartureController extends Controller
         $from = $request->from;
         $destination = $request->destination;
         $now = Carbon::now();
+        $hourNow = Carbon::now()->addHours(2)->format('H:i');
 
         $hours = HourOfDeparture::whereHas('date', function($query) use ($date, $now, $from, $destination){
             $query->whereDate('date', '>=', $now)->whereDate('date', $date)
             ->whereHas('departure', function($q) use($from, $destination){
                 $q->where('from', $from)->where('destination', $destination);
             });
-        })->where('remaining_seat','!=', 0)->orderBy('hour', 'ASC')->get();
+        })->where('remaining_seat','!=', 0)->whereTime('hour', '>=', $hourNow)->orderBy('hour', 'ASC')->get();
 
         $results = [];
         foreach($hours as $hour){

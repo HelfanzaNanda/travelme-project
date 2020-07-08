@@ -27,7 +27,7 @@
                         <p>Harga </p>
                     </div>
                     <div class="col-md-6">
-                        <p>{{ $data->from }} - {{ $data->destination }}</p>
+                        <p>{{ $data->from }} -> {{ $data->destination }}</p>
                         <p>{{ 'Rp. '.number_format($data->price) }}</p>
 
                     </div>
@@ -88,8 +88,7 @@ $.getJSON("{{ route('schedule.callendar', $data->id) }}", function(data){
                     title: event.title,
                 });
             });
-        }
-
+        },
     });
 });
 

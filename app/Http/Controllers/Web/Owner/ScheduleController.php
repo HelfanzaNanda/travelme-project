@@ -7,7 +7,9 @@ use App\Date;
 use App\DateOfDeparture;
 use App\Departure;
 use App\Hour;
+use App\HourOfDeparture;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\FullCalendarResource;
 use App\Owner;
 use Carbon\Carbon;
 use Illuminate\Console\Scheduling\Schedule;
@@ -33,7 +35,11 @@ class ScheduleController extends Controller
     public function index()
     {
         $datas = Departure::where('owner_id', Auth::guard('owner')->user()->id)->orderBy('id', 'ASC')->get();
-        return view('pages.owner.schedule.index', compact('datas'));
+        $dates = [];
+        foreach($datas as $data){
+            array_push($dates, $data->date);
+        }
+        return view('pages.owner.schedule.index', compact('datas', 'dates'));
     }
 
     /**
@@ -67,7 +73,7 @@ class ScheduleController extends Controller
             foreach ($destinations as $dest) {
                 array_push($arrDest, $dest->domicile);
             }
-        }else{
+        } else {
             $departure = Departure::where('owner_id', Auth::guard('owner')->user()->id)->first();
             $departure ? $arrDest = [] : $arrDest = ['Tegal'];
         }
@@ -171,17 +177,25 @@ class ScheduleController extends Controller
 
     public function getcallendar($id)
     {
-        $data = Departure::findOrFail($id);
-        $result = [];
-        foreach ($data->dates as $key => $date) {
-            $result[] = [
-                'title' => $data->from . '-' . $data->destination,
-                'start' => $date->date,
-                'className' => 'fc-default'
-            ];
-        }
+        // $data = Departure::findOrFail($id);
+        // $result = [];
+        // foreach ($data->dates as $key => $date) {
+        //     $result[] = [
+        //         'title' => $data->from . '-' . $data->destination,
+        //         'start' => $date->date,
+        //         'className' => 'fc-default'
+        //     ];
+        // }
 
-        return response()->json($result);
+        // return response()->json($result);
+
+        $hours = HourOfDeparture::whereHas('date', function ($date) use ($id) {
+            $date->whereHas('departure', function ($departure) use ($id) {
+                $departure->where('id', $id);
+            });
+        })->get();
+
+        return response()->json(FullCalendarResource::collection($hours));
     }
 
     /**
