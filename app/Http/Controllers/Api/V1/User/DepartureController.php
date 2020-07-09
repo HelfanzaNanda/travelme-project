@@ -42,7 +42,7 @@ class DepartureController extends Controller
         $date = $request->date;
         $from = $request->from;
         $destination = $request->destination;
-        $now = Carbon::now();
+        $now = Carbon::now()->format('Y-m-d');
         $hourNow = Carbon::now()->addHours(2)->format('H:i');
 
         if ($date == $now) {
