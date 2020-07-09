@@ -45,27 +45,51 @@ class DepartureController extends Controller
         $now = Carbon::now();
         $hourNow = Carbon::now()->addHours(2)->format('H:i');
 
-        $hours = HourOfDeparture::whereHas('date', function($query) use ($date, $now, $from, $destination){
-            $query->whereDate('date', '>=', $now)->whereDate('date', $date)
-            ->whereHas('departure', function($q) use($from, $destination){
-                $q->where('from', $from)->where('destination', $destination);
-            });
-        })->where('remaining_seat','!=', 0)->whereTime('hour', '>=', $hourNow)->orderBy('hour', 'ASC')->get();
+        if ($date == $now) {
+            $hours = HourOfDeparture::whereHas('date', function ($query) use ($date, $now, $from, $destination) {
+                $query->whereDate('date', '>=', $now)->whereDate('date', $date)
+                    ->whereHas('departure', function ($q) use ($from, $destination) {
+                        $q->where('from', $from)->where('destination', $destination);
+                    });
+            })->where('remaining_seat', '!=', 0)->whereTime('hour', '>=', $hourNow)->orderBy('hour', 'ASC')->get();
 
-        $results = [];
-        foreach($hours as $hour){
-            $minute = substr($hour, 3);
-            if($minute != '00'){
-                $minute = '00';
-                array_push($results, $hour);
+            $results = [];
+            foreach ($hours as $hour) {
+                $minute = substr($hour, 3);
+                if ($minute != '00') {
+                    $minute = '00';
+                    array_push($results, $hour);
+                }
             }
-        }
 
-        return response()->json([
-            'message' => 'successfully search travel',
-            'status' => true,
-            'data' => HourResource::collection(collect($results))
-        ]);
+            return response()->json([
+                'message' => 'successfully search travel',
+                'status' => true,
+                'data' => HourResource::collection(collect($results))
+            ]);
+        } else {
+            $hours = HourOfDeparture::whereHas('date', function ($query) use ($date, $now, $from, $destination) {
+                $query->whereDate('date', '>=', $now)->whereDate('date', $date)
+                    ->whereHas('departure', function ($q) use ($from, $destination) {
+                        $q->where('from', $from)->where('destination', $destination);
+                    });
+            })->where('remaining_seat', '!=', 0)->orderBy('hour', 'ASC')->get();
+
+            $results = [];
+            foreach ($hours as $hour) {
+                $minute = substr($hour, 3);
+                if ($minute != '00') {
+                    $minute = '00';
+                    array_push($results, $hour);
+                }
+            }
+
+            return response()->json([
+                'message' => 'successfully search travel',
+                'status' => true,
+                'data' => HourResource::collection(collect($results))
+            ]);
+        }
     }
 
     public function searchOwners(Request $request)
@@ -76,12 +100,12 @@ class DepartureController extends Controller
         $destination = $request->destination;
         $now = Carbon::now();
 
-        $data = HourOfDeparture::whereHas('date', function($query) use ($date, $now, $from, $destination){
+        $data = HourOfDeparture::whereHas('date', function ($query) use ($date, $now, $from, $destination) {
             $query->whereDate('date', '>=', $now)->whereDate('date', $date)
-            ->whereHas('departure', function($q) use ($from, $destination){
-                $q->where('from', $from)->where('destination', $destination);
-            });
-        })->where('hour', $hour)->where('remaining_seat','!=', 0)->orderBy('id', 'ASC')->get();
+                ->whereHas('departure', function ($q) use ($from, $destination) {
+                    $q->where('from', $from)->where('destination', $destination);
+                });
+        })->where('hour', $hour)->where('remaining_seat', '!=', 0)->orderBy('id', 'ASC')->get();
 
         return response()->json([
             'message' => 'successfully search travel',
