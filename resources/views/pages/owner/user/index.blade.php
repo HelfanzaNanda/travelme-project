@@ -193,30 +193,30 @@
 @section('script')
 <script>
     const selectReason = document.querySelectorAll("#select-reason")
-    const reason = document.querySelector("#reason")
-    const additionalPrice = document.querySelector("#additional-price")
+    const reason = document.querySelectorAll("#reason")
+    const additionalPrice = document.querySelectorAll("#additional-price")
 
-    selectReason.forEach(s => {
+    selectReason.forEach((s, i) => {
         s.addEventListener('change', function () {
         if (this.value == 1) {
-            reason.value = ''
-            reason.style.display = 'none'
+            reason[i].value = ''
+            reason[i].style.display = 'none'
 
             //additionalPrice.value = ''
-            additionalPrice.style.display = ''
+            additionalPrice[i].style.display = ''
             // additionalPrice.placeholder = 'Masukkan Biaya Tambahan'
             // additionalPrice.type = 'tel'
             // additionalPrice.addEventListener('input', handle, true)
 
         } else if (this.value == 2) {
-            additionalPrice.value = ''
-            additionalPrice.style.display = 'none'
+            additionalPrice[i].value = ''
+            additionalPrice[i].style.display = 'none'
 
-            reason.value = ''
-            reason.style.display = ''
+            reason[i].value = ''
+            reason[i].style.display = ''
 
-            reason.placeholder = 'Masukkan Alasan Di Tolak'
-            reason.type = 'text'
+            reason[i].placeholder = 'Masukkan Alasan Di Tolak'
+            reason[i].type = 'text'
         }
     });
     })
