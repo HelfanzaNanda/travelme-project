@@ -185,6 +185,19 @@ class OrderController extends Controller
         }
     }
 
+    public function confirm($id)
+    {
+        $order = Order::where('id', $id)->first();
+        $order->verify = '2';
+        $order->total_price += $order->additional_price;
+        $order->update();
+
+        return response()->json([
+            'message' => 'successfully confirm order from user',
+            'status' => true,
+        ]);
+    }
+
     public function updateorder($id, Request $request)
     {
         $order = Order::where('id', $id)->first();
