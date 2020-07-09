@@ -126,7 +126,7 @@
                                                 <div class="modal-body">
                                                     <div class="form-group">
                                                         @php($reasons = ['--- Pilih ---','Terlalu Jauh', 'Yang Lain'])
-                                                        <select class="form-control" id="select-reason{{ $loop->iteration }}">
+                                                        <select class="form-control" id="select-reason">
                                                             @for ($i = 0; $i < count($reasons); $i++)
                                                                 <option value="{{ $i }}"
                                                                     {{ $i == 0 ? 'selected disabled' : '' }}>
@@ -192,7 +192,7 @@
 
 @section('script')
 <script>
-    const selectReason = document.querySelector("#select-reason{{ $loop->iteration }}")
+    const selectReason = document.querySelector("#select-reason")
     const reason = document.querySelector("#reason")
     const additionalPrice = document.querySelector("#additional-price")
 
