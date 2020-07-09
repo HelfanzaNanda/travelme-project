@@ -116,8 +116,7 @@
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="exampleModalLabel">Menolak Karena Apa?</h5>
-                                                <button type="button" class="close" data-dismiss="modal"
-                                                    aria-label="Close">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
@@ -127,14 +126,13 @@
                                                 <div class="modal-body">
                                                     <div class="form-group">
                                                         @php($reasons = ['--- Pilih ---','Terlalu Jauh', 'Yang Lain'])
-                                                        <select name="driver_id" class="form-control"
-                                                            id="select-reason">
-                                                            @for ($i = 0; $i < count($reasons); $i++) <option
-                                                                value="{{ $i }}"
-                                                                {{ $i == 0 ? 'selected disabled' : '' }}>
-                                                                {{ $reasons[$i] }}
+                                                        <select class="form-control" id="select-reason{{ $loop->iteration }}">
+                                                            @for ($i = 0; $i < count($reasons); $i++)
+                                                                <option value="{{ $i }}"
+                                                                    {{ $i == 0 ? 'selected disabled' : '' }}>
+                                                                    {{ $reasons[$i] }}
                                                                 </option>
-                                                                @endfor
+                                                            @endfor
                                                         </select>
                                                     </div>
                                                     <div class="form-group">
@@ -179,7 +177,6 @@
                                         </div>
                                     </div>
                                 </td>
-
                             </tr>
                             @endforeach
                         </tbody>
@@ -195,16 +192,11 @@
 
 @section('script')
 <script>
-    const selectReason = document.querySelector("#select-reason")
+    const selectReason = document.querySelector("#select-reason{{ $loop->iteration }}")
     const reason = document.querySelector("#reason")
     const additionalPrice = document.querySelector("#additional-price")
 
     selectReason.addEventListener('change', function () {
-
-        function handle() {
-            this.value = formatRupiah(this.value)
-        }
-
         if (this.value == 1) {
             reason.value = ''
             reason.style.display = 'none'
@@ -225,23 +217,7 @@
             reason.placeholder = 'Masukkan Alasan Di Tolak'
             reason.type = 'text'
         }
-    })
-
-    function formatRupiah(angka) {
-        var number_string = angka.replace(/[^,\d]/g, '').toString(),
-            split = number_string.split(','),
-            sisa = split[0].length % 3,
-            rupiah = split[0].substr(0, sisa),
-            ribuan = split[0].substr(sisa).match(/\d{3}/gi);
-
-        if (ribuan) {
-            separator = sisa ? '.' : '';
-            rupiah += separator + ribuan.join('.');
-        }
-
-        rupiah = split[1] != undefined ? rupiah + '.' + split[1] : rupiah;
-        return rupiah;
-    }
+    });
 
 </script>
 @endsection
