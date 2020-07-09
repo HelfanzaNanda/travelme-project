@@ -192,11 +192,12 @@
 
 @section('script')
 <script>
-    const selectReason = document.querySelector("#select-reason")
+    const selectReason = document.querySelectorAll("#select-reason")
     const reason = document.querySelector("#reason")
     const additionalPrice = document.querySelector("#additional-price")
 
-    selectReason.addEventListener('change', function () {
+    selectReason.forEach(s => {
+        s.addEventListener('change', function () {
         if (this.value == 1) {
             reason.value = ''
             reason.style.display = 'none'
@@ -218,6 +219,8 @@
             reason.type = 'text'
         }
     });
+    })
+
 
 </script>
 @endsection
