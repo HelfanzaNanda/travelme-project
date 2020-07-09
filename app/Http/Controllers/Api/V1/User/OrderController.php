@@ -131,8 +131,7 @@ class OrderController extends Controller
     public function orderByUser()
     {
         try {
-            $order = Order::where('user_id', Auth::guard('api')->user()->id)
-                ->whereBetween('verify', ['1', '2'])->orderBy('id', 'DESC')->get();
+            $order = Order::where('user_id', Auth::guard('api')->user()->id)->orderBy('id', 'DESC')->get();
 
             return response()->json([
                 'message' => 'successfully get order by user',
