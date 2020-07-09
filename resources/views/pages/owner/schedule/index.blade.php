@@ -73,6 +73,7 @@
                                         <div class="row">
                                         @foreach ($data->dates->take(7) as $key => $date)
 
+                                        @if ($date->date >= Carbon\Carbon::now()->format('Y-m-d') )
                                         <div class="col-md-3 flex-fill text-center">
                                             <div class="card border-success shadow-sm bg-white rounded ">
                                                 <div class="card-header bg-info text-white">{{ Carbon\Carbon::parse($date->date)->format('l') }}</div>
@@ -86,22 +87,9 @@
                                                   </div>
                                                   @endforeach
                                                 </div>
-                                              </div>
-
-
-
-
-                                            <p></p>
-                                            <p></p>
-
+                                            </div>
                                         </div>
-
-                                        {{-- <div class="col-md-6">
-
-                                            <p>{{ $date->date }}</p>
-
-                                        </div> --}}
-
+                                        @endif
                                         @endforeach
                                         </div>
                                     </div>

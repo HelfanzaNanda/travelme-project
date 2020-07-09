@@ -143,8 +143,15 @@
                                                     </div>
 
                                                     <div class="form-group">
-                                                        <input type="text" class="form-control" id="additional-price"
-                                                            style="display: none;" name="additional_price">
+                                                        <select class="form-control" id="additional-price"
+                                                        style="display: none;" name="additional_price">
+                                                            <option value="0" selected disabled>-- Pilih Tambahan Harga --</option>
+                                                            <option value="10000">Rp . {{ number_format(10000) }}</option>
+                                                            <option value="20000">Rp . {{ number_format(20000) }}</option>
+                                                            <option value="30000">Rp . {{ number_format(30000) }}</option>
+                                                        </select>
+                                                        {{-- <input type="text" class="form-control" id="additional-price"
+                                                            style="display: none;" name="additional_price"> --}}
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
@@ -202,11 +209,11 @@
             reason.value = ''
             reason.style.display = 'none'
 
-            additionalPrice.value = ''
+            //additionalPrice.value = ''
             additionalPrice.style.display = ''
-            additionalPrice.placeholder = 'Masukkan Biaya Tambahan'
-            additionalPrice.type = 'tel'
-            additionalPrice.addEventListener('input', handle, true)
+            // additionalPrice.placeholder = 'Masukkan Biaya Tambahan'
+            // additionalPrice.type = 'tel'
+            // additionalPrice.addEventListener('input', handle, true)
 
         } else if (this.value == 2) {
             additionalPrice.value = ''

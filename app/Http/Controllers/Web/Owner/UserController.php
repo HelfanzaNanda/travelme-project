@@ -78,8 +78,7 @@ class UserController extends Controller
         if ($request->additional_price == null) {
             $data->reason_for_refusing = $request->reason;
         } else {
-            $delete_full_stop = preg_replace('/[^\w\s]/', '', $request->additional_price);
-            $data->additional_price = $delete_full_stop;
+            $data->additional_price = $request->additional_price;
         }
         $data->update();
 
