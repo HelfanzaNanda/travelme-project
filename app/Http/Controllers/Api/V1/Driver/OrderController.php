@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\User\OrderResource;
 use App\Order;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use LaravelFCM\Message\OptionsBuilder;
 use LaravelFCM\Message\PayloadDataBuilder;
@@ -22,8 +23,10 @@ class OrderController extends Controller
     public function getOrdersByDriver()
     {
         try{
+            $now = Carbon::now()->format('Y-m-d');
             $order = Order::where('driver_id', Auth::guard('driver-api')->user()->id)
-            ->where('verify', '2')->orderBy('id', 'ASC')->get();
+            ->whereDate('date', $now)->where('verify', '2')
+            ->where('status', 'pending')->orderBy('id', 'ASC')->get();
 
             return response()->json([
                 'message' => 'succesfully get order by driver',
@@ -47,7 +50,7 @@ class OrderController extends Controller
 
         $optionBuilder = new OptionsBuilder();
         $optionBuilder->setTimeToLive(60*20);
-        $message = "Pesanan Anda Di Tolak";
+        $message = "Driver Sudah Sampai Lokasi Penjemputan Anda";
         $notificationBuilder = new PayloadNotificationBuilder('travelme');
         $notificationBuilder->setBody($message)->setSound('default');
 
