@@ -60,4 +60,18 @@ class DriverController extends Controller
             ]);
         }
     }
+
+    public function domicile()
+    {
+        $driver = Driver::where('id',Auth::guard('driver-api')->user()->id)->first();
+        $driver->you_are_domicile = true;
+        $driver->update();
+    }
+
+    public function goOff()
+    {
+        $driver = Driver::where('id',Auth::guard('driver-api')->user()->id)->first();
+        $driver->you_are_domicile = false;
+        $driver->update();
+    }
 }
