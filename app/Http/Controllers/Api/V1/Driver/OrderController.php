@@ -61,7 +61,7 @@ class OrderController extends Controller
         $_data = $dataBuilder->build();
 
         // You must change it to get your tokens
-        $token = $data->user->fcm_token;
+        $token = $order->user->fcm_token;
         $downstreamResponse = FacadesFCM::sendTo($token, $option, $notification, $_data);
 
         return response()->json([
