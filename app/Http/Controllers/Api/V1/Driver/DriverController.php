@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\V1\Driver;
 
 use App\Driver;
-use App\Http\Resources\Driver\DriverResource;
+use App\Http\Resources\driver\DriverResource;
 use App\Order;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -19,15 +19,14 @@ class DriverController extends Controller
 
     public function profile()
     {
-        try{
-            $driver = Driver::where('id' , Auth::guard('driver-api')->user()->id)->first();
+        try {
+            $driver = Driver::where('id', Auth::guard('driver-api')->user()->id)->first();
             return response()->json([
                 'message' => 'succesfully get profile driver',
                 'status' => true,
                 'data' => new DriverResource($driver)
             ]);
-
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             return response()->json([
                 'message' => $exception->getMessage(),
                 'status' => false,
@@ -38,20 +37,20 @@ class DriverController extends Controller
 
     public function updateProfil(Request $request)
     {
-        try{
-            $validatior = Validator::make($request->all(),[
+        try {
+            $validatior = Validator::make($request->all(), [
                 'name' => 'required',
                 'password' => 'required',
                 'photo' => 'required|file|mimes:jpeg,jpg,png'
             ]);
-            if ($validatior->fails()){
+            if ($validatior->fails()) {
                 return response()->json([
                     'message' => $validatior->errors(),
                     'status' => false,
                     'data' => (object)[]
                 ]);
             }
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             return response()->json([
                 'message' => $exception->getMessage(),
                 'status' => false,
@@ -62,7 +61,7 @@ class DriverController extends Controller
 
     public function domicile()
     {
-        $driver = Driver::where('id',Auth::guard('driver-api')->user()->id)->first();
+        $driver = Driver::where('id', Auth::guard('driver-api')->user()->id)->first();
         $driver->you_are_domicile = true;
         $driver->update();
 
@@ -75,7 +74,7 @@ class DriverController extends Controller
 
     public function goOff()
     {
-        $driver = Driver::where('id',Auth::guard('driver-api')->user()->id)->first();
+        $driver = Driver::where('id', Auth::guard('driver-api')->user()->id)->first();
         $driver->you_are_domicile = false;
         $driver->update();
 
