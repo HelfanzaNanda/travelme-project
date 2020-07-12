@@ -41,4 +41,10 @@ class Driver extends Authenticatable
     {
         return $this->belongsTo(Car::class, 'car_id', 'id');
     }
+
+    public function owner()
+    {
+        return $this->belongsTo(Owner::class, 'owner_id', 'id');
+    }
+
 }
