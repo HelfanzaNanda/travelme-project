@@ -55,7 +55,7 @@ Route::post('snap/charge', 'Api\V1\User\OrderController@snapToken');
 Route::group(['prefix' => 'driver'], function () {
     Route::post('login', 'Api\V1\Driver\Auth\LoginController@login');
     Route::get('profile', 'Api\V1\Driver\DriverController@profile');
-    Route::post('profile', 'Api\V1\Driver\DriverController@updateProfile');
+    Route::post('profile/update', 'Api\V1\Driver\DriverController@updateProfile');
     Route::get('domicile', 'Api\V1\Driver\DriverController@domicile');
     Route::get('gooff', 'Api\V1\Driver\DriverController@goOff');
 });
