@@ -144,20 +144,7 @@ class DriverController extends Controller
         $data = Driver::find($id);
         $cars = Car::all()->where('status', '1');
 
-        $results = [];
-        foreach ($cars as $car) {
-            $driver = Driver::where('car_id', $car->id)
-                ->where('active', '1')->first();
-            if (!$driver) {
-                array_push($results, $car);
-            }
-        }
-
-        if($results){
-            return view('pages.owner.driver.edit', compact('data', 'results'));
-        }else{
-            return redirect()->back()->with('warning', 'Silahkan Tambahkan Mobil Dahulu atau Mobil sudah di pakai driver lainnya');
-        }
+        return view('pages.owner.driver.edit', compact('data'));
     }
 
     /**
@@ -196,13 +183,13 @@ class DriverController extends Controller
         $data->gender       = $request->gender;
         $data->telephone    = $request->telephone;
         $data->address      = $request->address;
-        
+
         if ($request->file('avatar') != '') {
             $photo = $request->file('avatar');
             $filename = time() . '.' . $photo->getClientOriginalExtension();
             $filepath = 'driver/' . $filename;
             Storage::disk('s3')->put($filepath, file_get_contents($photo));
-            
+
             $data->avatar = Storage::disk('s3')->url($filepath, $filename);;;
         } else {
             $data->avatar = $request->old_avatar;
