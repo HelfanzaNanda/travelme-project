@@ -65,6 +65,12 @@ class DriverController extends Controller
         $driver = Driver::where('id',Auth::guard('driver-api')->user()->id)->first();
         $driver->you_are_domicile = true;
         $driver->update();
+
+        return response()->json([
+            'message' => 'you are in domicile',
+            'status' => true,
+            'data' => (object)[]
+        ]);
     }
 
     public function goOff()
@@ -72,5 +78,11 @@ class DriverController extends Controller
         $driver = Driver::where('id',Auth::guard('driver-api')->user()->id)->first();
         $driver->you_are_domicile = false;
         $driver->update();
+
+        return response()->json([
+            'message' => 'you go off',
+            'status' => true,
+            'data' => (object)[]
+        ]);
     }
 }
