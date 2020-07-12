@@ -32,14 +32,14 @@ Route::get('', function (){
 
 Route::group(['prefix' => 'admin'], function (){
     Route::get('', function (){
-        return redirect()->route('adashboard.index');
+        return redirect()->route('admin.dashboard');
     });
 
     Route::get('/login', 'Web\Admin\AuthController@getLogin')->name('admin.login');
     Route::post('/login', 'Web\Admin\AuthController@login')->name('admin.login.submit');
     Route::get('/logout', 'Web\Admin\AuthController@logout')->name('admin.logout');
 
-    Route::get('dashboard', 'Web\Admin\DashboardController@index')->name('admin.owner.dashboard');
+    Route::get('dashboard', 'Web\Admin\DashboardController@index')->name('admin.dashboard');
 
     Route::get('owner','Web\Admin\OwnerController@index')->name('admin.owner.index');
     Route::get('owner/{id}/destroy','Web\Admin\OwnerController@destroy')->name('admin.owner.destroy');

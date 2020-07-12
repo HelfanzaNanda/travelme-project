@@ -30,8 +30,8 @@ class AuthController extends Controller
             'password' => $request->password,
         ];
 
-        if (Auth::guard('admin')->attempt($credential)){
-            return redirect()->intended(route('adashboard.index'));
+        if (Auth::guard('admin')->attempt($credential)) {
+            return redirect()->intended(route('admin.dashboard'));
         }
 
         return redirect()->back()->withInput($request->only('email'));
@@ -42,5 +42,4 @@ class AuthController extends Controller
         Auth::guard('admin')->logout();
         return redirect()->route('admin.login');
     }
-
 }

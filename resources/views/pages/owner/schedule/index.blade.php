@@ -71,7 +71,7 @@
                                 <td colspan="4">
                                     <div class="container">
                                         <div class="row">
-                                        @foreach ($data->dates->whereDate('date','>=',Carbon\Carbon::now()->format('Y-m-d'))->take(7) as $key => $date)
+                                        @foreach ($data->dates()->whereDate('date','>=',Carbon\Carbon::now()->format('Y-m-d'))->take(7) as $key => $date)
 
                                         <div class="col-md-3 flex-fill text-center">
                                             <div class="card border-success shadow-sm bg-white rounded ">

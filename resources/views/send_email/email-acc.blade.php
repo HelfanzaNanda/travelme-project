@@ -302,7 +302,7 @@
                                                                     <tr>
                                                                         <td>
                                                                             <div class="container">
-                                                                                <center><p>Pesan : Akun Anda Sudah Diverifikasi oleh Admin, Silahkan Login</p></center><hr>
+                                                                                <center><p>Pesan : {{ $content }}</p></center><hr>
                                                                             </div>
                                                                         </td>
                                                                     </tr>

@@ -30,14 +30,17 @@ class NotificationController extends Controller
     {
         $data = Owner::findOrFail($id);
         $data->update(['active' => '2']);
-        $this->sendEmail($data);
-        return redirect()->route('notification.index')->with('success', 'Berhasil Mengkonfirmasi Travel');
+        $content = 'Akun Anda Sudah Diverifikasi oleh Admin, Silahkan Login';
+        $this->sendEmail($data, $content);
+        return redirect()->route('admin.notification.index')->with('success', 'Berhasil Mengkonfirmasi Travel');
     }
 
 
-    private function sendEmail($owner)
+    private function sendEmail($owner, $content)
     {
-        Mail::send('send_email.email.acc', function ($message) use($owner){
+        Mail::send('send_email.email-acc',
+        ['content' => $content],
+        function ($message) use($owner){
             $message->from('travelme@gmail.com', 'Travelme');
             $message->to($owner->email, $owner->business_name);
             $message->subject('Akun Anda Telah DiVerifikasi');
@@ -54,6 +57,8 @@ class NotificationController extends Controller
     {
         $data = Owner::find($id);
         $data->update(['active' => '0']);
-        return redirect()->route('notification.index')->with('success   ', 'Berhasil Tidak Mengkonfirmasi Travel');
+        $content = 'Akun Anda Tidak Diverifikasi oleh Admin';
+        $this->sendEmail($data, $content);
+        return redirect()->route('admin.notification.index')->with('success', 'Berhasil Tidak Mengkonfirmasi Travel');
     }
 }

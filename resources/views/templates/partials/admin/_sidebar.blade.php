@@ -11,7 +11,7 @@
     <nav class="sidebar-nav">
         <ul id="sidebarnav">
             <li class="nav-small-cap">PERSONAL</li>
-            <li><a href="{{route('admin.owner.dashboard')}}"><i class="mdi mdi-gauge"></i><span class="menu-title">Dashboard</span></a></li>
+            <li><a href="{{route('admin.dashboard')}}"><i class="mdi mdi-gauge"></i><span class="menu-title">Dashboard</span></a></li>
             <li><a href="{{route('admin.notification.index')}}"><i class="mdi mdi-gauge"></i><span class="menu-title">Notifikasi</span></a></li>
             <li><a href="{{route('admin.owner.index')}}"><i class="mdi mdi-gauge"></i><span class="menu-title">Owner</span></a></li>
             <li class="nav-devider"></li>
