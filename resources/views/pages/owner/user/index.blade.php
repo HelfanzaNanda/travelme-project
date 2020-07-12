@@ -44,8 +44,10 @@
                                 <td>{{$data->departure->from .' -> '. $data->departure->destination}}</td>
                                 <td>{{'Rp.'.number_format($data->total_price)}}/{{$data->total_seat}} Kursi</td>
 
-                                @if ($data->verify == '2')
-                                <td><span class="badge badge-success">sudah di konfirmasi</span></td>
+                                @if ($data->verify == '2' && $data->status == 'none')
+                                <td><span class="badge badge-success">sudah di konfirmasi dan belum dibayarkan</span></td>
+                                @elseif($data->verify == '2' && $data->status == 'pending')
+                                <td><span class="badge badge-success">sudah di konfirmasi dan sudah dibayarkan</span></td>
                                 @elseif ($data->verify == '0')
                                 <td><span class="badge badge-danger">pesanan di tolak</span></td>
                                 @else

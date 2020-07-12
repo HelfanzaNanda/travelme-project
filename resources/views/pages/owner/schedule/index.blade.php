@@ -71,9 +71,8 @@
                                 <td colspan="4">
                                     <div class="container">
                                         <div class="row">
-                                        @foreach ($data->dates->take(7) as $key => $date)
+                                        @foreach ($data->dates->whereDate('date','>=',Carbon\Carbon::now()->format('Y-m-d'))->take(7) as $key => $date)
 
-                                        @if ($date->date >= Carbon\Carbon::now()->format('Y-m-d') )
                                         <div class="col-md-3 flex-fill text-center">
                                             <div class="card border-success shadow-sm bg-white rounded ">
                                                 <div class="card-header bg-info text-white">{{ Carbon\Carbon::parse($date->date)->format('l') }}</div>
@@ -89,24 +88,8 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        @endif
                                         @endforeach
                                         </div>
-                                    </div>
-
-                                    <div>
-
-
-
-
-                                        {{-- <p>{{$data->pickup_point}}</p>
-                                        <p>{{$data->destination_point}}</p>
-                                        <div class="row">
-                                            <div class="col-md-6">Tanggal :
-                                                {{\Carbon\Carbon::parse($data->date)->format('d m Y')}}</div>
-                                            <div class="col-md-6">Jam :
-                                                {{ \Carbon\carbon::parse($data->hour)->format('H:i') }}</div>
-                                        </div> --}}
                                     </div>
                                 </td>
 
