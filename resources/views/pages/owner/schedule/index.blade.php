@@ -55,8 +55,6 @@
                                         data-target="#collapse{{$data->id}}" aria-expanded="false"
                                         aria-controls="collapseA1">
                                         <i class="mdi mdi-eye"></i></a>
-                                    <a href="{{route('schedule.show', $data->id)}}" class="btn btn-info btn-sm"><i
-                                            class="mdi mdi-eye"></i></a>
                                     <a href="{{route('schedule.edit', $data->id)}}" class="btn btn-warning btn-sm"><i
                                             class="mdi mdi-pencil"></i></a>
                                     <a href="{{route('schedule.destroy', $data->id)}}"
@@ -71,11 +69,11 @@
                                 <td colspan="4">
                                     <div class="container">
                                         <div class="row">
-                                        @foreach ($data->dates()->whereDate('date','>=',Carbon\Carbon::now()->format('Y-m-d'))->take(7) as $key => $date)
+                                        @foreach ($data->dates()->whereDate('date','>=',Carbon\Carbon::now()->format('Y-m-d'))->take(7)->get() as $date)
 
                                         <div class="col-md-3 flex-fill text-center">
                                             <div class="card border-success shadow-sm bg-white rounded ">
-                                                <div class="card-header bg-info text-white">{{ Carbon\Carbon::parse($date->date)->format('l') }}</div>
+                                                <div class="card-header bg-info text-white">{{ Carbon\Carbon::parse($date->date)->dayName }}</div>
                                                 <div class="card-body text-black pull-left">
                                                   <h5 class="card-title">{{ $date->date }}</h5>
                                                   @foreach ($date->hours as $hour)

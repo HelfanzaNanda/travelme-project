@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Midtrans\Config;
 use App\Http\Resources\v2\UserResource;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * @property  response
@@ -61,20 +62,28 @@ class UserController extends Controller
 
     }
 
+    public function updatePhoto(Request $request){
+        $photo = $request->file('avatar');
+        $filename = time() . '.' . $photo->getClientOriginalExtension();
+        $filepath = 'driver/' . $filename;
+        Storage::disk('s3')->put($filepath, file_get_contents($photo));
+
+        $user = User::where('id', Auth::guard('api')->user()->id)->first();
+        $user->photo = Storage::disk('s3')->url($filepath, $filename);
+        $user->update();
+
+        return response()->json([
+            'message' => 'successfully update photo profil',
+            'status' => true,
+            'data' => new UserResource($user)
+        ]);
+    }
+
     public function updateprofile(Request $request)
     {
         $user = User::where('id', Auth::guard('api')->user()->id)->first();
         $user->name = $request->name;
         $user->password = $request->password;
-        $photo = $request->file('photo');
-        if($photo){
-            $path = time() . '.' . $photo->getClientOriginalExtension();
-            $destinationPath = public_path('uploads/owner/user');
-            $photo->move($destinationPath, $path);
-            $user->photo = $path;
-        }else{
-            $user->photo = $user->photo;
-        }
         $user->update();
 
         return response()->json([

@@ -20,6 +20,7 @@ Route::group(['prefix' => 'user'], function () {
     Route::get('email/resend', 'Api\V1\User\Auth\VerificationController@resend')->name('api.verification.resend');
     Route::get('profile', 'Api\V1\User\UserController@profile');
     Route::post('profile/update', 'Api\V1\User\UserController@updateprofile');
+    Route::post('profile/update/photo', 'Api\V1\User\UserController@updatePhoto');
 });
 
 Route::get('users', 'Api\V1\User\UserController@getUsers');
