@@ -3,8 +3,7 @@
 namespace App\Http\Controllers\Api\V1\Driver;
 
 use App\Driver;
-use App\Http\Resources\User\DriverResource;
-use App\Http\Resources\User\OrderResource;
+use App\Http\Resources\v2\DriverResource;
 use App\Order;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
