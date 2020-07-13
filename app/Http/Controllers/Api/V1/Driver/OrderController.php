@@ -20,6 +20,28 @@ class OrderController extends Controller
         $this->middleware('auth:driver-api');
     }
 
+    public function getOrder()
+    {
+        $order = Order::where('driver_id', Auth::guard('driver-api')->user()->id)
+        ->where('verify', '2')->where('status', 'pending')->where('done', false)->first();
+
+        $orders = Order::where('driver_id', Auth::guard('driver-api')->user()->id)
+        ->where('verify', '2')->where('status', 'pending')->where('done', false)->get()->count();
+
+        $result = [
+            "id" => $order->id,
+            "date" => $order->date,
+            "hour" => $order->hour,
+            "total_user" => $orders
+        ];
+
+        return response()->json([
+            'message' => 'successfully get one order',
+            'status' => true,
+            'data' => $result
+        ]);
+    }
+
     public function getOrdersByDriver()
     {
         try{
