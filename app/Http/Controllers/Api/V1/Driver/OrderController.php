@@ -32,7 +32,8 @@ class OrderController extends Controller
             "id" => $order->id,
             "date" => $order->date,
             "hour" => $order->hour,
-            "total_user" => $orders
+            "total_user" => $orders,
+            "departure" => $order->departure
         ];
 
         return response()->json([
