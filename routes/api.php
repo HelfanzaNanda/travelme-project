@@ -61,6 +61,7 @@ Route::group(['prefix' => 'driver'], function () {
 });
 
 Route::get('order/driver', 'Api\V1\Driver\OrderController@getOrdersByDriver');
+Route::get('order/driver/show', 'Api\V1\Driver\OrderController@getOrder');
 Route::get('order/{id}/arrived', 'Api\V1\Driver\OrderController@arrived');
 Route::get('order/{id}/done', 'Api\V1\Driver\OrderController@done');
 
