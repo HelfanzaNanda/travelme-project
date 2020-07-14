@@ -57,7 +57,7 @@
           <ul class="navbar-nav ml-auto align-items-lg-center">
             <li><a class="nav-link" href="#home">Home</a></li>
             
-            <li><a class="nav-link" href="#feature">Features</a></li>
+            <li><a class="nav-link" href="#feature">Featuresa</a></li>
             <li><a class="nav-link" href="#price">Price</a></li>
             <li><a class="nav-link-btn" href="{{ route('owner.login') }}">Login</a></li>
             <li><a class="nav-link-btn" href="{{ route('owner.register') }}">Register</a></li>
