@@ -72,7 +72,7 @@
                                 <label for="projectinput2">Tanggal</label>
                                 <div class='input-group mb-3'>
                                     <input class="form-control {{$errors->has('date')?'is-invalid':''}} tanggal"
-                                        type="text" name="date" id="tanggal">
+                                        type="text" name="date" id="tanggal" readonly style="cursor: pointer; background: white;">
                                     <div class="input-group-append">
                                         <span class="input-group-text"><span class="ti-calendar"></span></span>
                                     </div>
@@ -93,7 +93,7 @@
                                         </button>
                                     </div>
                                     <input class="form-control {{$errors->has('hour.0')?'is-invalid':''}}" type="text"
-                                        name="hour[]">
+                                        name="hour[]" readonly style="cursor: pointer; background: white">
                                     <div class="input-group-append">
                                         <span class="input-group-text"><i class="far fa-clock"></i></span>
                                     </div>
@@ -154,10 +154,6 @@
 </script>
 
 <script>
-    var dateToday = new Date();
-    console.log(dateToday);
-    
-    
 	$('.tanggal').datepicker({
 		multidate: true,
 		format: 'dd-mm-yyyy',
@@ -166,12 +162,6 @@
         toggleActive: true,
         startDate: new Date()
 	});
-
-    
-	// $('#onSubmit').click(function(){
-	// 	var selectDate = $("#unavailable_date").val();
-	// 	console.log(selectDate);
-	// });
 </script>
 
 @endsection
