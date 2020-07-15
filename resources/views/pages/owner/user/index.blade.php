@@ -21,6 +21,14 @@
         </div>
         @endif
 
+        @if ($message = Session::get('error'))
+        <div class="alert alert-danger">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span
+                    aria-hidden="true">×</span> </button>
+            <h3 class="text-warning"><i class="fa fa-remove"></i> Error</h3> {{ $message }}
+        </div>
+        @endif
+
         <div class="card">
             <div class="card-body">
                 <h6 class="card-subtitle">Data Penumpang</h6>
@@ -63,11 +71,14 @@
                                         aria-controls="collapseA1">
                                         <i class="mdi mdi-eye"></i></a>
                                     @if ($data->verify == '1')
-                                    <a href="" class="btn btn-warning btn-sm" data-toggle="modal"
-                                        data-target="#confirmedModal{{ $data->id }}">Konfirmasi</a>
+                                    <a href="{{ route('owner.user.confirmed', $data->id) }}" class="btn btn-warning btn-sm" >Konfirmasi</a>
+
                                     <a href="" data-toggle="modal" data-target="#declineModal{{ $data->id }}"
                                         class="btn btn-danger btn-sm">
                                         Tolak</a>
+                                    @else
+                                    <a href="" class="btn btn-warning btn-sm" data-toggle="modal"
+                                        data-target="#confirmedModal{{ $data->id }}">Pilih Sopir</a>
                                     @endif
                                 </td>
                                 @else
@@ -86,7 +97,7 @@
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
-                                            <form action="{{ route('owner.user.confirmed', $data->id) }}" method="post">
+                                            <form action="{{ route('owner.user.choosedriver', $data->id) }}" method="post">
                                                 @csrf
                                                 @method('patch')
                                                 <div class="modal-body">
@@ -169,14 +180,19 @@
                                 <td>#</td>
                                 <td colspan="4">
                                     <div>
-                                        <p>{{$data->pickup_point}}</p>
-                                        <p>{{$data->destination_point}}</p>
+                                        <p>Lokasi Penjemputan : {{$data->pickup_point}}</p>
+                                        <p>Lokasi Tujuan : {{$data->destination_point}}</p>
                                         <div class="row">
-                                            <div class="col-md-6">Tanggal :
-                                                {{\Carbon\Carbon::parse($data->date)->format('d m Y')}}</div>
-                                            <div class="col-md-6">Jam :
-                                                {{ \Carbon\carbon::parse($data->hour)->format('H:i') }}</div>
+                                            <div class="col-md-4">
+                                                <p>Tanggal :{{\Carbon\Carbon::parse($data->date)->format('d m Y')}}</p>
+                                                <p>Jam :{{ \Carbon\carbon::parse($data->hour)->format('H:i') }}</p>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>Driver :  {{ $data->driver_id == null ? 'driver belum di pilih' : $data->driver['name'] }}</p>
+                                                <p>Mobil : {{ $data->car_id == null ? 'mobil belum di pilih' : $data->car['number_plate']}}</p>
+                                            </div>
                                         </div>
+                                        
                                     </div>
                                 </td>
                             </tr>

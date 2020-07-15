@@ -89,7 +89,8 @@ Route::group(['prefix' => 'owner'], function (){
 
     Route::get('user', 'Web\Owner\UserController@index')->name('owner.user.index');
     Route::get('user/{id}', 'Web\Owner\UserController@show')->name('owner.user.show');
-    Route::patch('user/{id}/confirmed', 'Web\Owner\UserController@confirmed')->name('owner.user.confirmed');
+    Route::get('user/{id}/confirmed', 'Web\Owner\UserController@confirmed')->name('owner.user.confirmed');
+    Route::patch('user/{id}/choosedriver', 'Web\Owner\UserController@chooseDriver')->name('owner.user.choosedriver');
     Route::patch('user/{id}/decline', 'Web\Owner\UserController@decline')->name('owner.user.decline');
 
     Route::get('report', 'Web\Owner\ReportController@index')->name('owner.report.index');

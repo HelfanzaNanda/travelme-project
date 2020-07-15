@@ -40,13 +40,11 @@ class UserController extends Controller
 
     public function confirmed(Request $request, $id)
     {
-        $driver = Driver::where('id', $request->driver_id)->first();
         $data = Order::findOrFail($id);
+
         if ($data->verify == '0') {
             return back()->with('error', 'pesanan sudah di batalkan oleh pemesan');
         } else {
-            $data->driver_id = $request->driver_id;
-            $data->car_id = $driver->car_id;
             $data->verify = '2';
             $data->update();
 
@@ -67,6 +65,38 @@ class UserController extends Controller
             $downstreamResponse = FacadesFCM::sendTo($token, $option, $notification, $_data);
 
             return redirect()->route('owner.user.index')->with('success', 'Berhasil Mengkonfirmasi Pesanan');
+        }
+    }
+
+    public function chooseDriver(Request $request, $id)
+    {
+        $data = Order::findOrFail($id);
+        $driver = Driver::where('id', $request->driver_id)->first();
+        $order = Order::where('driver_id', $request->driver_id)
+            //->where('date', $data->tanggal)
+            ->where('arrived', false)->first();
+
+        if ($order) {
+            if ($order->date == $data->date) {
+                if ($order->departure_id == $data->departure_id) {
+                    $data->driver_id = $request->driver_id;
+                    $data->car_id = $driver->car_id;
+                    $data->update();
+                    return redirect()->route('owner.user.index')->with('success', 'Berhasil Memilih sopir');
+                } else {
+                    return redirect()->back()->with('error', 'Supir hanya memiliki 1 tujuan');
+                }
+            } else {
+                return redirect()->back()->with(
+                    'error',
+                    'Supir belum melakukan perjalanan, tunggu sampai supir selesai melakukan perjalanan'
+                );
+            }
+        } else {
+            $data->driver_id = $request->driver_id;
+            $data->car_id = $driver->car_id;
+            $data->update();
+            return redirect()->route('owner.user.index')->with('success', 'Berhasil Memilih sopir');
         }
     }
 
