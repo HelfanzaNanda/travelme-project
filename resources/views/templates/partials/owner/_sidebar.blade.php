@@ -2,7 +2,11 @@
     <!-- User profile -->
     <div class="user-profile">
         <!-- User profile image -->
-        <div class="profile-img"> <img src="{{Auth::guard('owner')->user()->photo}}" alt="user" /> </div>
+        <div class="profile-img"> 
+            <img src="{{ Auth::guard('owner')->user()->photo != null : 
+            Auth::guard('owner')->user()->photo ? 
+            asset('logo/travelme.png')}}" 
+            alt="user" /> </div>
         <!-- User profile text-->
         <div class="profile-text">{{Auth::guard('owner')->user()->business_name}}</div>
     </div>
