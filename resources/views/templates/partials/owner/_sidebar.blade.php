@@ -13,7 +13,7 @@
             <li class="nav-small-cap">Data</li>
             <li><a href="{{route('owner.dashboard')}}"><i class="mdi mdi-view-dashboard"></i><span class="menu-title">Dashboard</span></a></li>
             <li><a href="{{route('car.index')}}"><i class="mdi mdi-car"></i><span class="menu-title">Mobil</span></a></li>
-            <li><a href="{{route('driver.index')}}"><i class="mdi mdi-account-convert"></i><span class="menu-title">Driver</span></a></li>
+            <li><a href="{{route('driver.index')}}"><i class="mdi mdi-account-convert"></i><span class="menu-title">Supir</span></a></li>
             <li><a href="{{route('schedule.index')}}"><i class="mdi mdi-calendar-blank"></i><span class="menu-title">Jadwal</span></a></li>
             <li class="nav-devider"></li>
             <li><a href="{{route('owner.user.index')}}"><i class="mdi mdi-account"></i><span class="menu-title">Penumpang</span></a></li>

@@ -2,15 +2,11 @@
 @section('content')
 <div class="row page-titles">
     <div class="col-md-6 col-8 align-self-center">
-        <h3 class="text-themecolor mb-0 mt-0">Table Data Jadwal</h3>
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-            <li class="breadcrumb-item active">Table Data Jadwal</li>
-        </ol>
+        <h3 class="text-themecolor mb-0 mt-0">Tabel Data Jadwal</h3>
     </div>
     <div class="col-md-6 col-4 align-self-center">
         <a href="{{route('schedule.create')}}" class="btn float-right hidden-sm-down btn-success"><i
-                class="mdi mdi-plus-circle"></i>Create</a>
+                class="mdi mdi-plus-circle"></i>Tambah</a>
     </div>
 </div>
 <!-- Start Page Content -->
@@ -33,7 +29,6 @@
 
         <div class="card">
             <div class="card-body">
-                <h6 class="card-subtitle">Data Jadwal</h6>
                 <div class="table-responsive m-t-40">
                     <table id="myTable" class="table table-bordered table-striped">
                         <thead>

@@ -2,11 +2,7 @@
 @section('content')
 <div class="row page-titles">
     <div class="col-md-6 col-8 align-self-center">
-        <h3 class="text-themecolor mb-0 mt-0">Table Data Mobil</h3>
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-            <li class="breadcrumb-item active">Table Data Mobil</li>
-        </ol>
+        <h3 class="text-themecolor mb-0 mt-0">Tabel Data Mobil</h3>
     </div>
     <div class="col-md-6 col-4 align-self-center">
         <a href="{{route('car.create')}}" class="btn float-right hidden-sm-down btn-success mr-2"><i
@@ -25,7 +21,6 @@
         @endif
         <div class="card">
             <div class="card-body">
-                <h6 class="card-subtitle">Data Mobil</h6>
                 <div class="table-responsive m-t-40">
                     <table id="myTable" class="table table-bordered table-striped">
                         <thead>

@@ -2,7 +2,7 @@
 @section('content')
 <div class="row page-titles">
     <div class="col-md-6 col-8 align-self-center">
-        <h3 class="text-themecolor mb-0 mt-0">Table Data Notifikasi</h3>
+        <h3 class="text-themecolor mb-0 mt-0">Tabel Data Notifikasi</h3>
     </div>
 </div>
 <!-- Start Page Content -->
