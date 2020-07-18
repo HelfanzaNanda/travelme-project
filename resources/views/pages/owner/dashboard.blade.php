@@ -162,7 +162,7 @@ async function dashboard() {
 dashboard();
 
 function getData(){
-    return fetch(url+'owner/dashboard/chart').then(res => res.json()).then(res => res)
+    return fetch(url+'travel/dashboard/chart').then(res => res.json()).then(res => res)
 };
 
 </script>
