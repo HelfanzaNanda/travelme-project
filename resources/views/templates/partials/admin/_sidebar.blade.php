@@ -2,7 +2,7 @@
     <!-- User profile -->
     <div class="user-profile">
         <!-- User profile image -->
-        <div class="profile-img"> <img src="{{asset('assets/images/users/1.jpg')}}" alt="user" /> </div>
+        <div class="profile-img"><img src="{{asset('logo/travelme.png')}}" alt="user" /> </div>
         <!-- User profile text-->
         <div class="profile-text">{{Auth::guard('admin')->user()->name}}</div>
     </div>

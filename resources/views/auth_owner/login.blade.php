@@ -13,7 +13,7 @@
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="{{asset('assets/images/favicon.png')}}">
-    <title>login Owner</title>
+    <title>login Travel</title>
     <link rel="canonical" href="https://www.wrappixel.com/templates/monsteradmin/" />
     <!-- Bootstrap Core CSS -->
     <link href="{{asset('assets/plugins/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
@@ -49,7 +49,7 @@
                 </div>
                 @endif
 
-                <div class="card-header d-flex justify-content-center">Login Owner</div>
+                <div class="card-header d-flex justify-content-center">Login Travel</div>
                 <div class="card-body">
                     <form class="form-horizontal form-material" action="{{route('owner.login.submit')}}" method="post">
                         @csrf

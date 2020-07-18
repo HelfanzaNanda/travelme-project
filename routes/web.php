@@ -57,7 +57,7 @@ Route::group(['prefix' => 'admin'], function (){
     Route::get('travel/{id}/destroy', 'Web\Admin\TravelController@destroy')->name('admin.travel.destroy');
 });
 
-Route::group(['prefix' => 'owner'], function (){
+Route::group(['prefix' => 'travel'], function (){
     //Auth owner
     Route::get('/login', 'Web\Owner\Auth\LoginController@getLogin')->name('owner.login');
     Route::post('/login', 'Web\Owner\Auth\LoginController@login')->name('owner.login.submit');

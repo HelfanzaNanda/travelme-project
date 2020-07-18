@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Web\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Owner;
+use App\User;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -20,7 +22,9 @@ class DashboardController extends Controller
 
     public function index()
     {
-        return view('pages.admin.dashboard');
+        $owner = Owner::where('active', '2')->get()->count();
+        $user = User::where('email_verified_at', '!=', 'null')->get()->count();
+        return view('pages.admin.dashboard', compact(['owner', 'user']));
     }
 
     /**

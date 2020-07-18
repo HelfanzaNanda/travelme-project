@@ -1,1 +1,1 @@
-<footer class="footer"> © 2019 Monster Admin by wrappixel.com </footer>
+<footer class="footer"> © 2020 Travelme</footer>

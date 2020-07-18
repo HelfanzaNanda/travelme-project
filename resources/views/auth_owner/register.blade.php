@@ -10,7 +10,7 @@
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="{{asset('assets/images/favicon.png')}}">
-    <title>Register Owner</title>
+    <title>Register Travel</title>
     <link href="{{asset('assets/plugins/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{asset('assets/css/style.css')}}" rel="stylesheet">
     <link href="{{asset('assets/css/colors/blue.css')}}" id="theme" rel="stylesheet">
@@ -43,7 +43,7 @@
                         </div>
                         @endif
                         <div class="card">
-                            <div class="card-header">{{ __('Register Owner') }}</div>
+                            <div class="card-header">{{ __('Register Travel') }}</div>
                             <div class="card-body">
                                 <form action="{{route('owner.register.submit')}}" method="post">
                                     @csrf

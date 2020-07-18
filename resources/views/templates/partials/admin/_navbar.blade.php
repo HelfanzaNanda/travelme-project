@@ -7,15 +7,15 @@
             <!-- Logo icon --><b>
                 <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                 <!-- Dark Logo icon -->
-                <img src="{{asset('assets/images/logo-icon.png')}}" alt="homepage" class="dark-logo" />
+                <img src="{{asset('logo/logo/apple-icon-57x57.png')}}" alt="homepage" class="dark-logo" />
                 <!-- Light Logo icon -->
-                <img src="{{asset('assets/images/logo-light-icon.png')}}" alt="homepage" class="light-logo" />
+                <img src="{{asset('logo/logo/favicon-32x32.png')}}" alt="homepage" class="light-logo" />
             </b>
             <!--End Logo icon -->
             <!-- Logo text -->
             <span>
                 <!-- dark Logo text -->
-                <img src="{{asset('assets/images/logo-text.png')}}" alt="homepage" class="dark-logo" />
+                <img src="{{asset('logo/text/travelme.png')}}" alt="homepage" class="dark-logo" />
                 <!-- Light Logo text -->
                 <img src="{{asset('assets/images/logo-light-text.png')}}" class="light-logo" alt="homepage" />
             </span>
@@ -45,16 +45,14 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="#"
                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img
-                        src="{{asset('assets/images/users/1.jpg')}}" alt="user" class="profile-pic" /></a>
+                        src="{{asset('logo/logo/apple-icon-72x72.png')}}" alt="user" class="profile-pic" /></a>
                 <div class="dropdown-menu dropdown-menu-right animated flipInY">
                     <ul class="dropdown-user">
                         <li>
                             <div class="dw-user-box">
-                                <div class="u-img"><img src="{{asset('assets/images/users/1.jpg')}}" alt="user"></div>
+                                <div class="u-img"><img src="{{asset('logo/logo/apple-icon-72x72.png')}}" alt="user"></div>
                                 <div class="u-text">
                                     <h4>{{Auth::guard('admin')->user()->name}}</h4>
-                                    <br/>
-                                    <a href="" class="btn btn-rounded btn-danger btn-sm">View Profile</a>
                                 </div>
                             </div>
                         </li>
