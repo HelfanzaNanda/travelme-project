@@ -33,11 +33,6 @@
                         {{ $count_order_verify }}</h2>
                     <span class="card-text text-muted">Di konfirmasi</span>
                 </div>
-                <span class="card-text text-success">80%</span>
-                <div class="progress">
-                    <div class="progress-bar bg-success" role="progressbar" style="width: 80%; height: 6px;"
-                        aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
             </div>
         </div>
     </div>
@@ -50,11 +45,6 @@
                     <h2 class="card-text font-light mb-0"><i class="ti-arrow-down text-success"></i>
                         {{ $count_order_dont_verify }}</h2>
                     <span class="card-text text-muted">Belum di Konfirmasi</span>
-                </div>
-                <span class="card-text text-success">80%</span>
-                <div class="progress">
-                    <div class="progress-bar bg-success" role="progressbar" style="width: 80%; height: 6px;"
-                        aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
             </div>
         </div>
