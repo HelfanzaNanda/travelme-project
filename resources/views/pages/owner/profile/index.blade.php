@@ -2,11 +2,7 @@
 @section('content')
 <div class="row page-titles">
     <div class="col-md-6 col-8 align-self-center">
-        <h3 class="text-themecolor mb-0 mt-0">Profile</h3>
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-            <li class="breadcrumb-item active">Profile</li>
-        </ol>
+        <h3 class="text-themecolor mb-0 mt-0">Profil {{ $owner->business_name }}</h3>
     </div>
 </div>
 <!-- ============================================================== -->

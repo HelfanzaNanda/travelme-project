@@ -2,11 +2,7 @@
 @section('content')
     <div class="row page-titles">
         <div class="col-md-6 col-8 align-self-center">
-            <h3 class="text-themecolor m-b-0 m-t-0">driver</h3>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                <li class="breadcrumb-item active">Tambah driver</li>
-            </ol>
+            <h3 class="text-themecolor m-b-0 m-t-0">Tambah Supir</h3>
         </div>
     </div>
 
@@ -14,7 +10,6 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Tambah driver</h4>
                     <form class="form" method="post" action="{{route('driver.store')}}" enctype="multipart/form-data">
                         @csrf
                         <div class="form-body">

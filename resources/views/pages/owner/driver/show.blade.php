@@ -2,15 +2,11 @@
 @section('content')
     <div class="row page-titles">
         <div class="col-md-6 col-8 align-self-center">
-            <h3 class="text-themecolor mb-0 mt-0">Mbil</h3>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                <li class="breadcrumb-item active">Mobil</li>
-            </ol>
+            <h3 class="text-themecolor mb-0 mt-0">Detail Supir</h3>
         </div>
         <div class="col-md-6 col-4 align-self-center">
             <a href="{{route('driver.edit', $data->id)}}" class="btn float-right hidden-sm-down btn-success">
-                <i class="mdi mdi-pencil"></i> Edit
+                <i class="mdi mdi-pencil"></i> Edit 
             </a>
         </div>
     </div>

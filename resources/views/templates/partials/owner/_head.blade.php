@@ -7,7 +7,7 @@
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('logo/logo/favicon-16x16.png') }}">
-    <title>{{ Auth::guard('owner')->user()->businness_name }}</title>
+    <title>{{ Auth::guard('owner')->user()->business_name }}</title>
     <link rel="canonical" href="https://www.wrappixel.com/templates/monsteradmin/" />
     <!-- Bootstrap Core CSS -->
     <link href="{{asset('assets/plugins/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
