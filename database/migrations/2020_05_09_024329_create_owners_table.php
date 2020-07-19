@@ -33,19 +33,6 @@ class CreateOwnersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
-
-        App\Owner::create([
-            'license_number' => 'connext/12345',
-            'business_owner' => 'Connext Shuttle',
-            'business_name' => 'Connext Shuttle',
-            'address' => 'gili tugel',
-            'email' => 'connextshuttle@gmail.com',
-            'password' => Hash::make('12345678'),
-            'telephone' => '089663543355',
-            'active' => '2',
-            'activation_token' => Str::random(80),
-            'balance' => 0
-        ]);
     }
 
     /**
