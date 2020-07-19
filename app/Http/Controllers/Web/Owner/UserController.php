@@ -24,11 +24,20 @@ class UserController extends Controller
 
     public function index()
     {
-        $drivers = Driver::where('owner_id', Auth::guard('owner')->user()->id)
-            ->where('you_are_domicilied', true)->get();
+        $drivers = Driver::where('owner_id', Auth::guard('owner')->user()->id)->get();
         $datas = Order::where('owner_id', Auth::guard('owner')->user()->id)
             ->orderBy('id', 'ASC')->get();
-        return view('pages.owner.user.index', compact(['datas', 'drivers']));
+        return view('pages.owner.user.index', compact('datas', 'drivers'));
+    }
+
+    public function getDrivers($id)
+    {
+        $order = Order::findOrFail($id);
+        $drivers = Driver::where('owner_id', Auth::guard('owner')->user()->id)
+        ->where('location' , $order->departure->destination)
+        ->get(['id','name']);
+
+        return $drivers;
     }
 
     public function show($id)

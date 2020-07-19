@@ -14,256 +14,93 @@ class TravelSeed extends Seeder
     {
 
         Travel::create([
-            'license_number' => 'connext/tegal/12345',
-            'business_owner' => 'connext',
-            'business_name' => 'Connext Tegal',
-            'domicile' => 'Tegal',
+            'license_number' => 'connext/12345',
+            'business_owner' => 'Connext Shuttle',
+            'business_name' => 'Connext Shuttle',
         ]);
 
         Travel::create([
-            'license_number' => 'connext/semarang/12345',
-            'business_owner' => 'connext',
-            'business_name' => 'Connext Semarang',
-            'domicile' => 'Semarang',
-        ]);
-
-        Travel::create([
-            'license_number' => 'connext/cirebon/12345',
-            'business_owner' => 'connext',
-            'business_name' => 'Connext Cirebon',
-            'domicile' => 'Cirebon',
-        ]);
-
-        Travel::create([
-            'license_number' => 'rama sakti/tegal/54321',
+            'license_number' => 'rama sakti/54321',
             'business_owner' => 'rama sakti',
-            'business_name' => 'Rama Sakti Tegal',
-            'domicile' => 'Tegal',
+            'business_name' => 'Rama Sakti',
         ]);
 
         Travel::create([
-            'license_number' => 'rama sakti/bandung/54321',
-            'business_owner' => 'rama sakti',
-            'business_name' => 'Rama Sakti Bandung',
-            'domicile' => 'Bandung',
-        ]);
-
-        Travel::create([
-            'license_number' => 'rama sakti/jogja/54321',
-            'business_owner' => 'rama sakti',
-            'business_name' => 'Rama Sakti Jogja',
-            'domicile' => 'Jogja',
-        ]);
-
-        Travel::create([
-            'license_number' => 'rama sakti/semarang/54321',
-            'business_owner' => 'rama sakti',
-            'business_name' => 'Rama Sakti Semarang',
-            'domicile' => 'Semarang',
-        ]);
-
-
-        Travel::create([
-            'license_number' => 'Oke Trans/Tegal/12431',
+            'license_number' => 'Oke Trans/12431',
             'business_owner' => 'oke trans',
-            'business_name' => 'Oke Trans Tegal',
-            'domicile' => 'Tegal',
+            'business_name' => 'Oke Trans',
         ]);
 
         Travel::create([
-            'license_number' => 'Oke Trans/jakarta/12431',
-            'business_owner' => 'oke trans',
-            'business_name' => 'Oke Trans Jakarta',
-            'domicile' => 'Jakarta',
-        ]);
-
-        Travel::create([
-            'license_number' => 'Oke Trans/surabaya/12431',
-            'business_owner' => 'oke trans',
-            'business_name' => 'Oke Trans Surabaya',
-            'domicile' => 'Surabaya',
-        ]);
-
-        Travel::create([
-            'license_number' => 'andis/tegal/12458',
+            'license_number' => 'andis/12458',
             'business_owner' => 'andis travel',
-            'business_name' => 'andis Tegal',
-            'domicile' => 'Tegal',
+            'business_name' => 'andis Travel',
         ]);
 
         Travel::create([
-            'license_number' => 'andis/bandung/12453',
-            'business_owner' => 'andis travel',
-            'business_name' => 'andis Bandung',
-            'domicile' => 'Bandung',
+            'license_number' => 'daffa/52458',
+            'business_owner' => 'daffa Travel',
+            'business_name' => 'daffa Travel',
         ]);
 
         Travel::create([
-            'license_number' => 'daffa/Tegal/52458',
-            'business_owner' => 'daffa travel',
-            'business_name' => 'daffa Tegal',
-            'domicile' => 'Tegal',
-        ]);
-
-        Travel::create([
-            'license_number' => 'daffa/solo/52458',
-            'business_owner' => 'daffa travel',
-            'business_name' => 'daffa Solo',
-            'domicile' => 'Solo',
-        ]);
-
-        Travel::create([
-            'license_number' => 'daffa/jogja/52458',
-            'business_owner' => 'daffa travel',
-            'business_name' => 'daffa Jogja',
-            'domicile' => 'Jogja',
-        ]);
-
-        Travel::create([
-            'license_number' => 'alvaro/tegal/52458',
+            'license_number' => 'alvaro/52458',
             'business_owner' => 'alvaro travel',
-            'business_name' => 'alvaro Tegal',
-            'domicile' => 'Tegal',
+            'business_name' => 'alvaro Travel',
         ]);
 
         Travel::create([
-            'license_number' => 'alvaro/semarang/52458',
-            'business_owner' => 'alvaro travel',
-            'business_name' => 'alvaro Semarang',
-            'domicile' => 'Semarang',
-        ]);
-
-        Travel::create([
-            'license_number' => 'baharitrans/tegal/52451',
+            'license_number' => 'baharitrans/52451',
             'business_owner' => 'Bahari Trans travel',
-            'business_name' => 'Bahari Trans Tegal',
-            'domicile' => 'Tegal',
+            'business_name' => 'Bahari Trans Travel',
         ]);
 
         Travel::create([
-            'license_number' => 'baharitrans/jakarta/52451',
-            'business_owner' => 'Bahari Trans travel',
-            'business_name' => 'Bahari Trans Jakarta',
-            'domicile' => 'Jakarta',
-        ]);
-
-        Travel::create([
-            'license_number' => 'madatrans/tegal/52451',
+            'license_number' => 'madatrans/52451',
             'business_owner' => 'Mada Trans travel',
-            'business_name' => 'Mada Trans Tegal',
-            'domicile' => 'Tegal',
+            'business_name' => 'Mada Trans Travel',
         ]);
 
         Travel::create([
-            'license_number' => 'madatrans/jogja/52451',
-            'business_owner' => 'Mada Trans travel',
-            'business_name' => 'Mada Trans Jogja',
-            'domicile' => 'Jogja',
-        ]);
-
-        Travel::create([
-            'license_number' => 'dragonjayaexpress/tegal/52451',
+            'license_number' => 'dragonjayaexpress/52451',
             'business_owner' => 'Dragon Jaya Express travel',
-            'business_name' => 'Dragon Jaya Express Tegal',
-            'domicile' => 'Tegal',
+            'business_name' => 'Dragon Jaya Express Travel',
         ]);
 
         Travel::create([
-            'license_number' => 'dragonjayaexpress/jakarta/52451',
-            'business_owner' => 'Dragon Jaya Express travel',
-            'business_name' => 'Dragon Jaya Express Jakarta',
-            'domicile' => 'Jakarta',
-        ]);
-
-        Travel::create([
-            'license_number' => 'dragonjayaexpress/cirebon/52451',
-            'business_owner' => 'Dragon Jaya Express travel',
-            'business_name' => 'Dragon Jaya Express Cirebon',
-            'domicile' => 'Cirebon',
-        ]);
-
-        Travel::create([
-            'license_number' => 'himatrans/tegal/52451',
+            'license_number' => 'himatrans/52451',
             'business_owner' => 'Hima Trans',
-            'business_name' => 'Hima Trans Tegal',
-            'domicile' => 'Tegal',
+            'business_name' => 'Hima Trans',
         ]);
 
         Travel::create([
-            'license_number' => 'himatrans/jogja/52451',
-            'business_owner' => 'Hima Trans',
-            'business_name' => 'Hima Trans Jogja',
-            'domicile' => 'Jogja',
-        ]);
-
-        Travel::create([
-            'license_number' => 'arjunoshuttle/tegal/52451',
+            'license_number' => 'arjunoshuttle/52451',
             'business_owner' => 'Arjuno Shuttle',
-            'business_name' => 'Arjuno Shuttle Tegal',
-            'domicile' => 'Tegal',
+            'business_name' => 'Arjuno Shuttle',
         ]);
 
         Travel::create([
-            'license_number' => 'arjunoshuttle/semarang/52451',
-            'business_owner' => 'Arjuno Shuttle',
-            'business_name' => 'Arjuno Shuttle Semarang',
-            'domicile' => 'Semarang',
-        ]);
-
-        Travel::create([
-            'license_number' => 'alloytravel/cirebon/52451',
+            'license_number' => 'alloytravel/52451',
             'business_owner' => 'Alloy Travel',
-            'business_name' => 'Alloy Travel Cirebon',
-            'domicile' => 'Cirebon',
+            'business_name' => 'Alloy Travel',
         ]);
 
         Travel::create([
-            'license_number' => 'alloytravel/bandung/52451',
-            'business_owner' => 'Alloy Travel',
-            'business_name' => 'Alloy Travel Bandung',
-            'domicile' => 'Bandung',
-        ]);
-
-        Travel::create([
-            'license_number' => 'fortunatravel/tegal/52451',
+            'license_number' => 'fortunatravel/52451',
             'business_owner' => 'Fortuna Travel',
-            'business_name' => 'Fortuna Travel Tegal',
-            'domicile' => 'Tegal',
+            'business_name' => 'Fortuna Travel',
         ]);
 
         Travel::create([
-            'license_number' => 'fortunatravel/bandung/52451',
-            'business_owner' => 'Fortuna Travel',
-            'business_name' => 'Fortuna Travel Bandung',
-            'domicile' => 'Bandung',
-        ]);
-
-        Travel::create([
-            'license_number' => 'zafiratrans/tegal/52451',
+            'license_number' => 'zafiratrans/52451',
             'business_owner' => 'Zafira Trans',
-            'business_name' => 'Zafira Trans Tegal',
-            'domicile' => 'Tegal',
+            'business_name' => 'Zafira Trans',
         ]);
 
         Travel::create([
-            'license_number' => 'zafiratrans/solo/52451',
-            'business_owner' => 'Zafira Trans',
-            'business_name' => 'Zafira Trans Solo',
-            'domicile' => 'Solo',
-        ]);
-
-        Travel::create([
-            'license_number' => 'tmtravel/tegal/52451',
+            'license_number' => 'tmtravel/52451',
             'business_owner' => 'TM Travel',
-            'business_name' => 'TM Travel Tegal',
-            'domicile' => 'Tegal',
-        ]);
-
-        Travel::create([
-            'license_number' => 'tmtravel/solo/52451',
-            'business_owner' => 'TM Travel',
-            'business_name' => 'TM Travel Solo',
-            'domicile' => 'Solo',
+            'business_name' => 'TM Travel',
         ]);
     }
 }

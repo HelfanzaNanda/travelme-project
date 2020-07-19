@@ -14,7 +14,7 @@ class AddFcmToken extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('fcm_token')->after('api_token')->nullable();
+            
         });
     }
 

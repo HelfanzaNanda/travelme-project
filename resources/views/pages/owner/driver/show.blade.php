@@ -16,7 +16,7 @@
         <div class="col-md-12 col-lg-4 col-xlg-3">
             <div class="card">
                 <div class="card-body">
-                    <center class="mt-4"><img src="{{asset('uploads/owner/driver/'.$data->avatar)}}" class="img-circle"
+                    <center class="mt-4"><img src="{{$data->avatar}}" class="img-circle"
                                               width="150"/>
 
                         <h4 class="card-title mt-2">{{$data->name}}</h4>

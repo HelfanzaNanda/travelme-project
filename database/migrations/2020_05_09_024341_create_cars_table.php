@@ -17,6 +17,7 @@ class CreateCarsTable extends Migration
             $table->increments('id');
             $table->integer('owner_id')->unsigned();
             $table->string('number_plate', '11')->unique();
+            $table->string('name');
             $table->text('photo')->nullable();
             $table->string('facility', '50');
             $table->integer('seat')->nullable();

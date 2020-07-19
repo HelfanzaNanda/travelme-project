@@ -23,6 +23,19 @@
                                   <input type="text" class="form-control" value="{{$data->number_plate}}"
                                          readonly>
                               </div>
+
+
+                            <div class="form-group">
+                                <label for="projectinput2">Mobil</label>
+                                <input type="text" value="{{ $data->name }}" name="name"
+                                class="form-control {{$errors->has('name')?'is-invalid':''}}">
+                                @if ($errors->has('name'))
+                                      <span class="invalid-feedback" role="alert">
+                                          <p><b>{{ $errors->first('name') }}</b></p>
+                                      </span>
+                                  @endif
+                            </div>
+
                               <div class="form-group">
                                   <label for="projectinput3">Kursi</label>
                                   <input type="tel"

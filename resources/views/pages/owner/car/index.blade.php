@@ -23,10 +23,16 @@
             <div class="card-body">
                 <div class="table-responsive m-t-40">
                     <table class="table table-bordered table-striped">
+                        @if (count($datas) < 1)
+                            <div class="d-flex justify-content-center">
+                                <h2> Tidak Ada Data Mobil</h6>
+                            </div>
+                        @else
                         <thead>
                             <tr>
                                 <th>No</th>
                                 <th>Foto</th>
+                                <th>Mobil</th>
                                 <th>No Plat</th>
                                 <th>Fasilitas</th>
                                 <th>Kursi</th>
@@ -43,6 +49,7 @@
                                             height="auto" alt="{{$data->photo}}">
                                     </a>
                                 </td>
+                                <td>{{$data->name}}</td>
                                 <td>{{$data->number_plate}}</td>
                                 <td>{{$data->facility}}</td>
                                 <td>{{$data->seat}}</td>
@@ -77,6 +84,7 @@
                             </div>
                             @endforeach
                         </tbody>
+                        @endif
                     </table>
                 </div>
             </div>

@@ -46,18 +46,6 @@
                                         @endif
                                     </div>
 
-
-                                    <div class="form-group">
-                                        <label for="projectinput2">Jenis Kelamin</label>
-                                        <select class="form-control" name="gender">
-                                            <option value="m" @if($data->gender == 'm'){{"selected"}} @endif>
-                                                Laki-Laki
-                                            </option>
-                                            <option value="f" @if($data->gender == 'f'){{"selected"}} @endif>
-                                                Perempuan
-                                            </option>
-                                        </select>
-                                    </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">

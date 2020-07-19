@@ -62,13 +62,7 @@
                                                     </span>
                                         @endif
                                     </div>
-                                    <div class="form-group">
-                                        <label for="projectinput2">Jenis Kelamin</label>
-                                        <select class="form-control" name="gender">
-                                            <option value="m">Laki-Laki</option>
-                                            <option value="f">Perempuan</option>
-                                        </select>
-                                    </div>
+                                    
                                     <div class="form-group">
                                         <label for="projectinput3">E-mail</label>
                                         <input class="form-control {{$errors->has('email')?'is-invalid':''}} email-inputmask"

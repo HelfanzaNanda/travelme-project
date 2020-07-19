@@ -92,6 +92,7 @@ Route::group(['prefix' => 'travel'], function (){
     Route::get('user/{id}/confirmed', 'Web\Owner\UserController@confirmed')->name('owner.user.confirmed');
     Route::patch('user/{id}/choosedriver', 'Web\Owner\UserController@chooseDriver')->name('owner.user.choosedriver');
     Route::patch('user/{id}/decline', 'Web\Owner\UserController@decline')->name('owner.user.decline');
+    Route::get('user/{id}/driver', 'Web\Owner\UserController@getDrivers');
 
     Route::get('report', 'Web\Owner\ReportController@index')->name('owner.report.index');
     Route::post('report/search', 'Web\Owner\ReportController@search')->name('owner.report.search');

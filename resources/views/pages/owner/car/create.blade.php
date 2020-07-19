@@ -30,6 +30,19 @@
                                     </div>
 
                                     <div class="form-group">
+                                        <label for="projectinput2">Mobil</label>
+                                        <input type="text"
+                                               class="form-control {{$errors->has('name')?'is-invalid':''}}"
+                                               placeholder="Mobil" name="name"
+                                               value="{{old('name')}}">
+                                        @if ($errors->has('name'))
+                                            <span class="invalid-feedback" role="alert">
+                                                <p><b>{{ $errors->first('name') }}</b></p>
+                                            </span>
+                                        @endif
+                                    </div>
+
+                                    <div class="form-group">
                                         <label for="projectinput3">Kursi</label>
                                         <input type="tel"
                                                class="form-control {{$errors->has('seat')?'is-invalid':''}}"

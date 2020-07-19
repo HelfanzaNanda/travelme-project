@@ -24,7 +24,6 @@ class OwnerResource extends JsonResource
             'photo'            => $this->photo,
             'telephone'         => $this->telephone,
             'balance'           => $this->balance,
-            'domicile'          => $this->domicile,
             'cars'              => CarResource::collection($this->cars)
         ];
     }

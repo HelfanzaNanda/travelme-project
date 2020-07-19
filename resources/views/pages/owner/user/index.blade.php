@@ -66,14 +66,20 @@
                                         aria-controls="collapseA1">
                                         <i class="mdi mdi-eye"></i></a>
                                     @if ($data->verify == '1')
-                                    <a href="{{ route('owner.user.confirmed', $data->id) }}" class="btn btn-warning btn-sm" >Konfirmasi</a>
+                                    <a href="{{ route('owner.user.confirmed', $data->id) }}" 
+                                        onclick="return confirm('apakah anda yakin ?')"
+                                        class="btn btn-warning btn-sm" >Konfirmasi</a>
 
                                     <a href="" data-toggle="modal" data-target="#declineModal{{ $data->id }}"
                                         class="btn btn-danger btn-sm">
                                         Tolak</a>
                                     @else
+                                    @if ($data->verify == '2' && $data->status == 'pending' && $data->driver_id == null)
                                     <a href="" class="btn btn-warning btn-sm" data-toggle="modal"
-                                        data-target="#confirmedModal{{ $data->id }}">Pilih Sopir</a>
+                                    data-target="#confirmedModal{{ $data->id }}" data-id="{{ $data->id }}" id="get-driver">Pilih Sopir</a>
+                                    @else
+                                        
+                                    @endif
                                     @endif
                                 </td>
                                 @else
@@ -97,15 +103,8 @@
                                                 @method('patch')
                                                 <div class="modal-body">
                                                     <div class="form-group">
-                                                        @php($drivers = \App\Driver::where('owner_id',
-                                                        \Illuminate\Support\Facades\Auth::guard('owner')->user()->id)->get())
 
-                                                        <select name="driver_id" class="form-control">
-                                                            @foreach ($drivers as $driver)
-                                                            <option value="{{ $driver->id }}">{{ $driver->name }}
-                                                            </option>
-                                                            @endforeach
-                                                        </select>
+                                                        <select name="driver_id" class="form-control"></select>
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
@@ -233,7 +232,35 @@
         }
     });
     })
+</script>
 
+<script>
+    const user = document.querySelectorAll('#get-driver');
+    const driver = document.querySelector('select[name="driver_id"]');
+    const url = '{{ config('app.url') }}';
+    user.forEach(u => {
+        const id = u.dataset.id;
+        let op = ``;
+
+        u.addEventListener('click', async function () {
+        const data = await getData(id);
+        console.log(data);
+        data.map(d => op += show(d));
+        driver.innerHTML = op
+        });
+    })
+   
+
+    function getData(id) {
+      return  fetch(url+'travel/user/'+id+'/driver')
+    .then(res => res.json())
+    .then(res => res)  
+    }
+
+    function show(d){
+        return `<option value="${d.id}">${d.name}</option>`
+    }
+   
 
 </script>
 @endsection

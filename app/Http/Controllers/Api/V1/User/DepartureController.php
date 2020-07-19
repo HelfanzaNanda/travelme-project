@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1\User;
 
+use App\Departure;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\HourOfDeparture;
@@ -17,7 +18,7 @@ class DepartureController extends Controller
 
     public function getDomicileForDestinationOther()
     {
-        $domicile = Owner::where('domicile', '!=', 'Tegal')->orderBy('domicile', 'ASC')->get('domicile');
+        $domicile = Departure::where('destination', '!=', 'Tegal')->orderBy('destination', 'ASC')->get('destination');
 
         return response()->json([
             'message' => 'successfully get domicile',
@@ -26,16 +27,16 @@ class DepartureController extends Controller
         ]);
     }
 
-    public function getDomicileForDestinationTegal()
-    {
-        $domicile = Owner::where('domicile', '!=', 'Tegal')->orderBy('domicile', 'ASC')->get('domicile');
+    // public function getDomicileForDestinationTegal()
+    // {
+    //     $domicile = Owner::where('domicile', '!=', 'Tegal')->orderBy('domicile', 'ASC')->get('domicile');
 
-        return response()->json([
-            'message' => 'successfully get domicile',
-            'status' => true,
-            'data' => $domicile
-        ]);
-    }
+    //     return response()->json([
+    //         'message' => 'successfully get domicile',
+    //         'status' => true,
+    //         'data' => $domicile
+    //     ]);
+    // }
 
     public function searchHour(Request $request)
     {

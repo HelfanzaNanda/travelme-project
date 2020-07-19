@@ -26,7 +26,6 @@ class CreateOwnersTable extends Migration
             $table->string('telephone', '13')->unique();
             $table->enum('active', ['0', '1', '2'])->default('1');
             $table->string('activation_token')->nullable();
-            $table->string('domicile', '50');
             $table->double('balance')->default(0);
             $table->string('name_bank', 10)->nullable();
             $table->string('account_number', 16)->nullable();
@@ -34,6 +33,19 @@ class CreateOwnersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
+
+        App\Owner::create([
+            'license_number' => 'connext/12345',
+            'business_owner' => 'Connext Shuttle',
+            'business_name' => 'Connext Shuttle',
+            'address' => 'gili tugel',
+            'email' => 'connextshuttle@gmail.com',
+            'password' => Hash::make('12345678'),
+            'telephone' => '089663543355',
+            'active' => '2',
+            'activation_token' => Str::random(80),
+            'balance' => 0
+        ]);
     }
 
     /**

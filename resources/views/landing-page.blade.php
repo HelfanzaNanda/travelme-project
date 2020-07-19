@@ -42,7 +42,7 @@
       <div class="container">
         <!-- Brand -->
         <a class="navbar-brand" href="#">
-          <img src="static/img/logo.svg" title="" alt="">
+          <img src="{{ asset('logo/android-icon-144x144-2.png') }}" title="" alt="">
         </a>
         <!-- / -->
 

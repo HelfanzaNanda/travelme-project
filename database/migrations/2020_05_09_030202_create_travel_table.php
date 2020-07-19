@@ -19,7 +19,6 @@ class CreateTravelTable extends Migration
             $table->string('license_number', '50')->unique();
             $table->string('business_owner', '30');
             $table->string('business_name', '30');
-            $table->string('domicile', '50');
             $table->enum('status', ['0', '1'])->default('1');
             $table->timestamps();
         });

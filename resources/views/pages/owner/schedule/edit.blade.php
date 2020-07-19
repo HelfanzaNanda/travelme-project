@@ -18,19 +18,14 @@
                                 <div class="col-md-10">
                                     <div class="form-group">
                                         <label for="projectinput2">Dari</label>
-                                        <input class="form-control" name="from" readonly value="{{ $departure->from }}">
+                                        <input class="form-control" name="from" style="background: white"
+                                        readonly value="{{ $departure->from }}">
                                     </div>
 
                                     <div class="form-group">
                                         <label for="projectinput2">Tujuan</label>
-                                        <select name="destination" class="form-control">
-                                            @foreach ($destinations as $destination)    
-                                                <option value="{{ $destination->domicile }}" 
-                                                    {{ $departure->destination == $destination->domicile ? 'selected' : ''}}>
-                                                    {{ $destination->domicile }}
-                                                </option>
-                                            @endforeach
-                                        </select>
+                                        <input class="form-control" name="from" style="background: white"
+                                        readonly value="{{ $departure->destination }}">
                                     </div>
 
                                     <div class="form-group">
@@ -53,7 +48,7 @@
                                     <div class="form-group">
                                         <label for="projectinput2">Tanggal</label>
                                         <div class='input-group mb-3'>
-                                            <input type="text" id="unavailable_date"
+                                            <input type="text" id="unavailable_date" readonly style="background: white; cursor: pointer;"
                                                    class="form-control {{$errors->has('date')?'is-invalid':''}} tanggal"
                                                    name="date" value="{{$date}}" id="tanggal">
                                             <div class="input-group-append">
@@ -72,7 +67,7 @@
                                         @foreach($hours as $hour)
                                             <div class="input-group clockpicker entry mt-1" id="time">
                                                 <div class="input-group-prepend"></div>
-                                                <input type="text"
+                                                <input type="text"  readonly style="background: white; cursor: pointer;"
                                                        class="form-control {{$errors->has('hour.0')?'is-invalid':''}}"
                                                        name="hour[]" value="{{$hour}}">
                                                 <div class="input-group-append">
@@ -136,7 +131,6 @@
     </script>
 
 <script>
-    var dateToday = new Date();
     
 	$('.tanggal').datepicker({
 		multidate: true,
@@ -144,7 +138,7 @@
         todayHighlight: true,
         clearBtn: true,
         toggleActive: true,
-        minDate: dateToday
+        startDate: new Date()
 	});
 
     

@@ -111,7 +111,6 @@ class DriverController extends Controller
         $data->car_id       = $request->car_id;
         $data->name         = $request->name;
         $data->avatar       = Storage::disk('s3')->url($filepath, $filename);
-        $data->gender       = $request->gender;
         $data->email        = $request->email;
         $data->password     = Hash::make($request->telephone);
         $data->telephone    = $request->telephone;
@@ -180,7 +179,6 @@ class DriverController extends Controller
         $data               = Driver::findOrFail($id);
         $data->owner_id     = Auth::guard('owner')->user()->id;
         $data->name         = $request->name;
-        $data->gender       = $request->gender;
         $data->telephone    = $request->telephone;
         $data->address      = $request->address;
 

@@ -27,6 +27,7 @@ class CarController extends Controller
     {
         $datas = Car::where('owner_id', Auth::guard('owner')->user()->id)->where('status', '1')
         ->orderBy('id', 'ASC')->get();
+        
         return view('pages.owner.car.index', compact('datas'));
     }
 
@@ -52,6 +53,7 @@ class CarController extends Controller
             'number_plate' => 'required|unique:cars',
             'seat' => 'required|integer|min:1',
             'facility' => 'required',
+            'name' => 'required'
         ];
 
         $message = [
@@ -79,6 +81,7 @@ class CarController extends Controller
         $data = new Car();
         $data->owner_id = Auth::guard('owner')->user()->id;
         $data->number_plate = strtoupper($request->number_plate);
+        $data->name = $request->name;
         $data->seat = $request->seat;
         $data->facility = $request->facility;
         $data->photo = Storage::disk('s3')->url($filepath, $filename);
@@ -123,6 +126,7 @@ class CarController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
+            'name' => 'required',
             'seat' => 'required|numeric',
             'facility' => 'required',
             'photo' => 'image|file|mimes:jpg,png,jpeg|max:2048'
@@ -130,6 +134,7 @@ class CarController extends Controller
 
         $data = Car::findOrFail($id);
         $data->owner_id = Auth::guard('owner')->user()->id;
+        $data->name = $request->name;
         $data->seat = $request->seat;
         $data->facility = $request->facility;
         $photo = $request->file('photo');

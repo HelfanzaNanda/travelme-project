@@ -19,7 +19,6 @@ class DriverSeed extends Seeder
             'nik' => '1234567890123456',
             'sim' => '123456789012',
             'name' => 'gilang',
-            'gender' => 'm',
             'email' => 'gilang@gmail.com',
             'password' => Hash::make('089663543354'),
             'avatar' => 'gilang.jpg',
@@ -27,7 +26,6 @@ class DriverSeed extends Seeder
             'telephone' => '089663543354',
             'api_token' => 'ini api token gilang',
             'active' => true,
-            'you_are_domicilied' => true
         ]);
 
         Driver::create([
@@ -36,7 +34,6 @@ class DriverSeed extends Seeder
             'nik' => '1234567890123455',
             'sim' => '123456789013',
             'name' => 'pardi',
-            'gender' => 'm',
             'email' => 'pardi@gmail.com',
             'password' => Hash::make('089663543355'),
             'avatar' => 'pardi.jpg',
@@ -44,7 +41,6 @@ class DriverSeed extends Seeder
             'telephone' => '089663543355',
             'api_token' => 'ini api token pardi',
             'active' => true,
-            'you_are_domicilied' => true
         ]);
 
         Driver::create([
@@ -53,7 +49,6 @@ class DriverSeed extends Seeder
             'nik' => '1234567890123451',
             'sim' => '123456789011',
             'name' => 'hendi',
-            'gender' => 'm',
             'email' => 'hendi@gmail.com',
             'password' => Hash::make('089663543359'),
             'avatar' => 'hendi.jpg',
@@ -61,7 +56,6 @@ class DriverSeed extends Seeder
             'telephone' => '089663543359',
             'api_token' => 'ini api token hendi',
             'active' => true,
-            'you_are_domicilied' => true
         ]);
     }
 }

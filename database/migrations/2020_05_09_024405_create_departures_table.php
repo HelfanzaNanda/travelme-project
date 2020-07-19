@@ -18,7 +18,6 @@ class CreateDeparturesTable extends Migration
             $table->integer('owner_id')->unsigned();
             $table->string('from', '30');
             $table->string('destination', '30');
-            $table->text('logo')->nullable();
             $table->integer('price');
             $table->timestamps();
 

@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('photo', 100)->nullable();
             $table->string('telp', 13)->unique();
             $table->string('api_token', 80)->unique()->nullable()->default(null);
+            $table->string('fcm_token')->nullable();
             $table->boolean('active')->default(false);
             $table->string('activation_token')->nullable();
             $table->rememberToken();

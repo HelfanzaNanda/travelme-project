@@ -49,48 +49,22 @@ class ScheduleController extends Controller
      */
     public function create()
     {
-        $domicile = Owner::where('id', Auth::guard('owner')->user()->id)->pluck('domicile')->first();
-
-        if ($domicile == "Tegal") {
-            $departures = Departure::where('owner_id', Auth::guard('owner')->user()->id)->get();
-
-            if (count($departures) == 0) {
-                $destinations = Owner::where('business_owner', Auth::guard('owner')->user()->business_owner)
-                    ->where('domicile', '!=', $domicile)->get();
-            } else {
-                $destinations = [];
-                $dests = Owner::where('business_owner', Auth::guard('owner')->user()->business_owner)->where('domicile', '!=', $domicile)->get();
-                foreach ($dests as $key => $value) {
-                    $departure = Departure::where('owner_id', Auth::guard('owner')->user()->id)
-                        ->where('destination', $value->domicile)->first();
-                    if (!$departure) {
-                        array_push($destinations, $value);
-                    }
-                }
-            }
-
-            $arrDest = [];
-            foreach ($destinations as $dest) {
-                array_push($arrDest, $dest->domicile);
-            }
-        } else {
-            $departure = Departure::where('owner_id', Auth::guard('owner')->user()->id)->first();
-            $departure ? $arrDest = [] : $arrDest = ['Tegal'];
-        }
-
-
-        // $destinations = Owner::where('business_owner', Auth::guard('owner')->user()->business_owner)
-        // ->where('domicile', '!=', $domicile)->get();
         $car = Car::where('status', '1')
             ->where('owner_id', Auth::guard('owner')->user()->id)->get()->count();
 
         if ($car > 0) {
-            if (count($arrDest) > 0) {
-                $cars = Car::where('owner_id', Auth::guard('owner')->user()->id)->get();
-                return view('pages.owner.schedule.create', compact(['cars', 'domicile', 'arrDest']));
-            } else {
-                return redirect()->back()->with('warning', 'harus ada agent travel di kota lain yg sudah terdaftar di sistem ini, atau agent travel di kota lain sudah di tambahkan semua');
+            $hours = [];
+            for ($i = 0; $i < 24; $i++) {
+                if ($i > 9) {
+                    $text_hour = $i.':00';
+                } else {
+                    $text_hour = '0'.$i.':00';
+                }
+                array_push($hours, $text_hour);
             }
+            $destinations = ['Bandung', 'Cirebon','Jakarta', 'Jogja', 'Purwokerto' , 'Semarang', 'Solo', 'Surabaya'];
+            $cars = Car::where('owner_id', Auth::guard('owner')->user()->id)->get();
+                return view('pages.owner.schedule.create', compact(['cars', 'destinations', 'hours']));
         } else {
             return redirect()->back()->with('warning', 'Silahkan Tambahkan Mobil Dahulu! atau');
         }
@@ -127,7 +101,6 @@ class ScheduleController extends Controller
         $departure->owner_id = Auth::guard('owner')->user()->id;
         $departure->from = $request->from;
         $departure->destination = ucwords($request->destination);
-        $departure->logo = ucwords($request->destination) . '.jpg';
         $departure->price = $delete_full_stop;
         $departure->save();
 
@@ -155,8 +128,48 @@ class ScheduleController extends Controller
         }
         DB::table('hour_of_departures')->insert($itemHourOfDeparture);
 
+        $this->storeDestinationBack($request);
 
         return redirect()->route('schedule.index')->with('success', 'Berhasil Menambahkan Data');
+    }
+
+
+    public function storeDestinationBack($request)
+    {
+        $car = Car::where('owner_id', Auth::guard('owner')->user()->id)->first();
+
+        $delete_full_stop = preg_replace('/[^\w\s]/', '', $request->price);
+
+        $departure = new Departure();
+        $departure->owner_id = Auth::guard('owner')->user()->id;
+        $departure->from = ucwords($request->destination);
+        $departure->destination = $request->from;
+        $departure->price = $delete_full_stop;
+        $departure->save();
+
+        $dates = explode(',', (string) $request->date);
+        foreach ($dates as $date) {
+            $date_id = DateOfDeparture::latest('id')->first();
+            $itemDateOfDeparture = [
+                'id' => $date_id == null ? 1 : $date_id->id + 1,
+                'owner_id' => Auth::guard('owner')->user()->id,
+                'departure_id' => $departure->id,
+                'date' => Carbon::parse($date)->format('Y-m-d'),
+            ];
+            DateOfDeparture::create($itemDateOfDeparture);
+
+            $hours = $request->hour;
+            foreach ($hours as $hour) {
+                $itemHourOfDeparture[] = [
+                    'owner_id' => Auth::guard('owner')->user()->id,
+                    'date_id' => $itemDateOfDeparture['id'],
+                    'hour' => Carbon::parse($hour)->addHours($request->add_hour),
+                    'seat' => $car->seat,
+                    'remaining_seat' => $car->seat
+                ];
+            };
+        }
+        DB::table('hour_of_departures')->insert($itemHourOfDeparture);
     }
 
     /**
@@ -167,7 +180,6 @@ class ScheduleController extends Controller
      */
     public function show($id)
     {
-
         $data = Departure::findOrFail($id);
 
         return view('pages.owner.schedule.show', compact('data'));
@@ -207,15 +219,10 @@ class ScheduleController extends Controller
     public function edit($id)
     {
 
-        $domicile = Owner::where('id', Auth::guard('owner')->user()->id)->pluck('domicile')->first();
-
         $departures = Departure::where('owner_id', Auth::guard('owner')->user()->id)->get();
 
         $departure = Departure::findOrFail($id);
-
-        $destinations = Owner::where('business_owner', Auth::guard('owner')->user()->business_owner)
-            ->where('domicile', '!=', $domicile)->get();
-
+        $destinations = ['Bandung', 'Cirebon','Jakarta', 'Jogja', 'Purwokerto' , 'Semarang', 'Solo', 'Surabaya'];
         $dates = DateOfDeparture::where('departure_id', $id)->get();
         $itemDate = [];
         $hours = [];
@@ -242,7 +249,7 @@ class ScheduleController extends Controller
     public function update(Request $request, $id)
     {
         $rules = [
-            'destination' => 'required|regex:/^[\pL\s\-]+$/u',
+            //'destination' => 'required|regex:/^[\pL\s\-]+$/u',
             'price' => 'required|numeric',
             'date' => 'required',
             'hour.*' => 'required'
@@ -260,9 +267,8 @@ class ScheduleController extends Controller
 
         $departure = Departure::findOrFail($id);
         $departure->owner_id = Auth::guard('owner')->user()->id;
-        $departure->from = 'Tegal';
-        $departure->destination = ucwords($request->destination);
-        $departure->logo = ucwords($request->destination) . '.jpg';
+        //$departure->from = 'Tegal';
+        //$departure->destination = ucwords($request->destination);
         $departure->price = $delete_full_stop;
         $departure->update();
 
