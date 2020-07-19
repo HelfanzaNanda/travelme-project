@@ -34,9 +34,8 @@ class UserController extends Controller
     {
         $order = Order::findOrFail($id);
         $drivers = Driver::where('owner_id', Auth::guard('owner')->user()->id)
-        ->where('location' , $order->departure->destination)
+        ->where('location' , $order->departure->from)
         ->get(['id','name']);
-
         return $drivers;
     }
 
