@@ -100,123 +100,29 @@
     About Us
     =======================
     -->
+    
     <section id="about" class="section">
       <div class="container">
-        <div class="row m-45px-b sm-m-25px-b justify-content-center">
-          <div class="col-md-8 col-lg-6">
-            <div class="section-title text-center">
-              <h3 class="dark-color font-alt">Tentang</h3>
-              <p class="large-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        <div class="row align-items-center">
+          <div class="col-lg-7">
+            <img src="{{ asset('logo/logo-travelme.png') }}" title="" alt="">
+          </div>
+          <div class="col-lg-5">
+            <div class="side-feature md-m-30px-t">
+              <div class="icon">
+                <i class="ti-check-box yellow"></i>
+              </div>
+              <div class="feature-content">
+                <h2 class="dark-color font-alt">Tentang</h2>
+                <p>Travelme adalah aplikasi yang digunakan untuk mencari travel dari Tegal atau sebaliknya,
+                  Travelme memudahkan travel untuk melihat total pesanan perbulan melalui grafik, 
+                  memudahkan customer dalam mencari travel yang ingin di cari.
+                </p>
+              </div>
             </div>
-          </div> <!-- col -->
+          </div>
         </div> <!-- row -->
-        
-        <div class="row">
-          <div class="col-md-12 col-lg-4 m-15px-tb">
-            <div class="blog-item hover-shadow">
-              <div class="blog-img">
-                <a href="#">
-                  <img src="static/img/blog-1.jpg" title="" alt="">
-                </a>
-              </div>
-              <div class="blog-info">
-                <div class="cat-name"><a href="#">Latest Blog</a></div>
-                <div class="blot-title">
-                  <a class="theme-color font-alt" href="#">Specialized Design Tool for 2019</a>
-                </div>
-                <div class="blot-desc">
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor.</p>
-                </div>
-                <div class="blot-meta d-flex align-items-center no-gutters">
-                  <div class="post-author col-6">
-                    <a href="#">
-                      <div class="pa-avtar">
-                        <img src="static/img/round1.jpg" title="" alt="">
-                      </div>
-                      <span>Pxdeaft Theme</span>
-                    </a>
-                  </div>
-                  <div class="post-date col-6 text-right">
-                    <i class="far fa-calendar"></i>
-                    Feb 02, 2019
-                  </div>
-                  
-                </div>
-              </div>
-            </div> <!-- blo -->
-          </div> <!-- col -->
-
-          <div class="col-md-6 col-lg-4 m-15px-tb">
-            <div class="blog-item hover-shadow">
-              <div class="blog-img">
-                <a href="#">
-                  <img src="static/img/blog-2.jpg" title="" alt="">
-                </a>
-              </div>
-              <div class="blog-info">
-                <div class="cat-name"><a href="#">Latest Blog</a></div>
-                <div class="blot-title">
-                  <a class="theme-color font-alt" href="#">Specialized Design Tool for 2019</a>
-                </div>
-                <div class="blot-desc">
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor.</p>
-                </div>
-                <div class="blot-meta d-flex align-items-center no-gutters">
-                  <div class="post-author col-6">
-                    <a href="#">
-                      <div class="pa-avtar">
-                        <img src="static/img/round1.jpg" title="" alt="">
-                      </div>
-                      <span>Pxdeaft Theme</span>
-                    </a>
-                  </div>
-                  <div class="post-date col-6 text-right">
-                    <i class="far fa-calendar"></i>
-                    Feb 02, 2019
-                  </div>
-                  
-                </div>
-              </div>
-            </div> <!-- blo -->
-          </div> <!-- col -->
-
-          <div class="col-md-6 col-lg-4 m-15px-tb">
-            <div class="blog-item hover-shadow">
-              <div class="blog-img">
-                <a href="#">
-                  <img src="static/img/blog-4.jpg" title="" alt="">
-                </a>
-              </div>
-              <div class="blog-info">
-                <div class="cat-name"><a href="#">Latest Blog</a></div>
-                <div class="blot-title">
-                  <a class="theme-color font-alt" href="#">Specialized Design Tool for 2019</a>
-                </div>
-                <div class="blot-desc">
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor.</p>
-                </div>
-                <div class="blot-meta d-flex align-items-center no-gutters">
-                  <div class="post-author col-6">
-                    <a href="#">
-                      <div class="pa-avtar">
-                        <img src="static/img/round1.jpg" title="" alt="">
-                      </div>
-                      <span>Pxdeaft Theme</span>
-                    </a>
-                  </div>
-                  <div class="post-date col-6 text-right">
-                    <i class="far fa-calendar"></i>
-                    Feb 02, 2019
-                  </div>
-                  
-                </div>
-              </div>
-            </div> <!-- blo -->
-          </div> <!-- col -->
-
-        </div> <!-- row -->
-
-      </div> <!-- container -->
+      </div>
     </section>
 
     <!-- 
