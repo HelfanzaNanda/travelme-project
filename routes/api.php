@@ -29,8 +29,8 @@ Route::get('users', 'Api\V1\User\UserController@getUsers');
 Route::post('hour', 'Api\V1\User\DepartureController@searchHour');
 Route::post('owner', 'Api\V1\User\DepartureController@searchOwners');
 
-Route::get('domicile/destination/other', 'Api\V1\User\DepartureController@getDomicileForDestinationOther');
-Route::get('domicile/destination/tegal', 'Api\V1\User\DepartureController@getDomicileForDestinationTegal');
+Route::get('domicile', 'Api\V1\User\DepartureController@getDestination');
+//Route::get('domicile/destination/tegal', 'Api\V1\User\DepartureController@getDomicileForDestinationTegal');
 
 Route::get('destination/tegal', 'Api\V1\User\DepartureController@getDestinationTegal');
 Route::get('destination/other', 'Api\V1\User\DepartureController@getDestinationOther');

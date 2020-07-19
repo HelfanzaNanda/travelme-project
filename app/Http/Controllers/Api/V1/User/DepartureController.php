@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Validator;
 class DepartureController extends Controller
 {
 
-    public function getDomicileForDestinationOther()
+    public function getDestination()
     {
         $domicile = Departure::where('destination', '!=', 'Tegal')->orderBy('destination', 'ASC')->get('destination');
 
