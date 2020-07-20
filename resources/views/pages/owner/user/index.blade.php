@@ -237,18 +237,19 @@
 <script>
     const user = document.querySelectorAll('#get-driver');
     const driver = document.querySelectorAll('select[name="driver_id"]');
-    const konfirmasi = document.querySelectorAll('#btn-konfirmasi');
+    //const konfirmasi = document.querySelectorAll('#btn-konfirmasi');
 
     const url = '{{ config('app.url') }}';
-    user.forEach(u => {
+    user.forEach((u, i) => {
         const id = u.dataset.id;
         let op = ``;
         u.addEventListener('click', async function () {
             const data = await getData(id);
             data.map(d => op += show(d));
-            driver.forEach(driv => {
-                driv.innerHTML = op;
-            });
+            driver[i].innerHTML = op;
+            // driver.forEach(driv => {
+            //     driv.innerHTML = op;
+            // });
         });
     })
    
