@@ -247,8 +247,9 @@
         u.addEventListener('click', async function () {
             const data = await getData(id);
             data.map(d => op += show(d));
-            driver.forEach((d, i) => {
-                d.innerHTML = op;
+            driver.forEach(driv => {
+                console.log(data);
+                driv.innerHTML = op;
                 // if(data.length < 1){
                 //     konfirmasi[i].style.display = "none"
                 // }else{
