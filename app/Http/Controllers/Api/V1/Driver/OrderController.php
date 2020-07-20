@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1\Driver;
 
+use App\Car;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\User\OrderResource;
@@ -32,8 +33,8 @@ class OrderController extends Controller
         if($order) {
             $result = [
                 "id" => $order->id,
-                "date" => $order->date,
-                "hour" => $order->hour,
+                "date" => Carbon::parse($order->date)->format('d-M-Y'),
+                "hour" => Carbon::parse($order->hour)->format('H:i'),
                 "total_user" => $orders,
                 "departure" => $order->departure,
                 "is_order" => true
