@@ -40,10 +40,10 @@ class OrderController extends Controller
             ];
         }else{
             $result = [
-                "id" => "",
+                "id" => 1,
                 "date" => "",
                 "hour" => "",
-                "total_user" => "",
+                "total_user" => 0,
                 "departure" => "",
                 "is_order" => false
             ];
