@@ -92,7 +92,7 @@
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="exampleModalLabel">Pilih Driver yang ada di
-                                                    Tegal</h5>
+                                                    Lokasi</h5>
                                                 <button type="button" class="close" data-dismiss="modal"
                                                     aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
@@ -108,9 +108,9 @@
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
+                                                    <button type="button" class="btn btn-secondary" 
                                                         data-dismiss="modal">Close</button>
-                                                    <button type="submit" class="btn btn-primary">Konfirmasi</button>
+                                                    <button type="submit" class="btn btn-primary" id="btn-konfirmasi">Konfirmasi</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -237,30 +237,36 @@
 <script>
     const user = document.querySelectorAll('#get-driver');
     const driver = document.querySelectorAll('select[name="driver_id"]');
+    const konfirmasi = document.querySelectorAll('#btn-konfirmasi');
+
     const url = '{{ config('app.url') }}';
-    user.forEach((u, i) => {
+    user.forEach(u => {
         const id = u.dataset.id;
         let op = ``;
 
         u.addEventListener('click', async function () {
             const data = await getData(id);
-        //console.log(data);
             data.map(d => op += show(d));
-            driver[i].innerHTML = op
+            driver.forEach((d, i) => {
+                if(data.length < 1){
+                    konfirmasi[i].style.display = "none"
+                }else{
+                    d.innerHTML = op;
+                }
+            });
         });
     })
    
 
     function getData(id) {
       return  fetch(url+'travel/user/'+id+'/driver')
-    .then(res => res.json())
-    .then(res => res)  
+        .then(res => res.json())
+        .then(res => res)  
     }
 
     function show(d){
         return `<option value="${d.id}">${d.name}</option>`
     }
    
-
 </script>
 @endsection

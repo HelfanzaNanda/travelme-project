@@ -234,7 +234,17 @@ class ScheduleController extends Controller
         }
         $date = implode(",", $itemDate);
 
-        return view('pages.owner.schedule.edit', compact(['departure', 'date', 'hours', 'destinations']));
+        $dataHours = [];
+            for ($i = 0; $i < 24; $i++) {
+                if ($i > 9) {
+                    $text_hour = $i.':00';
+                } else {
+                    $text_hour = '0'.$i.':00';
+                }
+                array_push($dataHours, $text_hour);
+            }
+
+        return view('pages.owner.schedule.edit', compact(['departure', 'date', 'hours', 'destinations', 'dataHours']));
     }
 
     /**

@@ -67,9 +67,14 @@
                                         @foreach($hours as $hour)
                                             <div class="input-group clockpicker entry mt-1" id="time">
                                                 <div class="input-group-prepend"></div>
-                                                <input type="text"  readonly style="background: white; cursor: pointer;"
+                                                {{-- <input type="text"  readonly style="background: white; cursor: pointer;"
                                                        class="form-control {{$errors->has('hour.0')?'is-invalid':''}}"
-                                                       name="hour[]" value="{{$hour}}">
+                                                       name="hour[]" value="{{$hour}}"> --}}
+                                                    <select name="hour[]"  class="form-control">
+                                                        @foreach ($dataHours as $h)
+                                                            <option value="{{ $h }}" {{ $h == $hour ? "selected" : "" }}>{{ $h }}</option>
+                                                        @endforeach
+                                                    </select>
                                                 <div class="input-group-append">
                                                     <span class="input-group-text"><i class="far fa-clock"></i></span>
                                                 </div>

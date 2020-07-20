@@ -155,18 +155,6 @@
                                             </fieldset>
 
                                             <fieldset class="form-group floating-label-form-group">
-                                                <label for="user-password">Cabang</label>
-                                                <input type="text" class="form-control {{$errors->has('domicile')?'is-invalid':''}}"
-                                                    placeholder="Masukkan Cabang" name="domicile"
-                                                    value="{{old('domicile')}}">
-                                                @if ($errors->has('domicile'))
-                                                <span class="invalid-feedback" role="alert">
-                                                    <p><b>{{ $errors->first('domicile')}}</b></p>
-                                                </span>
-                                                @endif
-                                            </fieldset>
-
-                                            <fieldset class="form-group floating-label-form-group">
                                                 <label for="user-password">Nama Bank</label>
                                                 <select name="name_bank" class="form-control">
                                                     <option value="BRI">BRI</option>
