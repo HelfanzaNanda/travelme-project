@@ -236,17 +236,17 @@
 
 <script>
     const user = document.querySelectorAll('#get-driver');
-    const driver = document.querySelector('select[name="driver_id"]');
+    const driver = document.querySelectorAll('select[name="driver_id"]');
     const url = '{{ config('app.url') }}';
-    user.forEach(u => {
+    user.forEach((u, i) => {
         const id = u.dataset.id;
         let op = ``;
 
         u.addEventListener('click', async function () {
         const data = await getData(id);
-        console.log(data);
+        //console.log(data);
         data.map(d => op += show(d));
-        driver.innerHTML = op
+        driver[i].innerHTML = op
         });
     })
    
