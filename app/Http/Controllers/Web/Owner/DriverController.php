@@ -116,6 +116,7 @@ class DriverController extends Controller
         $data->telephone    = $request->telephone;
         $data->address      = $request->address;
         $data->api_token    = Str::random(80);
+        $data->location     = 'Tegal';
         $data->save();
         return redirect()->route('driver.index')->with('success', 'Berhasil Menambahkan Data!');
     }

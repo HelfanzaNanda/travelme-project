@@ -243,10 +243,10 @@
         let op = ``;
 
         u.addEventListener('click', async function () {
-        const data = await getData(id);
+            const data = await getData(id);
         //console.log(data);
-        data.map(d => op += show(d));
-        driver[i].innerHTML = op
+            data.map(d => op += show(d));
+            driver[i].innerHTML = op
         });
     })
    
