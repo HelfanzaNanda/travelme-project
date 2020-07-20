@@ -236,7 +236,7 @@
 
 <script>
     const user = document.querySelectorAll('#get-driver');
-    const driver = document.querySelector('select[name="driver_id"]');
+    const driver = document.querySelectorAll('select[name="driver_id"]');
     //const konfirmasi = document.querySelectorAll('#btn-konfirmasi');
 
     const url = '{{ config('app.url') }}';
@@ -246,10 +246,9 @@
         u.addEventListener('click', async function () {
             const data = await getData(id);
             data.map(d => op += show(d));
-            driver.innerHTML = op;
-            // driver.forEach(driv => {
-            //     driv.innerHTML = op;
-            // });
+            driver.forEach(driv => {
+                driv.innerHTML = op;
+            });
         });
     })
    
