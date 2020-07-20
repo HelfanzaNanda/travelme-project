@@ -28,13 +28,26 @@ class OrderController extends Controller
         $orders = Order::where('driver_id', Auth::guard('driver-api')->user()->id)
         ->where('verify', '2')->where('status', 'pending')->where('done', false)->get()->count();
 
-        $result = [
-            "id" => $order->id,
-            "date" => $order->date,
-            "hour" => $order->hour,
-            "total_user" => $orders,
-            "departure" => $order->departure
-        ];
+
+        if($order) {
+            $result = [
+                "id" => $order->id,
+                "date" => $order->date,
+                "hour" => $order->hour,
+                "total_user" => $orders,
+                "departure" => $order->departure,
+                "is_order" => true
+            ];
+        }else{
+            $result = [
+                "id" => "",
+                "date" => "",
+                "hour" => "",
+                "total_user" => "",
+                "departure" => "",
+                "is_order" => false
+            ];
+        }
 
         return response()->json([
             'message' => 'successfully get one order',

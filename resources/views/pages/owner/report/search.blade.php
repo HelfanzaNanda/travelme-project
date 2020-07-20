@@ -2,11 +2,7 @@
 @section('content')
 <div class="row page-titles">
     <div class="col-md-6 col-8 align-self-center">
-        <h3 class="text-themecolor mb-0 mt-0">Table Data Penumpang</h3>
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-            <li class="breadcrumb-item active">Table Data Penumpang</li>
-        </ol>
+        <h3 class="text-themecolor mb-0 mt-0">Tabel Data Laporan</h3>
     </div>
 
 </div>
@@ -24,7 +20,6 @@
 
         <div class="card">
             <div class="card-body">
-                <h6 class="card-subtitle">Data Penumpang</h6>
                 <form action="{{ route('owner.report.search') }}" method="POST">
                     <div class="row mb-3">
                         @csrf
