@@ -248,11 +248,12 @@
             const data = await getData(id);
             data.map(d => op += show(d));
             driver.forEach((d, i) => {
-                if(data.length < 1){
-                    konfirmasi[i].style.display = "none"
-                }else{
-                    d.innerHTML = op;
-                }
+                d.innerHTML = op;
+                // if(data.length < 1){
+                //     konfirmasi[i].style.display = "none"
+                // }else{
+                    
+                // }
             });
         });
     })
