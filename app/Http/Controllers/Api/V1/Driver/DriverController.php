@@ -59,10 +59,10 @@ class DriverController extends Controller
         }
     }
 
-    public function domicile()
+    public function domicile($location)
     {
         $driver = Driver::where('id', Auth::guard('driver-api')->user()->id)->first();
-        $driver->you_are_domicilied = true;
+        $driver->location = $location;
         $driver->update();
 
         return response()->json([
