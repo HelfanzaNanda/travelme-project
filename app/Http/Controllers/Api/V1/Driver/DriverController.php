@@ -69,7 +69,7 @@ class DriverController extends Controller
 
     public function updatePhoto(Request $request)
     {
-        $photo = $request->file('image');
+        $photo = $request->file('avatar');
         $filename = time() . '.' . $photo->getClientOriginalExtension();
         $filepath = 'driver/' . $filename;
         Storage::disk('s3')->put($filepath, file_get_contents($photo));
