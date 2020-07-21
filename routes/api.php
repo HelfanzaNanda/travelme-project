@@ -19,7 +19,7 @@ Route::group(['prefix' => 'user'], function () {
     Route::get('email/verify/{id}', 'Api\V1\User\Auth\VerificationController@verify')->name('api.verification.verify');
     Route::get('email/resend', 'Api\V1\User\Auth\VerificationController@resend')->name('api.verification.resend');
     Route::get('profile', 'Api\V1\User\UserController@profile');
-    Route::post('profile/update', 'Api\V1\User\UserController@updateprofile');
+    Route::post('profile/update', 'Api\V1\User\UserController@updateProfile');
     Route::post('profile/update/photo', 'Api\V1\User\UserController@updatePhoto');
 });
 
@@ -56,6 +56,7 @@ Route::group(['prefix' => 'driver'], function () {
     Route::post('login', 'Api\V1\Driver\Auth\LoginController@login');
     Route::get('profile', 'Api\V1\Driver\DriverController@profile');
     Route::post('profile/update', 'Api\V1\Driver\DriverController@updateProfile');
+    Route::post('profile/update/photo', 'Api\V1\Driver\DriverController@updatePhotoProfile');
     Route::get('domicile', 'Api\V1\Driver\DriverController@domicile');
     Route::get('gooff', 'Api\V1\Driver\DriverController@goOff');
 });

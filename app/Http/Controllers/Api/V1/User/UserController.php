@@ -65,11 +65,11 @@ class UserController extends Controller
     public function updatePhoto(Request $request){
         $photo = $request->file('avatar');
         $filename = time() . '.' . $photo->getClientOriginalExtension();
-        $filepath = 'driver/' . $filename;
+        $filepath = 'user/' . $filename;
         Storage::disk('s3')->put($filepath, file_get_contents($photo));
 
         $user = User::where('id', Auth::guard('api')->user()->id)->first();
-        $user->photo = Storage::disk('s3')->url($filepath, $filename);
+        $user->avatar = Storage::disk('s3')->url($filepath, $filename);
         $user->update();
 
         return response()->json([
@@ -79,18 +79,28 @@ class UserController extends Controller
         ]);
     }
 
-    public function updateprofile(Request $request)
+    public function updateProfile(Request $request)
     {
-        $user = User::where('id', Auth::guard('api')->user()->id)->first();
-        $user->name = $request->name;
-        $user->password = $request->password;
-        $user->update();
-
-        return response()->json([
-            'message' => 'successfully update profile user',
-            'status' => true,
-            'data' => new UserResource($user)
-        ]);
+        if ($request->password == null || empty($request->password)){
+            $user = Auth::guard('api')->user();
+            $user->name = $request->name;
+            $user->save();
+            return response()->json([
+                'message' => 'successfully update profile',
+                'status' => true,
+                'data' => $user
+            ]);
+        }else{
+            $user = Auth::guard('api')->user();
+            $user->name = $request->name;
+            $user->password = $request->password;
+            $user->save();
+            return response()->json([
+                'message' => 'successfully update profile',
+                'status' => true,
+                'data' => $user
+            ]);
+        }
     }
 
 }

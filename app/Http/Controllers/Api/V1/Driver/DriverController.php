@@ -37,26 +37,7 @@ class DriverController extends Controller
 
     public function updateProfil(Request $request)
     {
-        try {
-            $validatior = Validator::make($request->all(), [
-                'name' => 'required',
-                'password' => 'required',
-                'photo' => 'required|file|mimes:jpeg,jpg,png'
-            ]);
-            if ($validatior->fails()) {
-                return response()->json([
-                    'message' => $validatior->errors(),
-                    'status' => false,
-                    'data' => (object)[]
-                ]);
-            }
-        } catch (\Exception $exception) {
-            return response()->json([
-                'message' => $exception->getMessage(),
-                'status' => false,
-                'data' => (object)[]
-            ]);
-        }
+
     }
 
     public function domicile($location)
@@ -83,5 +64,47 @@ class DriverController extends Controller
             'status' => true,
             'data' => (object)[]
         ]);
+    }
+
+    public function updatePhoto(Request $request)
+    {
+        $photo = $request->file('image');
+        $filename = time() . '.' . $photo->getClientOriginalExtension();
+        $filepath = 'driver/' . $filename;
+        Storage::disk('s3')->put($filepath, file_get_contents($photo));
+
+        $user = Auth::guard('driver-api')->user();
+        $user->avatar = Storage::disk('s3')->url($filepath, $filename);
+        $user->save();
+
+        return response()->json([
+            'message' => 'successfully update profile',
+            'status' => true,
+            'data' => $user
+        ]);
+    }
+
+    public function updateProfile(Request $request)
+    {
+        if ($request->password == null || empty($request->password)){
+            $user = Auth::guard('driver-api')->user();
+            $user->name = $request->name;
+            $user->save();
+            return response()->json([
+                'message' => 'successfully update profile',
+                'status' => true,
+                'data' => $user
+            ]);
+        }else{
+            $user = Auth::guard('driver-api')->user();
+            $user->name = $request->name;
+            $user->password = $request->password;
+            $user->save();
+            return response()->json([
+                'message' => 'successfully update profile',
+                'status' => true,
+                'data' => $user
+            ]);
+        }
     }
 }
