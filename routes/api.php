@@ -57,7 +57,7 @@ Route::group(['prefix' => 'driver'], function () {
     Route::get('profile', 'Api\V1\Driver\DriverController@profile');
     Route::post('profile/update', 'Api\V1\Driver\DriverController@updateProfile');
     Route::post('profile/update/photo', 'Api\V1\Driver\DriverController@updatePhoto');
-    Route::get('domicile', 'Api\V1\Driver\DriverController@domicile');
+    Route::get('location/{location}', 'Api\V1\Driver\DriverController@setLocation');
     Route::get('gooff', 'Api\V1\Driver\DriverController@goOff');
 });
 

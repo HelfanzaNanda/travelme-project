@@ -36,7 +36,7 @@ class DriverController extends Controller
         }
     }
     
-    public function domicile($location)
+    public function setLocation($location)
     {
         $driver = Driver::where('id', Auth::guard('driver-api')->user()->id)->first();
         $driver->location = $location;
@@ -44,19 +44,6 @@ class DriverController extends Controller
 
         return response()->json([
             'message' => 'you are in domicile',
-            'status' => true,
-            'data' => (object)[]
-        ]);
-    }
-
-    public function goOff()
-    {
-        $driver = Driver::where('id', Auth::guard('driver-api')->user()->id)->first();
-        $driver->you_are_domicilied = false;
-        $driver->update();
-
-        return response()->json([
-            'message' => 'you go off',
             'status' => true,
             'data' => (object)[]
         ]);
