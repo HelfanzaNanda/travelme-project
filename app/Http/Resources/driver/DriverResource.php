@@ -26,7 +26,7 @@ class DriverResource extends JsonResource
             "address"   => $this->address,
             "telephone" => $this->telephone,
             "active"    => $this->active,
-            "you_are_domicilied"  => $this->you_are_domicilied,
+            "location"  => $this->location,
             "owner"     => new OwnerResource($this->owner),
             "car"       => new CarResource($this->car)
         ];

@@ -35,12 +35,7 @@ class DriverController extends Controller
             ]);
         }
     }
-
-    public function updateProfil(Request $request)
-    {
-
-    }
-
+    
     public function domicile($location)
     {
         $driver = Driver::where('id', Auth::guard('driver-api')->user()->id)->first();
