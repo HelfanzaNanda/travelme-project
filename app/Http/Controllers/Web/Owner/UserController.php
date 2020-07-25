@@ -40,7 +40,7 @@ class UserController extends Controller
             $client = new Client();
       
             foreach ($datas as $p) {
-              $res = $client->get('https://api.sandbox.midtrans.com/v2/'.$p->no_transaksi.'/status', [
+              $res = $client->get('https://api.sandbox.midtrans.com/v2/'.$p->no_transaksi.'status', [
                 'headers' => $headers
               ]);
               $data = json_decode($res->getBody()->getContents(), true);
