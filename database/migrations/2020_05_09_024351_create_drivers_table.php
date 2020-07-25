@@ -29,7 +29,7 @@ class CreateDriversTable extends Migration
             $table->string('api_token', 80)->unique()->nullable()->default(null);
             $table->rememberToken();
             $table->boolean('active')->default(true);
-            $table->boolean('location')->nullable();
+            $table->string('location', 30)->nullable();
             $table->timestamps();
 
             $table->foreign('car_id')->references('id')->on('cars')->onDelete('CASCADE');

@@ -3,10 +3,12 @@
 namespace App;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Notifications\ApiResetPasswordNotification;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Notifications\DriverApiResetPasswordNotification;
 
-class Driver extends Authenticatable
+class Driver extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
 
@@ -45,6 +47,11 @@ class Driver extends Authenticatable
     public function owner()
     {
         return $this->belongsTo(Owner::class, 'owner_id', 'id');
+    }
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new DriverApiResetPasswordNotification($token));
     }
 
 }

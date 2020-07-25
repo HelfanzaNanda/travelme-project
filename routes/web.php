@@ -19,6 +19,8 @@
 Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('driver/password/reset/{token}', 'Api\V1\Driver\Auth\ResetPasswordController@showResetForm')->name('driver.password.reset');
+Route::post('/driver/password/reset', 'Api\V1\Driver\Auth\ResetPasswordController@reset')->name('driver.password.reset.submit');
 
 Route::post('/finish', function(){
     return redirect()->route('welcome');
@@ -64,7 +66,7 @@ Route::group(['prefix' => 'travel'], function (){
     Route::get('/register', 'Web\Owner\Auth\RegisterController@getRegister')->name('owner.register');
     Route::post('/register', 'Web\Owner\Auth\RegisterController@register')->name('owner.register.submit');
     Route::get('/logout', 'Web\Owner\Auth\LoginController@logout')->name('owner.logout');
-    //Route::get('/activate', 'Web\Owner\Auth\ActivationController@activate')->name('owner.activate');
+    Route::get('/activate', 'Web\Owner\Auth\ActivationController@activate')->name('owner.activate');
     Route::get('/password/reset', 'Web\Owner\Auth\ForgotPasswordController@showLinkRequestForm')->name('owner.password.request');
     Route::post('/password/email', 'Web\Owner\Auth\ForgotPasswordController@sendResetLinkEmail')->name('owner.password.email');
     Route::get('/password/reset/{token}', 'Web\Owner\Auth\ResetPasswordController@showResetForm')->name('owner.password.reset');

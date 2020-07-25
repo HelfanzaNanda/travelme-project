@@ -34,6 +34,13 @@ class RedirectIfAuthenticated
                 }
                 break;
 
+                // case 'driver':
+                //     if (Auth::guard($guard)->check()){
+                //         return 'drvier';
+                //     }
+                //     break;
+    
+
             default:
                 if (Auth::guard($guard)->check()){
                     return 'belom dibuat bro';

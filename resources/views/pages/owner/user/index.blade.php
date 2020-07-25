@@ -46,7 +46,7 @@
                                 <td>{{$data->user->name}}</td>
                                 <td>{{$data->departure->from .' -> '. $data->departure->destination}}</td>
                                 <td>{{'Rp.'.number_format($data->total_price)}}/{{$data->total_seat}} Kursi</td>
-
+                                <td>{{ $status[$key] }}</td>
                                 @if ($data->verify == '2' && $data->status == 'none')
                                 <td><span class="badge badge-success">sudah di konfirmasi dan belum dibayarkan</span></td>
                                 @elseif($data->verify == '2' && $data->status == 'pending')
@@ -55,7 +55,7 @@
                                 <td><span class="badge badge-danger">pesanan di tolak</span></td>
                                 @else
                                 <td><span class="badge badge-warning">belum di konfirmasi</span></td>
-                                @endif
+                                @endif --}}
 
                                 @if (count($drivers) > 0)
                                 <td>
