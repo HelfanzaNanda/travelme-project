@@ -45,7 +45,7 @@ class UserController extends Controller
               ]);
               $data = json_decode($res->getBody()->getContents(), true);
               $status[] = [
-                'status' => $data['transaction_status'] ? $data['transaction_status'] : 'expired',
+                'status' => isset($data['transaction_status']) ? $data['transaction_status'] : 'expired',
                 //'store' => $data['store']
               ];
       
