@@ -45,8 +45,8 @@ class UserController extends Controller
               ]);
               $data = json_decode($res->getBody()->getContents(), true);
               $status[] = [
-                'status' => $data['transaction_status'],
-                'store' => $data['store']
+                'status' => $data->transaction_status,
+                //'store' => $data['store']
               ];
       
             }   
