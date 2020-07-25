@@ -41,14 +41,12 @@ class UserController extends Controller
       
             foreach ($datas as $p) {
               $res = $client->get('https://api.sandbox.midtrans.com/v2/'.$p->order_id.'/status', [
+
                 'headers' => $headers
               ]);
               $data = json_decode($res->getBody()->getContents(), true);
-              $status[] = [
-                'status' => isset($data['transaction_status']) ? $data['transaction_status'] : 'expired',
-                //'store' => $data['store']
-              ];
-      
+              $st = $data['transaction_status'] ? $data['transaction_status'] : 'expired';
+              array_push($status, $st);
             }   
         return view('pages.owner.user.index', compact('datas', 'drivers', 'status'));
     }

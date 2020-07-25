@@ -78,5 +78,9 @@ Route::get('order/driver/show', 'Api\V1\Driver\OrderController@getOrder');
 Route::get('order/{id}/arrived', 'Api\V1\Driver\OrderController@arrived');
 Route::get('order/{id}/done', 'Api\V1\Driver\OrderController@done');
 
+Route::post('notification/handler', 'Api\V1\User\OrderController@notificationHandler');
+
+
 Route::post('try', 'Api\V1\User\TrySnapController@store');
 Route::post('try/charge', 'Api\V1\User\TrySnapController@store');
+
