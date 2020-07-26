@@ -80,7 +80,7 @@
                                         Tolak</a>
                                     @else
                                     @if ($data->verify == '2' && $data->driver_id == null)
-                                    @if ($data->status == 'success' || $data->status == 'settlement' || $data->status = 'deny')
+                                    @if ($data->status != 'none' || $data->status != 'pending')
                                     <a href="" class="btn btn-warning btn-sm" data-toggle="modal"
                                     data-target="#confirmedModal{{ $data->id }}" data-id="{{ $data->id }}" id="get-driver">Pilih Sopir</a>    
                                     @endif
