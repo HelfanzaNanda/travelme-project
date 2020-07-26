@@ -177,6 +177,7 @@ class OrderController extends Controller
             ]);
         } else {
             $order->verify = '0';
+            $order->additional_price = 0;
             $order->update();
 
             return response()->json([
