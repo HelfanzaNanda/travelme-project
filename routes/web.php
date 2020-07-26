@@ -103,4 +103,9 @@ Route::group(['prefix' => 'travel'], function (){
     Route::get('profile','Web\Owner\ProfileController@index')->name('owner.profile.index');
     Route::patch('profile/update','Web\Owner\ProfileController@update')->name('owner.profile.update');
 
+
+
 });
+
+
+Route::post('notification/handler', 'Api\V1\User\OrderController@notificationHandler');
