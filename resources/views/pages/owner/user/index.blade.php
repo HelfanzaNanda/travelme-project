@@ -47,10 +47,10 @@
                                 <td>{{$data->user->name}}</td>
                                 <td>{{$data->departure->from .' -> '. $data->departure->destination}}</td>
                                 <td>{{'Rp.'.number_format($data->total_price)}}/{{$data->total_seat}} Kursi</td>
-                                @if ($status[key] == 'expire' && $data->date == now()->format('Y-m-d'))
+                                @if ($data->status == 'none')
                                     <td><span class="badge badge-success">belum melakukan pembayaran</span></td>    
                                 @else
-                                <td><span class="badge badge-success">{{  $status[key]  }}</span></td>
+                                <td><span class="badge badge-success">{{  $data->status  }}</span></td>
                                 @endif
                                 <td>
                                     @if ($data->verify == '2')
@@ -79,7 +79,7 @@
                                         class="btn btn-danger btn-sm">
                                         Tolak</a>
                                     @else
-                                    @if ($data->verify == '2' && $status[key] == 'success' && $data->driver_id == null)
+                                    @if ($data->verify == '2' && $data->status == 'success' && $data->driver_id == null)
                                     <a href="" class="btn btn-warning btn-sm" data-toggle="modal"
                                     data-target="#confirmedModal{{ $data->id }}" data-id="{{ $data->id }}" id="get-driver">Pilih Sopir</a>
                                     @else
