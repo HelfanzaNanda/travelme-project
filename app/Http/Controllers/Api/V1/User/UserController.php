@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Midtrans\Config;
 use App\Http\Resources\v2\UserResource;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 /**
@@ -68,14 +69,14 @@ class UserController extends Controller
         $filepath = 'user/' . $filename;
         Storage::disk('s3')->put($filepath, file_get_contents($photo));
 
-        $user = User::where('id', Auth::guard('api')->user()->id)->first();
+        $user = Auth::guard('api')->user();
         $user->avatar = Storage::disk('s3')->url($filepath, $filename);
-        $user->update();
+        $user->save();
 
         return response()->json([
             'message' => 'successfully update photo profil',
             'status' => true,
-            'data' => new UserResource($user)
+            'data' => $user
         ]);
     }
 
@@ -93,7 +94,7 @@ class UserController extends Controller
         }else{
             $user = Auth::guard('api')->user();
             $user->name = $request->name;
-            $user->password = $request->password;
+            $user->password = Hash::make($request->password);
             $user->save();
             return response()->json([
                 'message' => 'successfully update profile',
