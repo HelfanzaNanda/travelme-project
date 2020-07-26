@@ -66,8 +66,6 @@
 
                                 @if (count($drivers) > 0)
                                 <td>
-                                    {{-- <a href="{{route('owner.user.show', $data->id)}}" class="btn btn-info
-                                    btn-sm"><i class="mdi mdi-eye"></i></a> --}}
                                     <a href="" class="btn btn-info btn-sm" data-toggle="collapse"
                                         data-target="#collapse{{$data->id}}" aria-expanded="false"
                                         aria-controls="collapseA1">
@@ -81,7 +79,7 @@
                                         class="btn btn-danger btn-sm">
                                         Tolak</a>
                                     @else
-                                    @if ($data->verify == '2' && $data->status == 'deny' && $data->driver_id == null)
+                                    @if ($data->verify == '2' && $data->driver_id == null)
                                     <a href="" class="btn btn-warning btn-sm" data-toggle="modal"
                                     data-target="#confirmedModal{{ $data->id }}" data-id="{{ $data->id }}" id="get-driver">Pilih Sopir</a>
                                     @else
