@@ -79,7 +79,7 @@
                                         class="btn btn-danger btn-sm">
                                         Tolak</a>
                                     @else
-                                    @if ($data->verify == '2' && $data->driver_id == null $data->status != 'none' && $data->status != 'pending')
+                                    @if ($data->verify == '2' && $data->driver_id == null && $data->status != 'none' && $data->status != 'pending')
                                     <a href="" class="btn btn-warning btn-sm" data-toggle="modal"
                                     data-target="#confirmedModal{{ $data->id }}" data-id="{{ $data->id }}" id="get-driver">Pilih Sopir</a>    
                                     @else
