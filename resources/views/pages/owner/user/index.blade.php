@@ -35,7 +35,8 @@
                                 <th>Nama Penumpang</th>
                                 <th>Perjalanan</th>
                                 <th>Total Harga / Kursi</th>
-                                <th>Status</th>
+                                <th>Status Pembayaran</th>
+                                <th>Status Konfirmasi</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
