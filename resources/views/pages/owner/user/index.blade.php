@@ -70,7 +70,7 @@
                                         data-target="#collapse{{$data->id}}" aria-expanded="false"
                                         aria-controls="collapseA1">
                                         <i class="mdi mdi-eye"></i></a>
-                                    @if ($data->verify == '1' && $data->status == 'pending')
+                                    @if ($data->verify == '1' && $data->status == 'none')
                                     <a href="{{ route('owner.user.confirmed', $data->id) }}" 
                                         onclick="return confirm('apakah anda yakin ?')"
                                         class="btn btn-warning btn-sm" >Konfirmasi</a>
