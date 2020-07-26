@@ -48,7 +48,7 @@ class UserController extends Controller
               $st = empty($data['transaction_status']) ? 'expire' : $data['transaction_status'];
               array_push($status, $st);
 
-              if($p->status == 'expire' && $p->date == now()->format('Y-m-d') && $p->verify == '1'){
+              if($p->status == 'expire' && $p->verify == '1' && $p->snap_token == null){
                   $p->status = 'none';
                   $p->update();
               }else{
