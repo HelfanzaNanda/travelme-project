@@ -47,7 +47,11 @@
                                 <td>{{$data->user->name}}</td>
                                 <td>{{$data->departure->from .' -> '. $data->departure->destination}}</td>
                                 <td>{{'Rp.'.number_format($data->total_price)}}/{{$data->total_seat}} Kursi</td>
-                                <td><span class="badge badge-success">{{  $status[$key] }}</span></td>
+                                @if (status[$key] == 'expire' && $data->date == now()->format('Y-m-d'))
+                                    <td><span class="badge badge-success">belum melakukan pembayaran</span></td>    
+                                @else
+                                <td><span class="badge badge-success">{{  $status[$key]  }}</span></td>
+                                @endif
                                 <td>
                                     @if ($data->verify == '2')
                                 <span class="badge badge-warning">di konfirmasi</span>
