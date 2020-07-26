@@ -47,7 +47,7 @@
                                 <td>{{$data->user->name}}</td>
                                 <td>{{$data->departure->from .' -> '. $data->departure->destination}}</td>
                                 <td>{{'Rp.'.number_format($data->total_price)}}/{{$data->total_seat}} Kursi</td>
-                                @if (status[$key] == 'expire' && $data->date == now()->format('Y-m-d'))
+                                @if ($status[$key] == 'expire' && $data->date == now()->format('Y-m-d'))
                                     <td><span class="badge badge-success">belum melakukan pembayaran</span></td>    
                                 @else
                                 <td><span class="badge badge-success">{{  $status[$key]  }}</span></td>
@@ -70,7 +70,7 @@
                                         data-target="#collapse{{$data->id}}" aria-expanded="false"
                                         aria-controls="collapseA1">
                                         <i class="mdi mdi-eye"></i></a>
-                                    @if ($data->verify == '1')
+                                    @if ($data->verify == '1' && $status[$key] == 'pending')
                                     <a href="{{ route('owner.user.confirmed', $data->id) }}" 
                                         onclick="return confirm('apakah anda yakin ?')"
                                         class="btn btn-warning btn-sm" >Konfirmasi</a>
