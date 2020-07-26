@@ -216,7 +216,7 @@ class OrderController extends Controller
                 'headers' => $headers
             ]);
             $data = json_decode($res->getBody()->getContents(), true);
-            $notif = $data['transaction_status'] ? $data['transaction_status'] : 'expired';
+            $notif = $data['transaction_status'] ? $data['transaction_status'] : 'expire';
 
             $transaction = $notif->transaction_status;
             $type = $notif->payment_type;
@@ -237,7 +237,7 @@ class OrderController extends Controller
                 $p->setPending();
             } elseif ($transaction == 'deny') {
                 $p->setFailed();
-            } elseif ($transaction == 'expired') {
+            } elseif ($transaction == 'expire') {
                 $p->setExpired();
             } elseif ($transaction == 'cancel') {
                 $p->setFailed();

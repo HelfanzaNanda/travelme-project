@@ -45,7 +45,7 @@ class UserController extends Controller
                 'headers' => $headers
               ]);
               $data = json_decode($res->getBody()->getContents(), true);
-              $st = $data['transaction_status'] ? $data['transaction_status'] : 'expired';
+              $st = empty($data['transaction_status']) ? 'expire' : $data['transaction_status'];
               array_push($status, $st);
             }   
         return view('pages.owner.user.index', compact('datas', 'drivers', 'status'));
