@@ -51,7 +51,7 @@ class UserController extends Controller
               if($p->status == 'expire' && $p->verify == '1' && $p->snap_token == null){
                   $p->status = 'none';
                   $p->update();
-              }else{
+              }else if($p->status != 'none'){
                 $p->status = empty($data['transaction_status']) ? 'expire' : $data['transaction_status'];
                 $p->update();
               }
