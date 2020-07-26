@@ -84,10 +84,21 @@ Route::group(['prefix' => 'travel'], function (){
     Route::resource('car', 'Web\Owner\CarController')->except('destroy');
     Route::get('car/{id}/destroy', 'Web\Owner\CarController@destroy')->name('car.destroy');
 
-    Route::resource('schedule', 'Web\Owner\ScheduleController')->except('destroy');
+    // Route::resource('schedule', 'Web\Owner\ScheduleController')->except('destroy');
+    // Route::get('schedule/{id}/destroy', 'Web\Owner\ScheduleController@destroy')->name('schedule.destroy');
+    // Route::get('schedule/calendar/{id}', 'Web\Owner\ScheduleController@getcallendar')->name('schedule.callendar');
+    // Route::resource('t-profile', 'Web\Owner\ProfileController')->only(['index', 'create', 'store']);
+    
+    
+    Route::get('schedule/create', 'Web\Owner\ScheduleController@index')->name('schedule.index');
+    Route::get('schedule/create', 'Web\Owner\ScheduleController@create')->name('schedule.create');
+    Route::post('schedule/create', 'Web\Owner\ScheduleController@store')->name('schedule.store');
+    Route::get('schedule/{id}/edit', 'Web\Owner\ScheduleController@edit')->name('schedule.edit');
+    Route::get('schedule/{id}/update', 'Web\Owner\ScheduleController@update')->name('schedule.update');
     Route::get('schedule/{id}/destroy', 'Web\Owner\ScheduleController@destroy')->name('schedule.destroy');
-    Route::get('schedule/calendar/{id}', 'Web\Owner\ScheduleController@getcallendar')->name('schedule.callendar');
-    Route::resource('t-profile', 'Web\Owner\ProfileController')->only(['index', 'create', 'store']);
+    
+
+
 
     Route::get('user', 'Web\Owner\UserController@index')->name('owner.user.index');
     Route::get('user/{id}', 'Web\Owner\UserController@show')->name('owner.user.show');
