@@ -96,8 +96,6 @@ Route::group(['prefix' => 'travel'], function (){
     Route::get('schedule/{id}/edit', 'Web\Owner\ScheduleController@edit')->name('schedule.edit');
     Route::get('schedule/{id}/update', 'Web\Owner\ScheduleController@update')->name('schedulle.update');
     Route::get('schedule/{id}/destroy', 'Web\Owner\ScheduleController@destroy')->name('schedule.destroy');
-    
-
 
 
     Route::get('user', 'Web\Owner\UserController@index')->name('owner.user.index');
