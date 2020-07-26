@@ -47,16 +47,17 @@
                                 <td>{{$data->user->name}}</td>
                                 <td>{{$data->departure->from .' -> '. $data->departure->destination}}</td>
                                 <td>{{'Rp.'.number_format($data->total_price)}}/{{$data->total_seat}} Kursi</td>
-                                <td><span class="badge badge-success">{{  $success[$key] }}</span></td>
-                                @if ($data->status == '2')
+                                <td><span class="badge badge-success">{{  $status[$key] }}</span></td>
+                                <td>
+                                    @if ($data->verify == '2')
                                 <span class="badge badge-warning">di konfirmasi</span>
-                                @elseif($data->status == '1')
+                                @elseif($data->verify == '1')
                                 <span class="badge badge-warning">belum konfirmasi</span>
                                 @else
                                 <span class="badge badge-warning">di tolak</span>
                                 @endif
+                                </td>
 
-                                <td></td>
                                 @if (count($drivers) > 0)
                                 <td>
                                     {{-- <a href="{{route('owner.user.show', $data->id)}}" class="btn btn-info
