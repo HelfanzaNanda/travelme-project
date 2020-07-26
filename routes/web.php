@@ -108,4 +108,4 @@ Route::group(['prefix' => 'travel'], function (){
 });
 
 
-Route::post('notification/handler', 'Api\V1\User\OrderController@notificationHandler');
+Route::post('notification/handler', 'HomeController@notificationHandler');
