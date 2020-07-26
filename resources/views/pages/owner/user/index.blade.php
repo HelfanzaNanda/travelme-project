@@ -46,17 +46,16 @@
                                 <td>{{$data->user->name}}</td>
                                 <td>{{$data->departure->from .' -> '. $data->departure->destination}}</td>
                                 <td>{{'Rp.'.number_format($data->total_price)}}/{{$data->total_seat}} Kursi</td>
-                                <td>{{ $status[$key] }}</td>
-                                {{-- @if ($data->verify == '2' && $data->status == 'none')
-                                <td><span class="badge badge-success">sudah di konfirmasi dan belum dibayarkan</span></td>
-                                @elseif($data->verify == '2' && $data->status == 'pending')
-                                <td><span class="badge badge-success">sudah di konfirmasi dan sudah dibayarkan</span></td>
-                                @elseif ($data->verify == '0')
-                                <td><span class="badge badge-danger">pesanan di tolak</span></td>
+                                <td><span class="badge badge-success">{{  $success[$key] }}</span></td>
+                                @if ($data->status == '2')
+                                <span class="badge badge-warning">di konfirmasi</span>
+                                @elseif($data->status == '1')
+                                <span class="badge badge-warning">belum konfirmasi</span>
                                 @else
-                                <td><span class="badge badge-warning">belum di konfirmasi</span></td>
-                                @endif --}}
+                                <span class="badge badge-warning">di tolak</span>
+                                @endif
 
+                                <td></td>
                                 @if (count($drivers) > 0)
                                 <td>
                                     {{-- <a href="{{route('owner.user.show', $data->id)}}" class="btn btn-info
@@ -74,7 +73,7 @@
                                         class="btn btn-danger btn-sm">
                                         Tolak</a>
                                     @else
-                                    @if ($data->verify == '2' && $data->status == 'pending' && $data->driver_id == null)
+                                    @if ($data->verify == '2' && $data->status == 'success' && $data->driver_id == null)
                                     <a href="" class="btn btn-warning btn-sm" data-toggle="modal"
                                     data-target="#confirmedModal{{ $data->id }}" data-id="{{ $data->id }}" id="get-driver">Pilih Sopir</a>
                                     @else
