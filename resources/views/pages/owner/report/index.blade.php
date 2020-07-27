@@ -39,9 +39,9 @@
                             <button type="submit" class="btn btn-info">Cari</button>
                         </div>
 
-                        <div class="col-md-1">
+                        {{-- <div class="col-md-1">
                             <a href="" type="button" class="btn btn-primary">print</a>
-                        </div>
+                        </div> --}}
 
                     </div>
                 </form>
