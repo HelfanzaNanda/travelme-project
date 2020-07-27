@@ -57,7 +57,6 @@
                         <tbody>
                             @foreach ($groupByDates as $key => $groupByDate)
                             <tr>
-
                                 <td><a class="detail-icon" id="show_{{$loop->iteration}}" href="#">
                                         <i class="fa far fa-times-circle"></i> </a>
                                     {{$loop->iteration}}

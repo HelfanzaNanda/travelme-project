@@ -19,7 +19,7 @@
             <li><a href="{{route('schedule.index')}}"><i class="mdi mdi-calendar-blank"></i><span class="menu-title">Jadwal</span></a></li>
             <li class="nav-devider"></li>
             <li><a href="{{route('owner.user.index')}}"><i class="mdi mdi-account"></i><span class="menu-title">Penumpang</span></a></li>
-            <li><a href="{{route('owner.report.index')}}"><i class="mdi mdi-file-document-box"></i><span class="menu-title">Laporan</span></a></li>
+            {{-- <li><a href="{{route('owner.report.index')}}"><i class="mdi mdi-file-document-box"></i><span class="menu-title">Laporan</span></a></li> --}}
             {{-- <li>
                 <a class="has-arrow" href="#" aria-expanded="false"><i class="mdi mdi-gauge"></i><span class="hide-menu">Order</span></a>
                 <ul aria-expanded="false" class="collapse">
