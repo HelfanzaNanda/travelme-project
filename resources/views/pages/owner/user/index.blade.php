@@ -49,7 +49,7 @@
                                 <td>{{'Rp.'.number_format($data->total_price)}}/{{$data->total_seat}} Kursi</td>
                                 @if ($data->status == 'none')
                                     <td><span class="badge badge-success">belum melakukan pembayaran</span></td>    
-                                @elseif($data->status == 'deny')
+                                @elseif($data->status == 'settlement')
                                 <td><span class="badge badge-success">sudah melakukan pembayaran</span></td>
                                 @else
                                 <td><span class="badge badge-success">{{  $data->status  }}</span></td>

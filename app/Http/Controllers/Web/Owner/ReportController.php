@@ -18,7 +18,7 @@ class ReportController extends Controller
 
     public function index()
     {
-        $orders = Order::where('verify', '2')->where('status', 'sudah melakukan pembayaran')
+        $orders = Order::where('verify', '2')->where('status', 'settlement')
         ->where('owner_id', Auth::guard('owner')->user()->id)->get();
 
         $groupByDates = $orders->groupBy('date')->map(function ($row){
@@ -34,7 +34,7 @@ class ReportController extends Controller
     {
         $month = $request->month+1;
 
-        $orders = Order::where('verify', '2')->where('status', 'sudah melakukan pembayaran')
+        $orders = Order::where('verify', '2')->where('status', 'settlement')
         ->where('owner_id', Auth::guard('owner')->user()->id)
         ->whereMonth('date', $month)->get();
 
