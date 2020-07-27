@@ -179,12 +179,11 @@
                                 <td>#</td>
                                 <td colspan="4">
                                     <div>
+                                        <p>status :{{ $data->done ? 'pesanan selesai' : 'belum selesai' }}</p>
                                         <p>Lokasi Penjemputan : {{$data->pickup_point}}</p>
                                         <p>Lokasi Tujuan : {{$data->destination_point}}</p>
                                         <div class="row">
-                                            <p>Tanggal :{{ $data->done ? 'pesanan selesai' : 'belum selesai' }}</p>
                                             <div class="col-md-4">
-                                                
                                                 <p>Tanggal :{{\Carbon\Carbon::parse($data->date)->format('d m Y')}}</p>
                                                 <p>Jam :{{ \Carbon\carbon::parse($data->hour)->format('H:i') }}</p>
                                             </div>
