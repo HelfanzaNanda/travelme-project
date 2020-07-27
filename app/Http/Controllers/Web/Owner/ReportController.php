@@ -47,11 +47,14 @@ class ReportController extends Controller
         return view('pages.owner.report.search', compact(['orders', 'groupByDates', 'number_month']));
     }
 
-    public function print($number_month)
+    public function print(Request $request)
     {
-        $orders = Order::where('verify', '2')->where('status', 'sudah melakukan pembayaran')
+        $m = $request->month;
+        $orders = Order::where('verify', '2')->where('status', 'settlement')
         ->where('owner_id', Auth::guard('owner')->user()->id)
-        ->whereMonth('date', $number_month+1)->get();
+        ->whereMonth('date', $m+1)->get();
+
+        $auth = Auth::guard('owner')->user();
 
         $groupByDates = $orders->groupBy('date')->map(function ($row){
             return $row;
@@ -60,9 +63,9 @@ class ReportController extends Controller
         $month = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli',
                             'Agustus', 'September', 'Oktober', 'November', 'Desember'];
 
-        $name_month = $month[$number_month];
+        $name_month = $month[$m];
 
-        $pdf = PDF::loadview('pages.owner.report.print',  compact(['groupByDates', 'name_month']));
-        return $pdf->download('report '.$name_month);
+        $pdf = PDF::loadview('pages.owner.report.print',  compact(['groupByDates', 'name_month', 'auth']));
+        return $pdf->download('report '.$name_month.'.pdf');
     }
 }

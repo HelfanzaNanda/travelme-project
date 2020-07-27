@@ -107,7 +107,7 @@ Route::group(['prefix' => 'travel'], function (){
 
     Route::get('report', 'Web\Owner\ReportController@index')->name('owner.report.index');
     Route::post('report/search', 'Web\Owner\ReportController@search')->name('owner.report.search');
-    Route::get('report/{month}/print','Web\Owner\ReportController@print')->name('owner.report.print');
+    Route::post('report/print','Web\Owner\ReportController@print')->name('owner.report.print');
 
     Route::get('profile','Web\Owner\ProfileController@index')->name('owner.profile.index');
     Route::patch('profile/update','Web\Owner\ProfileController@update')->name('owner.profile.update');

@@ -26,7 +26,7 @@
                         <div class="col-md-4">
                             @php($month = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli',
                             'Agustus', 'September', 'Oktober', 'November', 'Desember'])
-                            <select name="month" class="form-control">
+                            <select name="month" class="form-control" id="month-select">
                                 @for ($i = 0; $i < count($month); $i++)
                                     <option value="{{ $i }}"
                                     {{ $number_month == $i ? 'selected' : ''}}>
@@ -38,12 +38,12 @@
                         <div class="col-md-1">
                             <button type="submit" class="btn btn-info">Cari</button>
                         </div>
-
-                        {{-- <div class="col-md-1">
-                            <a href="" type="button" class="btn btn-primary">print</a>
-                        </div> --}}
-
                     </div>
+                </form>
+                <form action="{{ route('owner.report.print') }}" method="POST">
+                    @csrf
+                    <input type="hidden" id="month" name="month">
+                    <button type="submit" class="btn btn-primary">print</button>
                 </form>
                 <div class="table-responsive m-t-40">
                     <table id="myTable" class="table table-bordered table-striped">
@@ -51,7 +51,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>Tanggal</th>
-                                <th>Total Pesanan Di Konfirmasi</th>
+                                <th>Total Pesanan</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -77,8 +77,9 @@
                                         @php($destinations[$item->departure_id] = $item->departure->destination)
                                         @endif
                                         <p><b>Perjalanan : {{ $destinations[$item->departure_id] }}</b> </p>
+                                        <p>Jam : {{ $item->hour }}</p>
+                                        <p>Supir : {{ $item->driver->name }}</p>
                                         @endforeach
-
                                     </div>
 
                                 </td>
@@ -100,6 +101,15 @@
     $("a[id^=show_]").click(function(event) {
         $("#extra_" + $(this).attr('id').substr(5)).slideToggle("slow");
         event.preventDefault();
+    });
+</script>
+
+
+<script>
+    monthSelect = document.querySelector('#month-select');
+    month = document.querySelector('#month')
+    monthSelect.addEventListener('change', function(){
+        month.value = this.value;
     });
 </script>
 @endsection
