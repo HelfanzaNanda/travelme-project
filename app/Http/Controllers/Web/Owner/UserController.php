@@ -87,7 +87,7 @@ class UserController extends Controller
 
             $optionBuilder = new OptionsBuilder();
             $optionBuilder->setTimeToLive(60 * 20);
-            $message = "Pesanan Anda Sudah Di Verifikasi Admin, Silahkan Lanjutkan Pembayaran";
+            $message = "Pesanan Anda Sudah Di Verifikasi Admin";
             $notificationBuilder = new PayloadNotificationBuilder('travelme');
             $notificationBuilder->setBody($message)->setSound('default');
 
