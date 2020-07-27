@@ -66,7 +66,7 @@ class OrderController extends Controller
             $order = Order::where('driver_id', Auth::guard('driver-api')->user()->id)
             ->whereDate('date', $now)->where('verify', '2')
             ->where('status', 'settlement')
-            ->orWhere('status', 'success')
+            //->orWhere('status', 'success')
             ->orderBy('id', 'ASC')->get();
 
             return response()->json([
