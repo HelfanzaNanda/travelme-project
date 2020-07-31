@@ -22,7 +22,7 @@ class CreateCarsTable extends Migration
             $table->string('facility', '50');
             $table->integer('seat')->nullable();
             $table->boolean('status')->default(true);
-            $table->timestamps();
+            //$table->timestamps();
 
             $table->foreign('owner_id')->references('id')->on('owners')->onDelete('CASCADE');
         });

@@ -17,19 +17,19 @@ class CreateDriversTable extends Migration
             $table->increments('id');
             $table->integer('owner_id')->unsigned();
             $table->integer('car_id')->unsigned()->unique();
-            $table->char('nik','16')->unique();
-            $table->char('sim', '12')->unique();
+            //$table->char('nik','16')->unique();
+            //$table->char('sim', '12')->unique();
             $table->string('name', '50');
             $table->string('email', '30')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->text('password');
+            $table->string('password', 60);
             $table->text('avatar')->nullable();
             $table->text('address');
             $table->string('telephone', '13')->unique();
             $table->string('api_token', 80)->unique()->nullable()->default(null);
             $table->rememberToken();
             $table->boolean('active')->default(true);
-            $table->boolean('location')->nullable();
+            $table->string('location', 30)->nullable();
             $table->timestamps();
 
             $table->foreign('car_id')->references('id')->on('cars')->onDelete('CASCADE');

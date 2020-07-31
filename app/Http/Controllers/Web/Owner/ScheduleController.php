@@ -6,11 +6,13 @@ use App\Car;
 use App\Date;
 use App\DateOfDeparture;
 use App\Departure;
+use App\Driver;
 use App\Hour;
 use App\HourOfDeparture;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\FullCalendarResource;
 use App\Owner;
+use App\Seat;
 use Carbon\Carbon;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Http\Request;
@@ -49,6 +51,7 @@ class ScheduleController extends Controller
      */
     public function create()
     {
+        $drivers = Driver::where('owner_id', Auth::guard('owner')->user()->id)->get();
         $car = Car::where('status', '1')
             ->where('owner_id', Auth::guard('owner')->user()->id)->get()->count();
 
@@ -64,7 +67,7 @@ class ScheduleController extends Controller
             }
             $destinations = ['Bandung', 'Cirebon','Jakarta', 'Jogja', 'Purwokerto' , 'Semarang', 'Solo', 'Surabaya'];
             $cars = Car::where('owner_id', Auth::guard('owner')->user()->id)->get();
-                return view('pages.owner.schedule.create', compact(['cars', 'destinations', 'hours']));
+                return view('pages.owner.schedule.create', compact(['cars', 'destinations', 'hours', 'drivers']));
         } else {
             return redirect()->back()->with('warning', 'Silahkan Tambahkan Mobil Dahulu! atau');
         }
@@ -93,16 +96,15 @@ class ScheduleController extends Controller
 
         $this->validate($request, $rules, $message);
 
-        $car = Car::where('owner_id', Auth::guard('owner')->user()->id)->first();
 
         $delete_full_stop = preg_replace('/[^\w\s]/', '', $request->price);
-
         $departure = new Departure();
         $departure->owner_id = Auth::guard('owner')->user()->id;
         $departure->from = $request->from;
         $departure->destination = ucwords($request->destination);
         $departure->price = $delete_full_stop;
         $departure->save();
+
 
         $dates = explode(',', (string) $request->date);
         foreach ($dates as $date) {
@@ -116,17 +118,22 @@ class ScheduleController extends Controller
             DateOfDeparture::create($itemDateOfDeparture);
 
             $hours = $request->hour;
-            foreach ($hours as $hour) {
-                $itemHourOfDeparture[] = [
+            foreach ($hours as $key => $hour) {
+                $hour_id = HourOfDeparture::latest('id')->first();
+                $itemHourOfDeparture = [
+                    'id' => $hour_id == null ? 1 : $hour_id->id + 1,
                     'owner_id' => Auth::guard('owner')->user()->id,
                     'date_id' => $itemDateOfDeparture['id'],
-                    'hour' => $hour,
-                    'seat' => $car->seat,
-                    'remaining_seat' => $car->seat
+                    'driver_id' => $request->driver_id[$key],
+                    'hour' => Carbon::parse($hour)->format('H:i'),
+                    // 'seat' => $car->seat,
+                    // 'remaining_seat' => $car->seat
                 ];
+                //dd($itemHourOfDeparture);
+                $dataHour = HourOfDeparture::create($itemHourOfDeparture);
+                $this->storeSeat($dataHour->driver->car->seat, $itemHourOfDeparture['id']);
             };
         }
-        DB::table('hour_of_departures')->insert($itemHourOfDeparture);
 
         $this->storeDestinationBack($request);
 
@@ -134,9 +141,22 @@ class ScheduleController extends Controller
     }
 
 
+    public function storeSeat($totalSeat, $hour_id)
+    {
+        $no = 1; 
+        for ($i=0; $i < $totalSeat; $i++) { 
+            $seat = new Seat();
+            $seat->hour_id = $hour_id;
+            $seat->name = $no++;
+            $seat->save();
+        }
+        return true;
+    }
+
+
     public function storeDestinationBack($request)
     {
-        $car = Car::where('owner_id', Auth::guard('owner')->user()->id)->first();
+        //$car = Car::where('owner_id', Auth::guard('owner')->user()->id)->first();
 
         $delete_full_stop = preg_replace('/[^\w\s]/', '', $request->price);
 
@@ -159,17 +179,19 @@ class ScheduleController extends Controller
             DateOfDeparture::create($itemDateOfDeparture);
 
             $hours = $request->hour;
-            foreach ($hours as $hour) {
-                $itemHourOfDeparture[] = [
+            foreach ($hours as $key => $hour) {
+                $hour_id = HourOfDeparture::latest('id')->first();
+                $itemHourOfDeparture = [
+                    'id' => $hour_id == null ? 1 : $hour_id->id + 1,
                     'owner_id' => Auth::guard('owner')->user()->id,
                     'date_id' => $itemDateOfDeparture['id'],
-                    'hour' => Carbon::parse($hour)->addHours($request->add_hour),
-                    'seat' => $car->seat,
-                    'remaining_seat' => $car->seat
+                    'driver_id' => $request->driver_id[$key],
+                    'hour' => Carbon::parse($hour)->addHours($request->add_hour)->format('H:i'),
                 ];
+                $dataHour = HourOfDeparture::create($itemHourOfDeparture);
+                $this->storeSeat($dataHour->driver->car->seat, $itemHourOfDeparture['id']);
             };
         }
-        DB::table('hour_of_departures')->insert($itemHourOfDeparture);
     }
 
     /**

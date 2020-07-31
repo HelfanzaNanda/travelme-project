@@ -17,13 +17,15 @@ class CreateHourOfDeparturesTable extends Migration
             $table->increments('id');
             $table->integer('owner_id')->unsigned();
             $table->integer('date_id')->unsigned();
+            $table->integer('driver_id')->unsigned();
             $table->time('hour');
-            $table->integer('seat');
-            $table->integer('remaining_seat');
-            $table->timestamps();
+            //$table->integer('seat');
+            //$table->integer('remaining_seat');
+            //$table->timestamps();
 
             $table->foreign('owner_id')->references('id')->on('owners')->onDelete('CASCADE');
             $table->foreign('date_id')->references('id')->on('date_of_departures')->onDelete('CASCADE');
+            $table->foreign('driver_id')->references('id')->on('drivers')->onDelete('CASCADE');
         });
     }
 

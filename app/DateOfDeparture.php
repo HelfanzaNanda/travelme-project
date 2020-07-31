@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class DateOfDeparture extends Model
 {
     protected $guarded = [];
+    public $timestamps = false;
 
     public function hour()
     {

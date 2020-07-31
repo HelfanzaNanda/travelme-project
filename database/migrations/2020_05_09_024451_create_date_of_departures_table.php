@@ -18,7 +18,7 @@ class CreateDateOfDeparturesTable extends Migration
             $table->integer('owner_id')->unsigned();
             $table->integer('departure_id')->unsigned();
             $table->date('date');
-            $table->timestamps();
+            //$table->timestamps();
 
             $table->foreign('owner_id')->references('id')->on('owners')->onDelete('CASCADE');
             $table->foreign('departure_id')->references('id')->on('departures')->onDelete('CASCADE');
