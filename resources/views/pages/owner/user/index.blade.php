@@ -4,6 +4,10 @@
     <div class="col-md-6 col-8 align-self-center">
         <h3 class="text-themecolor mb-0 mt-0">Tabel Data Penumpang</h3>
     </div>
+    <div class="col-md-6 col-4 align-self-center">
+        <a href="{{route('owner.user.create')}}" class="btn float-right hidden-sm-down btn-success"><i
+                class="mdi mdi-plus-circle"></i>Tambah</a>
+    </div>
 </div>
 <!-- Start Page Content -->
 <div class="row">
@@ -79,9 +83,9 @@
                                         class="btn btn-danger btn-sm">
                                         Tolak</a>
                                     @else
-                                    @if ($data->verify == '2' && $data->driver_id == null && $data->status != 'none' && $data->status != 'pending')
+                                    @if ($data->verify == '2' && $data->status != 'none' && $data->status != 'pending')
                                     <a href="" class="btn btn-warning btn-sm" data-toggle="modal"
-                                    data-target="#confirmedModal{{ $data->id }}" data-id="{{ $data->id }}" id="get-driver">Pilih Sopir</a>    
+                                    data-target="#confirmedModal{{ $data->id }}" data-id="{{ $data->id }}" id="get-driver">Ganti Sopir</a>    
                                     @else
                                         
                                     @endif
@@ -96,8 +100,7 @@
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Pilih Driver yang ada di
-                                                    Lokasi</h5>
+                                                <h5 class="modal-title" id="exampleModalLabel">Ganti Supir</h5>
                                                 <button type="button" class="close" data-dismiss="modal"
                                                     aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>

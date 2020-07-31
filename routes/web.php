@@ -99,11 +99,14 @@ Route::group(['prefix' => 'travel'], function (){
 
 
     Route::get('user', 'Web\Owner\UserController@index')->name('owner.user.index');
+    Route::get('user/create', 'Web\Owner\UserController@create')->name('owner.user.create');
+    Route::post('user/store', 'Web\Owner\UserController@store')->name('owner.user.store');
     Route::get('user/{id}', 'Web\Owner\UserController@show')->name('owner.user.show');
     Route::get('user/{id}/confirmed', 'Web\Owner\UserController@confirmed')->name('owner.user.confirmed');
     Route::patch('user/{id}/choosedriver', 'Web\Owner\UserController@chooseDriver')->name('owner.user.choosedriver');
     Route::patch('user/{id}/decline', 'Web\Owner\UserController@decline')->name('owner.user.decline');
     Route::get('user/{id}/driver', 'Web\Owner\UserController@getDrivers');
+    Route::get('date/{date}/hour', 'Web\Owner\UserController@fetchHours');
 
     Route::get('report', 'Web\Owner\ReportController@index')->name('owner.report.index');
     Route::post('report/search', 'Web\Owner\ReportController@search')->name('owner.report.search');

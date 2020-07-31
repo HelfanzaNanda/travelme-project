@@ -9,6 +9,8 @@ use App\HourOfDeparture;
 use App\Order;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Seat;
+use Carbon\Carbon;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Auth;
 use LaravelFCM\Message\OptionsBuilder;
@@ -57,6 +59,27 @@ class UserController extends Controller
               }
             }   
         return view('pages.owner.user.index', compact('datas', 'drivers', 'status'));
+    }
+
+    public function create()
+    {
+        //$hours = HourOfDeparture::where('owner_id', Auth::guard('owner')->user()->id)->orderBy('hour')->get()->unique('hour');
+        $destinations = ['Bandung', 'Cirebon','Jakarta', 'Jogja', 'Purwokerto' , 'Semarang', 'Solo', 'Surabaya'];
+        return view('pages.owner.user.create', compact('destinations'));
+    }
+
+    public function fetchSeat($hour_id)
+    {
+        $seats = Seat::where('hour_id', $hour_id)->get();
+        return $seats;
+    }
+
+    public function fetchHours($date)
+    {
+        $convertDate = Carbon::parse($date)->format('Y-m-d');
+        $date = DateOfDeparture::whereDate('date', $convertDate)->first();
+        $hours = HourOfDeparture::where('date_id', $date->id)->get(['id', 'hour']);
+        return $hours;
     }
 
     public function getDrivers($id)
