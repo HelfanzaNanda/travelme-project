@@ -24,10 +24,12 @@ class OrderController extends Controller
     public function getOrder()
     {
         $order = Order::where('driver_id', Auth::guard('driver-api')->user()->id)
-        ->where('verify', '2')->where('status', 'pending')->where('done', false)->first();
+        ->where('verify', '2')
+        ->whereIn('status', ['settlement', 'success', 'deny'])->where('done', false)->first();
 
         $orders = Order::where('driver_id', Auth::guard('driver-api')->user()->id)
-        ->where('verify', '2')->where('status', 'pending')->where('done', false)->get()->count();
+        ->where('verify', '2')
+        ->whereIn('status', ['settlement', 'success', 'deny'])->where('done', false)->get()->count();
 
 
         if($order) {
@@ -62,8 +64,12 @@ class OrderController extends Controller
         try{
             $now = Carbon::now()->format('Y-m-d');
             $order = Order::where('driver_id', Auth::guard('driver-api')->user()->id)
-            ->whereDate('date', $now)->where('verify', '2')
-            ->where('status', 'pending')->orderBy('id', 'ASC')->get();
+            ->whereDate('date', $now)
+            ->where('verify', '2')
+            ->where('status', 'settlement')
+            
+            //->orWhere('status', 'success')
+            ->orderBy('id', 'ASC')->get();
 
             return response()->json([
                 'message' => 'succesfully get order by driver',

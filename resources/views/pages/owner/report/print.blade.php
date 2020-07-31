@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Membuat Laporan PDF Dengan DOMPDF Laravel</title>
+	<title>Membuat Laporan</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
@@ -12,7 +12,8 @@
 		}
     </style>
     
-    <h4>{{ $name_month }}</h4>
+    <h4>{{ $auth->business_name }}</h4>
+    <h6>{{ $name_month }}</h6>
 
 	<table class='table table-bordered'>
 		<thead>
@@ -45,6 +46,8 @@
                         @php($destinations[$item->departure_id] = $item->departure->destination)
                         @endif
                         <p><b>Perjalanan : {{ $destinations[$item->departure_id] }}</b> </p>
+                        <p>Jam : {{ $item->hour }}</p>
+                        <p>Supir : {{ $item->driver->name }}</p>
                         @endforeach
 
                     </div>
@@ -59,3 +62,11 @@
 
 </body>
 </html>
+
+<script>
+    monthSelect = document.querySelector('#month-select');
+    month = document.querySelector('#month')
+    monthSelect.addEventListener('change', function(){
+        month.value = this.value;
+    });
+</script>

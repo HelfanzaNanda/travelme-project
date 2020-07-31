@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Web\Owner\Auth;
 
+use App\Events\OwnerActivationEmail;
 use App\Http\Controllers\Controller;
+use App\Notifications\OwnerRegisterNotification;
 use App\Owner;
 use App\Providers\RouteServiceProvider;
 use App\Travel;
@@ -36,7 +38,6 @@ class RegisterController extends Controller
             'email'             => 'required|unique:owners|email',
             'password'          => 'required|confirmed',
             'telephone'         => 'required|unique:owners',
-            'domicile'         => 'required',
             'account_name'      => 'required|regex:/^[\pL\s\-]+$/u||min:5',
             'account_number'    => 'required|numeric|digits_between:10,16',
         ];
@@ -62,24 +63,23 @@ class RegisterController extends Controller
             $data->email            = $request->email;
             $data->password         = Hash::make($request->password);
             $data->telephone        = $request->telephone;
-            if ($request->domicile == 'Jogja' || $request->domicile == 'Jogjakarta') {
-                $data->domicile         = 'Yogyakarta';
-            } else {
-                $data->domicile         = ucwords($request->domicile);
-            }
-            $data->activation_token = Str::random(100);
+            // if ($request->domicile == 'Jogja' || $request->domicile == 'Jogjakarta') {
+            //     $data->domicile         = 'Yogyakarta';
+            // } else {
+            //     $data->domicile         = ucwords($request->domicile);
+            // }
+            //$data->activation_token = Str::random(100);
             $data->name_bank        = $request->name_bank;
             $data->account_number   = $request->account_number;
             $data->account_name     = $request->account_name;
+            $data->active           = '1';
             $data->save();
-
-            $this->sendEmail($data);
+            //$this->sendEmail($data);
         } else {
-            return redirect()->back()->with('error', 'Silahkan urus license number dahulu');
+            return redirect()->back()->with('error', 'Nomor Izin Salah');
         }
-
-        //event(new AdminTravelActivationEmail($data));
-        return redirect()->route('owner.login')->with('success', 'Berhasil Register, Silahkan Menunggu Verifikasi Dari Admin');
+        event(new OwnerActivationEmail($data));
+        return redirect()->route('owner.login')->with('success', 'Berhasil Register, Silahkan Verifikasi Email');
     }
 
     private function sendEmail($user)

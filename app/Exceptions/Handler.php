@@ -68,9 +68,9 @@ class Handler extends ExceptionHandler
                 $login = 'owner.login';
                 break;
 
-            default :
-                $login = 'login';
-                break;
+             default : 'belum ada';
+            //     $login = 'login';
+            //     break;
         }
         
         return redirect()->guest(route($login));

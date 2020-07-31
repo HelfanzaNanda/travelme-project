@@ -25,8 +25,8 @@ class CarController extends Controller
 
     public function index()
     {
-        $datas = Car::where('owner_id', Auth::guard('owner')->user()->id)->where('status', '1')
-        ->orderBy('id', 'ASC')->get();
+        $datas = Car::where('owner_id', Auth::user()->id)->where('status', '1')
+        ->orderBy('id', 'DESC')->get();
         
         return view('pages.owner.car.index', compact('datas'));
     }

@@ -15,6 +15,7 @@ use Exception;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use GuzzleHttp\Client;
 
 class OrderController extends Controller
 {
@@ -176,6 +177,7 @@ class OrderController extends Controller
             ]);
         } else {
             $order->verify = '0';
+            $order->additional_price = 0;
             $order->update();
 
             return response()->json([

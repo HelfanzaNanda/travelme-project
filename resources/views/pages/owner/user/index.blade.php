@@ -35,7 +35,8 @@
                                 <th>Nama Penumpang</th>
                                 <th>Perjalanan</th>
                                 <th>Total Harga / Kursi</th>
-                                <th>Status</th>
+                                <th>Status Pembayaran</th>
+                                <th>Status Konfirmasi</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -46,26 +47,30 @@
                                 <td>{{$data->user->name}}</td>
                                 <td>{{$data->departure->from .' -> '. $data->departure->destination}}</td>
                                 <td>{{'Rp.'.number_format($data->total_price)}}/{{$data->total_seat}} Kursi</td>
-
-                                @if ($data->verify == '2' && $data->status == 'none')
-                                <td><span class="badge badge-success">sudah di konfirmasi dan belum dibayarkan</span></td>
-                                @elseif($data->verify == '2' && $data->status == 'pending')
-                                <td><span class="badge badge-success">sudah di konfirmasi dan sudah dibayarkan</span></td>
-                                @elseif ($data->verify == '0')
-                                <td><span class="badge badge-danger">pesanan di tolak</span></td>
+                                @if ($data->status == 'none')
+                                    <td><span class="badge badge-success">belum melakukan pembayaran</span></td>    
+                                @elseif($data->status == 'settlement')
+                                <td><span class="badge badge-success">sudah melakukan pembayaran</span></td>
                                 @else
-                                <td><span class="badge badge-warning">belum di konfirmasi</span></td>
+                                <td><span class="badge badge-success">{{  $data->status  }}</span></td>
                                 @endif
+                                <td>
+                                @if ($data->verify == '2')
+                                <span class="badge badge-warning">di konfirmasi</span>
+                                @elseif($data->verify == '1')
+                                <span class="badge badge-warning">belum konfirmasi</span>
+                                @else
+                                <span class="badge badge-warning">di tolak</span>
+                                @endif
+                                </td>
 
                                 @if (count($drivers) > 0)
                                 <td>
-                                    {{-- <a href="{{route('owner.user.show', $data->id)}}" class="btn btn-info
-                                    btn-sm"><i class="mdi mdi-eye"></i></a> --}}
                                     <a href="" class="btn btn-info btn-sm" data-toggle="collapse"
                                         data-target="#collapse{{$data->id}}" aria-expanded="false"
                                         aria-controls="collapseA1">
                                         <i class="mdi mdi-eye"></i></a>
-                                    @if ($data->verify == '1')
+                                    @if ($data->verify == '1' && $data->status == 'none')
                                     <a href="{{ route('owner.user.confirmed', $data->id) }}" 
                                         onclick="return confirm('apakah anda yakin ?')"
                                         class="btn btn-warning btn-sm" >Konfirmasi</a>
@@ -74,9 +79,9 @@
                                         class="btn btn-danger btn-sm">
                                         Tolak</a>
                                     @else
-                                    @if ($data->verify == '2' && $data->status == 'pending' && $data->driver_id == null)
+                                    @if ($data->verify == '2' && $data->driver_id == null && $data->status != 'none' && $data->status != 'pending')
                                     <a href="" class="btn btn-warning btn-sm" data-toggle="modal"
-                                    data-target="#confirmedModal{{ $data->id }}" data-id="{{ $data->id }}" id="get-driver">Pilih Sopir</a>
+                                    data-target="#confirmedModal{{ $data->id }}" data-id="{{ $data->id }}" id="get-driver">Pilih Sopir</a>    
                                     @else
                                         
                                     @endif
@@ -174,6 +179,7 @@
                                 <td>#</td>
                                 <td colspan="4">
                                     <div>
+                                        <p>status :{{ $data->done ? 'pesanan selesai' : 'belum selesai' }}</p>
                                         <p>Lokasi Penjemputan : {{$data->pickup_point}}</p>
                                         <p>Lokasi Tujuan : {{$data->destination_point}}</p>
                                         <div class="row">

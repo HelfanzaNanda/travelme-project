@@ -18,6 +18,8 @@ Route::group(['prefix' => 'user'], function () {
     Route::post('login', 'Api\V1\User\Auth\LoginController@login');
     Route::get('email/verify/{id}', 'Api\V1\User\Auth\VerificationController@verify')->name('api.verification.verify');
     Route::get('email/resend', 'Api\V1\User\Auth\VerificationController@resend')->name('api.verification.resend');
+    Route::post('password/email', 'Api\V1\User\Auth\ForgotPasswordController@sendResetLinkEmail');
+    Route::post('password/reset', 'Api\V1\User\Auth\ResetPasswordController@reset');
     Route::get('profile', 'Api\V1\User\UserController@profile');
     Route::post('profile/update', 'Api\V1\User\UserController@updateProfile');
     Route::post('profile/update/photo', 'Api\V1\User\UserController@updatePhoto');
@@ -55,6 +57,16 @@ Route::post('snap/charge', 'Api\V1\User\OrderController@snapToken');
 Route::group(['prefix' => 'driver'], function () {
     Route::post('login', 'Api\V1\Driver\Auth\LoginController@login');
     Route::get('profile', 'Api\V1\Driver\DriverController@profile');
+
+    //Route::post('password/email', 'Api\V1\Driver\Auth\ForgotPasswordController@sendResetLinkEmail');
+    //Route::post('password/reset', 'Api\V1\Driver\Auth\ForgotPasswordController@reset')->name('driver.reset.password');
+    //Route::post('password/reset', 'Api\V1\Driver\Auth\ResetPasswordController@reset');
+
+    Route::get('/password/reset', 'Api\V1\Driver\Auth\ForgotPasswordController@showLinkRequestForm')->name('driver.password.request');
+    Route::post('/password/email', 'Api\V1\Driver\Auth\ForgotPasswordController@sendResetLinkEmail')->name('driver.password.email');
+    
+
+
     Route::post('profile/update', 'Api\V1\Driver\DriverController@updateProfile');
     Route::post('profile/update/photo', 'Api\V1\Driver\DriverController@updatePhoto');
     Route::get('location/{location}', 'Api\V1\Driver\DriverController@setLocation');
@@ -68,3 +80,4 @@ Route::get('order/{id}/done', 'Api\V1\Driver\OrderController@done');
 
 Route::post('try', 'Api\V1\User\TrySnapController@store');
 Route::post('try/charge', 'Api\V1\User\TrySnapController@store');
+

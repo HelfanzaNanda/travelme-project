@@ -39,11 +39,16 @@
                             <button type="submit" class="btn btn-info">Cari</button>
                         </div>
 
-                        <div class="col-md-1">
+                        {{-- <div class="col-md-1">
                             <a href="{{ route('owner.report.print', $number_month) }}" type="button" class="btn btn-primary">print</a>
-                        </div>
+                        </div> --}}
 
                     </div>
+                </form>
+                <form action="{{ route('owner.report.print') }}" method="POST">
+                    @csrf
+                    <input type="hidden" id="month" name="month">
+                    <button type="submit" class="btn btn-primary">print</button>
                 </form>
                 <div class="table-responsive m-t-40">
                     <table id="myTable" class="table table-bordered table-striped">

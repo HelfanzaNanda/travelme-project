@@ -19,6 +19,8 @@
 Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('driver/password/reset/{token}', 'Api\V1\Driver\Auth\ResetPasswordController@showResetForm')->name('driver.password.reset');
+Route::post('/driver/password/reset', 'Api\V1\Driver\Auth\ResetPasswordController@reset')->name('driver.password.reset.submit');
 
 Route::post('/finish', function(){
     return redirect()->route('welcome');
@@ -64,7 +66,7 @@ Route::group(['prefix' => 'travel'], function (){
     Route::get('/register', 'Web\Owner\Auth\RegisterController@getRegister')->name('owner.register');
     Route::post('/register', 'Web\Owner\Auth\RegisterController@register')->name('owner.register.submit');
     Route::get('/logout', 'Web\Owner\Auth\LoginController@logout')->name('owner.logout');
-    //Route::get('/activate', 'Web\Owner\Auth\ActivationController@activate')->name('owner.activate');
+    Route::get('/activate', 'Web\Owner\Auth\ActivationController@activate')->name('owner.activate');
     Route::get('/password/reset', 'Web\Owner\Auth\ForgotPasswordController@showLinkRequestForm')->name('owner.password.request');
     Route::post('/password/email', 'Web\Owner\Auth\ForgotPasswordController@sendResetLinkEmail')->name('owner.password.email');
     Route::get('/password/reset/{token}', 'Web\Owner\Auth\ResetPasswordController@showResetForm')->name('owner.password.reset');
@@ -82,10 +84,19 @@ Route::group(['prefix' => 'travel'], function (){
     Route::resource('car', 'Web\Owner\CarController')->except('destroy');
     Route::get('car/{id}/destroy', 'Web\Owner\CarController@destroy')->name('car.destroy');
 
-    Route::resource('schedule', 'Web\Owner\ScheduleController')->except('destroy');
+    // Route::resource('schedule', 'Web\Owner\ScheduleController')->except('destroy');
+    // Route::get('schedule/{id}/destroy', 'Web\Owner\ScheduleController@destroy')->name('schedule.destroy');
+    // Route::get('schedule/calendar/{id}', 'Web\Owner\ScheduleController@getcallendar')->name('schedule.callendar');
+    // Route::resource('t-profile', 'Web\Owner\ProfileController')->only(['index', 'create', 'store']);
+    
+    
+    Route::get('schedule', 'Web\Owner\ScheduleController@index')->name('schedule.index');
+    Route::get('schedule/create', 'Web\Owner\ScheduleController@create')->name('schedule.create');
+    Route::post('schedule/create', 'Web\Owner\ScheduleController@store')->name('schedule.store');
+    Route::get('schedule/{id}/edit', 'Web\Owner\ScheduleController@edit')->name('schedule.edit');
+    Route::patch('schedule/{id}/update', 'Web\Owner\ScheduleController@update')->name('schedule.update');
     Route::get('schedule/{id}/destroy', 'Web\Owner\ScheduleController@destroy')->name('schedule.destroy');
-    Route::get('schedule/calendar/{id}', 'Web\Owner\ScheduleController@getcallendar')->name('schedule.callendar');
-    Route::resource('t-profile', 'Web\Owner\ProfileController')->only(['index', 'create', 'store']);
+
 
     Route::get('user', 'Web\Owner\UserController@index')->name('owner.user.index');
     Route::get('user/{id}', 'Web\Owner\UserController@show')->name('owner.user.show');
@@ -96,9 +107,14 @@ Route::group(['prefix' => 'travel'], function (){
 
     Route::get('report', 'Web\Owner\ReportController@index')->name('owner.report.index');
     Route::post('report/search', 'Web\Owner\ReportController@search')->name('owner.report.search');
-    Route::get('report/{month}/print','Web\Owner\ReportController@print')->name('owner.report.print');
+    Route::post('report/print','Web\Owner\ReportController@print')->name('owner.report.print');
 
     Route::get('profile','Web\Owner\ProfileController@index')->name('owner.profile.index');
     Route::patch('profile/update','Web\Owner\ProfileController@update')->name('owner.profile.update');
 
+
+
 });
+
+
+Route::post('notification/handler', 'HomeController@notificationHandler');

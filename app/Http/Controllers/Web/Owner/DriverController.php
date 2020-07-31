@@ -30,7 +30,7 @@ class DriverController extends Controller
     {
 
         $datas = Driver::where('owner_id', Auth::guard('owner')->user()->id)->where('active', true)
-        ->orderBy('id', 'ASC')->get();
+        ->orderBy('id', 'DESC')->get();
 
         return view('pages.owner.driver.index', compact('datas'));
     }

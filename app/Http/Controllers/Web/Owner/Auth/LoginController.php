@@ -3,16 +3,15 @@
 namespace App\Http\Controllers\Web\Owner\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('guest:owner')->except('logout');
+        $this->middleware('guest:owner')->except(['logout']);
     }
 
     public function getLogin(Request $request)
@@ -58,6 +57,7 @@ class LoginController extends Controller
     public function logout()
     {
         Auth::guard('owner')->logout();
+        Session::flush();
         return redirect()->route('owner.login');
     }
 }

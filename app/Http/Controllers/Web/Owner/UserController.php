@@ -9,6 +9,7 @@ use App\HourOfDeparture;
 use App\Order;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Auth;
 use LaravelFCM\Message\OptionsBuilder;
 use LaravelFCM\Message\PayloadDataBuilder;
@@ -27,7 +28,35 @@ class UserController extends Controller
         $drivers = Driver::where('owner_id', Auth::guard('owner')->user()->id)->get();
         $datas = Order::where('owner_id', Auth::guard('owner')->user()->id)
             ->orderBy('id', 'ASC')->get();
-        return view('pages.owner.user.index', compact('datas', 'drivers'));
+
+            $status = [];
+            $serverKey = 'SB-Mid-server-lgheMLSAsWyuFmE1FmP7L2K1';
+            $headers = [
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json',
+                'Authorization' => 'Basic '.base64_encode($serverKey.':'),
+            ];
+      
+            $client = new Client();
+      
+            foreach ($datas as $p) {
+              $res = $client->get('https://api.sandbox.midtrans.com/v2/'.$p->order_id.'/status', [
+
+                'headers' => $headers
+              ]);
+              $data = json_decode($res->getBody()->getContents(), true);
+              $st = empty($data['transaction_status']) ? 'expire' : $data['transaction_status'];
+              array_push($status, $st);
+
+              if($p->status == 'expire' && $p->verify == '1' && $p->snap_token == null){
+                  $p->status = 'none';
+                  $p->update();
+              }else if($p->status != 'none'){
+                $p->status = empty($data['transaction_status']) ? 'expire' : $data['transaction_status'];
+                $p->update();
+              }
+            }   
+        return view('pages.owner.user.index', compact('datas', 'drivers', 'status'));
     }
 
     public function getDrivers($id)
@@ -58,7 +87,7 @@ class UserController extends Controller
 
             $optionBuilder = new OptionsBuilder();
             $optionBuilder->setTimeToLive(60 * 20);
-            $message = "Pesanan Anda Sudah Di Verifikasi Admin, Silahkan Lanjutkan Pembayaran";
+            $message = "Pesanan Anda Sudah Di Verifikasi Admin";
             $notificationBuilder = new PayloadNotificationBuilder('travelme');
             $notificationBuilder->setBody($message)->setSound('default');
 
