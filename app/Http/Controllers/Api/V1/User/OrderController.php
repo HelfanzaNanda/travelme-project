@@ -39,6 +39,7 @@ class OrderController extends Controller
             $data->user_id = Auth::guard('api')->user()->id;
             $data->owner_id = $request->owner_id;
             $data->departure_id = $request->departure_id;
+            $data->car_id = $request->car_id;
             $data->date = $dateFormat;
             $data->hour = $request->hour;
             $data->pickup_point = $request->pickup_point;
