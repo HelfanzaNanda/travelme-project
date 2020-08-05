@@ -100,6 +100,7 @@ Route::group(['prefix' => 'travel'], function (){
 
     Route::get('user', 'Web\Owner\UserController@index')->name('owner.user.index');
     Route::get('user/create', 'Web\Owner\UserController@create')->name('owner.user.create');
+    Route::post('car/fetch/seat', 'Web\Owner\UserController@fetchSeat')->name('owner.user.fetch.seat');
     Route::post('user/store', 'Web\Owner\UserController@store')->name('owner.user.store');
     Route::get('user/{id}', 'Web\Owner\UserController@show')->name('owner.user.show');
     Route::get('user/{id}/confirmed', 'Web\Owner\UserController@confirmed')->name('owner.user.confirmed');

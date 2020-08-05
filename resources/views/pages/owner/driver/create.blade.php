@@ -14,32 +14,7 @@
                         @csrf
                         <div class="form-body">
                             <div class="row">
-                                <div class="col-md-6">
-
-                                    <div class="form-group">
-                                        <label for="projectinput2">NIK</label>
-                                        <input type="number"
-                                               class="form-control {{$errors->has('nik')?'is-invalid':''}}"
-                                               placeholder="NIK" name="nik" value="{{old('nik')}}">
-                                        @if ($errors->has('nik'))
-                                            <span class="invalid-feedback" role="alert">
-                                                        <p><b>{{ $errors->first('nik') }}</b></p>
-                                                    </span>
-                                        @endif
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="projectinput2">No SIM</label>
-                                        <input type="number"
-                                               class="form-control {{$errors->has('sim')?'is-invalid':''}}"
-                                               placeholder="No SIM" name="sim"
-                                               value="{{old('sim')}}">
-                                        @if ($errors->has('sim'))
-                                            <span class="invalid-feedback" role="alert">
-                                                        <p><b>{{ $errors->first('sim') }}</b></p>
-                                                    </span>
-                                        @endif
-                                    </div>
+                                <div class="col-md-6">                   
 
                                     <div class="form-group">
                                         <label for="projectinput2">Mobil</label>
@@ -75,9 +50,7 @@
                                         @endif
                                     </div>
 
-                                </div>
-                                <div class="col-md-6">
-
+                                    
                                     <div class="form-group">
                                         <label for="projectinput3">Telephone</label>
                                         <input type="tel"
@@ -89,7 +62,10 @@
                                                         <p><b>{{ $errors->first('telephone') }}</b></p>
                                                     </span>
                                         @endif
-                                    </div>
+                                    </div>  
+
+                                </div>
+                                <div class="col-md-6">
 
                                     <div class="form-group">
                                         <label for="projectinput3">Alamat</label>

@@ -15,12 +15,12 @@ class CreateSeatsTable extends Migration
     {
         Schema::create('seats', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('hour_id')->unsigned();
+            $table->integer('car_id')->unsigned();
             $table->string('name', '2')->nullable();
-            $table->boolean('booked')->default(false);
+            //$table->boolean('booked')->default(false);
             //$table->timestamps();
 
-            $table->foreign('hour_id')->references('id')->on('hour_of_departures')->onDelete('cascade');
+            $table->foreign('car_id')->references('id')->on('cars')->onDelete('cascade');
         });
     }
 

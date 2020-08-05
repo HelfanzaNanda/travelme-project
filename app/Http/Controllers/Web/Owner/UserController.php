@@ -4,15 +4,20 @@ namespace App\Http\Controllers\Web\Owner;
 
 use App\Car;
 use App\DateOfDeparture;
+use App\Departure;
 use App\Driver;
 use App\HourOfDeparture;
 use App\Order;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\SeatResource;
+use App\OrderDetail;
 use App\Seat;
+use App\User;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use LaravelFCM\Message\OptionsBuilder;
 use LaravelFCM\Message\PayloadDataBuilder;
 use LaravelFCM\Message\PayloadNotificationBuilder;
@@ -22,7 +27,7 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:owner');
+        $this->middleware('auth:owner')->except(['fetchSeat', 'restructureSeat']);
     }
 
     public function index()
@@ -63,15 +68,80 @@ class UserController extends Controller
 
     public function create()
     {
-        //$hours = HourOfDeparture::where('owner_id', Auth::guard('owner')->user()->id)->orderBy('hour')->get()->unique('hour');
-        $destinations = ['Bandung', 'Cirebon','Jakarta', 'Jogja', 'Purwokerto' , 'Semarang', 'Solo', 'Surabaya'];
-        return view('pages.owner.user.create', compact('destinations'));
+        $departures = Departure::where('owner_id', auth()->guard('owner')->user()->id)
+        ->where('destination', '!=', 'Tegal')->get();
+        ['Bandung', 'Cirebon','Jakarta', 'Jogja', 'Purwokerto' , 'Semarang', 'Solo', 'Surabaya'];
+        return view('pages.owner.user.create', compact('departures'));
     }
 
-    public function fetchSeat($hour_id)
+
+    public function fetchSeat(Request $request)
     {
-        $seats = Seat::where('hour_id', $hour_id)->get();
-        return $seats;
+        $hour = HourOfDeparture::where('id', $request->hour_id)->first();
+        $car = Car::where('id', $hour->car_id)->first();
+        return $this->restructureSeat($request, $car, $hour);
+    }
+
+    public function restructureSeat($request, $car, $hour){
+        $seats = Seat::where('car_id', $car->id)->get();
+        
+        $resultSeat = [];
+        foreach ($seats as $seat) {
+            $orderDetail = OrderDetail::whereHas('order', function ($query) use($request, $hour) {
+                $query->whereDate('date', Carbon::parse($request->date)->format('Y-m-d'))
+                ->where('hour', $hour->hour)
+                 ->where('departure_id', $request->departure_id);
+             })->where('seat_id', $seat->id)->first();
+             
+             $item = [
+                'id' => $seat->id,
+                'name' => $seat->name,
+                'status' => $orderDetail ? "booked" : "available",
+            ];
+
+            array_push($resultSeat, $item);
+        }
+
+        return $resultSeat;
+    }
+
+    public function store(Request $request){
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = rand().'gmail.com';
+        $user->password = Hash::make('12345678');
+        $user->telp = $request->telp;
+        $user->save();
+
+        $hour = HourOfDeparture::where('id', $request->hour)->first();
+
+        $order = new Order();
+        $order->order_id = rand();
+        $order->user_id = $user->id;
+        $order->owner_id = Auth::guard('owner')->user()->id;
+        $order->departure_id = $request->departure_id;
+        $order->car_id = $hour->car_id;
+        $order->date = Carbon::parse($request->date)->format('Y-m-d');
+        $order->hour = $hour->hour;
+        $order->pickup_point = $request->pickup_point;
+        $order->destination_point = $request->destination_point;
+        $order->payment = false;
+        $order->save();
+
+
+        $departure = Departure::where('id', $request->departure_id)->first();
+        foreach ($request->seats as $seat) {
+            $orderDetail = new OrderDetail();
+            $orderDetail->order_id = $order->id;
+            $orderDetail->seat_id = $seat;
+            $orderDetail->price = $departure->price;
+            $orderDetail->save();
+        }
+
+        $order->total_price = $orderDetail->sum('price');
+        $order->update();
+
+        return redirect()->route('owner.user.index');
     }
 
     public function fetchHours($date)

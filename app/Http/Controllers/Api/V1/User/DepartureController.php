@@ -27,17 +27,6 @@ class DepartureController extends Controller
         ]);
     }
 
-    // public function getDomicileForDestinationTegal()
-    // {
-    //     $domicile = Owner::where('domicile', '!=', 'Tegal')->orderBy('domicile', 'ASC')->get('domicile');
-
-    //     return response()->json([
-    //         'message' => 'successfully get domicile',
-    //         'status' => true,
-    //         'data' => $domicile
-    //     ]);
-    // }
-
     public function searchHour(Request $request)
     {
         $date = $request->date;
@@ -54,19 +43,19 @@ class DepartureController extends Controller
                     });
             })->where('remaining_seat', '!=', 0)->whereTime('hour', '>=', $hourNow)->orderBy('hour', 'ASC')->get();
 
-            $results = [];
-            foreach ($hours as $hour) {
-                $minute = substr($hour, 3);
-                if ($minute != '00') {
-                    $minute = '00';
-                    array_push($results, $hour);
-                }
-            }
+            // $results = [];
+            // foreach ($hours as $hour) {
+            //     $minute = substr($hour, 3);
+            //     if ($minute != '00') {
+            //         $minute = '00';
+            //         array_push($results, $hour);
+            //     }
+            // }
 
             return response()->json([
                 'message' => 'successfully search travel',
                 'status' => true,
-                'data' => HourResource::collection(collect($results))
+                'data' => HourResource::collection($hours)
             ]);
         } else {
             $hours = HourOfDeparture::whereHas('date', function ($query) use ($date, $now, $from, $destination) {
@@ -76,19 +65,10 @@ class DepartureController extends Controller
                     });
             })->where('remaining_seat', '!=', 0)->orderBy('hour', 'ASC')->get();
 
-            $results = [];
-            foreach ($hours as $hour) {
-                $minute = substr($hour, 3);
-                if ($minute != '00') {
-                    $minute = '00';
-                    array_push($results, $hour);
-                }
-            }
-
             return response()->json([
                 'message' => 'successfully search travel',
                 'status' => true,
-                'data' => HourResource::collection(collect($results))
+                'data' => HourResource::collection($hours)
             ]);
         }
     }
@@ -106,7 +86,7 @@ class DepartureController extends Controller
                 ->whereHas('departure', function ($q) use ($from, $destination) {
                     $q->where('from', $from)->where('destination', $destination);
                 });
-        })->where('hour', $hour)->where('remaining_seat', '!=', 0)->orderBy('id', 'ASC')->get();
+        })->where('remaining_seat', '!=', 0)->where('hour', $hour)->orderBy('id', 'ASC')->get();
 
         return response()->json([
             'message' => 'successfully search travel',

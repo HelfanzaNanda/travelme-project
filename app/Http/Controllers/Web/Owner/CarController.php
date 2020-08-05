@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web\Owner;
 use App\Car;
 use App\Driver;
 use App\Http\Controllers\Controller;
+use App\Seat;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -66,12 +67,6 @@ class CarController extends Controller
 
         $this->validate($request, $rules, $message);
 
-        // $photo = $request->file('photo');
-        // $path = time() . '.' . $photo->getClientOriginalExtension();
-        // $destinationPath = public_path('uploads/owner/car');
-        // $photo->move($destinationPath, $path);
-
-
         $photo = $request->file('photo');
         $filename = time() . '.' . $photo->getClientOriginalExtension();
         $filepath = 'car/' . $filename;
@@ -88,7 +83,23 @@ class CarController extends Controller
         $data->status = '1';
         $data->save();
 
+        $this->storeSeat($data);
+
         return redirect()->route('car.index')->with('success', 'Berhasil Menambahkan Data');
+    }
+
+
+
+    public function storeSeat($data)
+    {
+        $no = 1; 
+        for ($i=0; $i < $data->seat; $i++) { 
+            $seat = new Seat();
+            $seat->car_id = $data->id;
+            $seat->name = $no++;
+            $seat->save();
+        }
+        return true;
     }
     /**
      * Display the specified resource.

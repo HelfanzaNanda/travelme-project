@@ -51,10 +51,11 @@
                                 <td>{{$data->user->name}}</td>
                                 <td>{{$data->departure->from .' -> '. $data->departure->destination}}</td>
                                 <td>{{'Rp.'.number_format($data->total_price)}}/{{$data->total_seat}} Kursi</td>
+                                
                                 @if ($data->status == 'none')
-                                    <td><span class="badge badge-success">belum melakukan pembayaran</span></td>    
+                                    <td><span class="badge badge-success">belum melakukan pembayaran / {{ $data->payment ? "online" : "langsung"}}</span></td>    
                                 @elseif($data->status == 'settlement')
-                                <td><span class="badge badge-success">sudah melakukan pembayaran</span></td>
+                                <td><span class="badge badge-success">sudah melakukan pembayaran / {{ $data->payment ? "online" : "langsung"}}</span></td>
                                 @else
                                 <td><span class="badge badge-success">{{  $data->status  }}</span></td>
                                 @endif

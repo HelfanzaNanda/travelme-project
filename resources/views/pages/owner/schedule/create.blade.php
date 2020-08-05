@@ -84,7 +84,7 @@
                                             <label>Jam</label>
                                         </div>
                                         <div class="col-6">
-                                            <label class="">Supir</label>
+                                            <label class="">Mobil</label>
                                         </div>
                                     </div>
                                     <div class="input-group entry mt-1" id="time">
@@ -98,9 +98,9 @@
                                             <option value="{{ $hour }}">{{ $hour }}</option>
                                             @endforeach
                                         </select>
-                                        <select name="driver_id[]" class="form-control">
-                                            @foreach ($drivers as $driver)
-                                            <option value="{{ $driver->id }}">{{ $driver->name }} / {{ $driver->car->name }}</option>
+                                        <select name="car[]" class="form-control">
+                                            @foreach ($cars as $car)
+                                            <option value="{{ $car->id }}">{{ $car->number_plate }}</option>
                                             @endforeach
                                         </select>
                                         <div class="input-group-append">

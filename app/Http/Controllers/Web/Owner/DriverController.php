@@ -76,8 +76,6 @@ class DriverController extends Controller
     {
         $rules = [
             'car_id'        => 'unique:drivers',
-            'nik'           => 'required|unique:drivers|digits:16|numeric',
-            'sim'           => 'required|unique:drivers|digits:12|numeric',
             'name'          => 'required|regex:/^[\pL\s\-]+$/u||min:5',
             'email'         => 'required|unique:drivers|email',
             'telephone'     => 'required|numeric|digits_between:11,13|regex:/(08)[0-9]{9}/|unique:drivers',
@@ -106,8 +104,8 @@ class DriverController extends Controller
 
         $data               = new Driver();
         $data->owner_id     = Auth::guard('owner')->user()->id;
-        $data->nik          = $request->nik;
-        $data->sim          = $request->sim;
+        // $data->nik          = $request->nik;
+        // $data->sim          = $request->sim;
         $data->car_id       = $request->car_id;
         $data->name         = $request->name;
         $data->avatar       = Storage::disk('s3')->url($filepath, $filename);

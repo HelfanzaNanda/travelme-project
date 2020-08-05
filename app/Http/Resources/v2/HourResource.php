@@ -2,7 +2,12 @@
 
 namespace App\Http\Resources\v2;
 
+use App\Departure;
+use App\Http\Resources\SeatResource;
+use App\OrderDetail;
+use App\Seat;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Auth;
 
 class HourResource extends JsonResource
 {

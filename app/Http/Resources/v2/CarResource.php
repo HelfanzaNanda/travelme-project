@@ -22,7 +22,7 @@ class CarResource extends JsonResource
             "facility"      => $this->facility,
             "photo"         => $this->photo,
             "status"        => $this->status,
-            "driver"        => new DriverResource($this->driver),
+            //"driver"        => new DriverResource($this->driver),
         ];
     }
 }

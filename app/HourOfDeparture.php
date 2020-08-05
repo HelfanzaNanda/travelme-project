@@ -14,13 +14,8 @@ class HourOfDeparture extends Model
         return $this->belongsTo(DateOfDeparture::class, 'date_id', 'id');
     }
 
-    public function driver()
+    public function car()
     {
-        return $this->belongsTo(Driver::class, 'driver_id', 'id');
-    }
-
-    public function seats()
-    {
-        return $this->hasMany(Seat::class, 'hour_id', 'id');
+        return $this->belongsTo(Car::class, 'car_id', 'id');
     }
 }

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\v2;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class FullCalendarResource extends JsonResource
+class TotalSeatResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,9 +15,7 @@ class FullCalendarResource extends JsonResource
     public function toArray($request)
     {
         return [
-            "title" => $this->hour,
-            "start"=> $this->date->date,
-            "className" => "fc-default"
-        ];
+            
+        ]
     }
 }

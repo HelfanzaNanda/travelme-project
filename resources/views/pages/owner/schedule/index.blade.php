@@ -79,8 +79,8 @@
                                                   @foreach ($date->hours as $hour)
                                                   <div class="panel panel-info border-success shadow-sm bg-white rounded">
                                                     <div class="panel-heading bg-success text-white">Jam : {{ Carbon\Carbon::parse($hour->hour)->format("H:i") }} WIB</div>
-                                                    <div class="panel-body">Total Kursi : {{ $hour->seats->sum('hour_id') }}</div>
-                                                    <div class="panel-body">Sisa Kursi : {{ $hour->seats->where('booked', false)->sum('hour_id') }}</div>
+                                                    {{-- <div class="panel-body">Total Kursi : {{ $hour->seats->sum('hour_id') }}</div>
+                                                    <div class="panel-body">Sisa Kursi : {{ $hour->seats->where('booked', false)->sum('hour_id') }}</div> --}}
                                                   </div>
                                                   @endforeach
                                                 </div>

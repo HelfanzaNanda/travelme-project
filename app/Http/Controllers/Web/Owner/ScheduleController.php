@@ -51,7 +51,6 @@ class ScheduleController extends Controller
      */
     public function create()
     {
-        $drivers = Driver::where('owner_id', Auth::guard('owner')->user()->id)->get();
         $car = Car::where('status', '1')
             ->where('owner_id', Auth::guard('owner')->user()->id)->get()->count();
 
@@ -67,7 +66,7 @@ class ScheduleController extends Controller
             }
             $destinations = ['Bandung', 'Cirebon','Jakarta', 'Jogja', 'Purwokerto' , 'Semarang', 'Solo', 'Surabaya'];
             $cars = Car::where('owner_id', Auth::guard('owner')->user()->id)->get();
-                return view('pages.owner.schedule.create', compact(['cars', 'destinations', 'hours', 'drivers']));
+                return view('pages.owner.schedule.create', compact(['cars', 'destinations', 'hours']));
         } else {
             return redirect()->back()->with('warning', 'Silahkan Tambahkan Mobil Dahulu! atau');
         }
@@ -120,37 +119,23 @@ class ScheduleController extends Controller
             $hours = $request->hour;
             foreach ($hours as $key => $hour) {
                 $hour_id = HourOfDeparture::latest('id')->first();
+                $car = Car::where('id', $request->car[$key])->first();
                 $itemHourOfDeparture = [
                     'id' => $hour_id == null ? 1 : $hour_id->id + 1,
                     'owner_id' => Auth::guard('owner')->user()->id,
                     'date_id' => $itemDateOfDeparture['id'],
-                    'driver_id' => $request->driver_id[$key],
+                    'car_id' => $request->car[$key],
                     'hour' => Carbon::parse($hour)->format('H:i'),
-                    // 'seat' => $car->seat,
-                    // 'remaining_seat' => $car->seat
+                    'seat' => $car->seat,
+                    'remaining_seat' => $car->seat
                 ];
-                //dd($itemHourOfDeparture);
-                $dataHour = HourOfDeparture::create($itemHourOfDeparture);
-                $this->storeSeat($dataHour->driver->car->seat, $itemHourOfDeparture['id']);
+                HourOfDeparture::create($itemHourOfDeparture);
             };
         }
 
         $this->storeDestinationBack($request);
 
         return redirect()->route('schedule.index')->with('success', 'Berhasil Menambahkan Data');
-    }
-
-
-    public function storeSeat($totalSeat, $hour_id)
-    {
-        $no = 1; 
-        for ($i=0; $i < $totalSeat; $i++) { 
-            $seat = new Seat();
-            $seat->hour_id = $hour_id;
-            $seat->name = $no++;
-            $seat->save();
-        }
-        return true;
     }
 
 
@@ -181,15 +166,17 @@ class ScheduleController extends Controller
             $hours = $request->hour;
             foreach ($hours as $key => $hour) {
                 $hour_id = HourOfDeparture::latest('id')->first();
+                $car = Car::where('id', $request->car[$key])->first();
                 $itemHourOfDeparture = [
                     'id' => $hour_id == null ? 1 : $hour_id->id + 1,
                     'owner_id' => Auth::guard('owner')->user()->id,
                     'date_id' => $itemDateOfDeparture['id'],
-                    'driver_id' => $request->driver_id[$key],
+                    'car_id' => $request->car[$key],
                     'hour' => Carbon::parse($hour)->addHours($request->add_hour)->format('H:i'),
+                    'seat' => $car->seat,
+                    'remaining_seat' => $car->seat
                 ];
-                $dataHour = HourOfDeparture::create($itemHourOfDeparture);
-                $this->storeSeat($dataHour->driver->car->seat, $itemHourOfDeparture['id']);
+                HourOfDeparture::create($itemHourOfDeparture);
             };
         }
     }
