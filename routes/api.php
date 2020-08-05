@@ -35,7 +35,7 @@ ROute::post('check/seat', 'Api\V1\User\SeatController@checkSeat');
 
 Route::get('order', 'Api\V1\User\OrderController@orderByUser');
 Route::get('order/all', 'Api\V1\User\OrderController@getAllOrder');
-Route::post('order/store', 'Api\V1\User\OrderController@postOrder');
+Route::post('order/store', 'Api\V1\User\OrderController@storeOrder');
 Route::get('order/{id}/cancel/', 'Api\V1\User\OrderController@cancelorder');
 Route::post('order/{id}/update/', 'Api\V1\User\OrderController@updateorder');
 Route::get('order/{id}/confirm', 'Api\V1\User\OrderController@confirm');

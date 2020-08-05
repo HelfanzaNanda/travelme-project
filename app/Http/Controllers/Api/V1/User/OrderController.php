@@ -10,6 +10,7 @@ use App\Order;
 use App\Http\Controllers\Midtrans\Snap;
 use App\Http\Controllers\Midtrans\Config;
 use App\Http\Resources\v2\OrderResource;
+use App\OrderDetail;
 use App\Owner;
 use Exception;
 use Illuminate\Support\Facades\Validator;
@@ -28,47 +29,37 @@ class OrderController extends Controller
         $this->middleware('auth:api')->except(['snapToken', 'notificationHandler']);
     }
 
-    public function postOrder(Request $request)
+
+    public function storeOrder(Request $request)
     {
-        try {
-
-            $validator = Validator::make($request->all(), [
-                'departure_id' => 'required',
-                'pickup_point' => 'required',
-                'destination_point' => 'required',
-            ]);
-
-            if ($validator->fails()) {
-                return response()->json(['message' => $validator->errors(), 'status' => false, 'data' => (object) []]);
-            }
-
             $dateFormat = Carbon::parse($request->date)->format('Y-m-d');
-
-            //$order = Order::latest()->first();
-            //$substr = $order ? substr($order->order_id, 6) : '';
 
             $data = new Order();
             $data->order_id = rand();
-            //$order ? $data->order_id = 'ORDER-' . ($substr + 1) : $data->order_id = 'ORDER-101';
             $data->user_id = Auth::guard('api')->user()->id;
             $data->owner_id = $request->owner_id;
             $data->departure_id = $request->departure_id;
             $data->date = $dateFormat;
             $data->hour = $request->hour;
-            $data->price = $request->price;
-            $data->total_price = $request->price * $request->total_seat;
-            $data->total_seat = $request->total_seat;
             $data->pickup_point = $request->pickup_point;
-            $data->lat_pickup_point = $request->lat_pickup_point;
-            $data->lng_pickup_point = $request->lng_pickup_point;
             $data->destination_point = $request->destination_point;
-            $data->lat_destination_point = $request->lat_destination_point;
-            $data->lng_destination_point = $request->lng_destination_point;
+            $data->payment = $request->payment;
             $data->verify = '1';
             $data->status = 'none';
             $data->arrived = false;
             $data->done = false;
             $data->save();
+
+            foreach($request->seats as $seat){
+                $orderDetail = new OrderDetail();
+                $orderDetail->order_id = $data->id;
+                $orderDetail->seat_id = $seat['id'];
+                $orderDetail->price = $seat['price'];
+                $orderDetail->save();
+            }
+
+            $data->total_price = $orderDetail->sum('price');
+            $data->update();
 
             $date = DateOfDeparture::where('departure_id', $request->departure_id)
                 ->where('date', $dateFormat)->first();
@@ -81,14 +72,69 @@ class OrderController extends Controller
                 'status' => true,
                 'data' => new OrderResource($data)
             ]);
-        } catch (\Exception $exception) {
-            return response()->json([
-                'message' => $exception->getMessage(),
-                'status' => false,
-                'data' => (object) [],
-            ]);
-        }
     }
+
+    // public function postOrder(Request $request)
+    // {
+    //     try {
+
+    //         $validator = Validator::make($request->all(), [
+    //             'departure_id' => 'required',
+    //             'pickup_point' => 'required',
+    //             'destination_point' => 'required',
+    //         ]);
+
+    //         if ($validator->fails()) {
+    //             return response()->json(['message' => $validator->errors(), 'status' => false, 'data' => (object) []]);
+    //         }
+
+    //         $dateFormat = Carbon::parse($request->date)->format('Y-m-d');
+
+    //         //$order = Order::latest()->first();
+    //         //$substr = $order ? substr($order->order_id, 6) : '';
+
+    //         $data = new Order();
+    //         $data->order_id = rand();
+    //         //$order ? $data->order_id = 'ORDER-' . ($substr + 1) : $data->order_id = 'ORDER-101';
+    //         $data->user_id = Auth::guard('api')->user()->id;
+    //         $data->owner_id = $request->owner_id;
+    //         $data->departure_id = $request->departure_id;
+    //         $data->date = $dateFormat;
+    //         $data->hour = $request->hour;
+    //         //$data->price = $request->price;
+    //         //$data->total_price = $request->price * $request->total_seat;
+    //         $data->total_seat = $request->total_seat;
+    //         $data->pickup_point = $request->pickup_point;
+    //         $data->lat_pickup_point = $request->lat_pickup_point;
+    //         $data->lng_pickup_point = $request->lng_pickup_point;
+    //         $data->destination_point = $request->destination_point;
+    //         $data->lat_destination_point = $request->lat_destination_point;
+    //         $data->lng_destination_point = $request->lng_destination_point;
+    //         $data->verify = '1';
+    //         $data->status = 'none';
+    //         $data->arrived = false;
+    //         $data->done = false;
+    //         $data->save();
+
+    //         $date = DateOfDeparture::where('departure_id', $request->departure_id)
+    //             ->where('date', $dateFormat)->first();
+    //         $hour = HourOfDeparture::where('date_id', $date->id)->where('hour', $request->hour)->first();
+    //         $hour->remaining_seat -= $request->total_seat;
+    //         $hour->update();
+
+    //         return response()->json([
+    //             'message' => 'successfully order travel',
+    //             'status' => true,
+    //             'data' => new OrderResource($data)
+    //         ]);
+    //     } catch (\Exception $exception) {
+    //         return response()->json([
+    //             'message' => $exception->getMessage(),
+    //             'status' => false,
+    //             'data' => (object) [],
+    //         ]);
+    //     }
+    // }
 
     public function snapToken(Request $request)
     {
