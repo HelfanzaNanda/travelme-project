@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use App\OrderDetail;
 use App\Seat;
+use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class SeatResource extends JsonResource
@@ -21,7 +22,7 @@ class SeatResource extends JsonResource
         $resultSeat = [];
         foreach ($seats as $seat) {
             $orderDetail = OrderDetail::whereHas('order', function ($query) use($request) {
-                $query->whereDate('date', $request->date)
+                $query->whereDate('date', Carbon::parse($request->date)->format('Y-m-d'))
                 ->where('hour', $request->hour);
                  //->where('departure_id', $request->departure);
              })->where('seat_id', $seat->id)->first();
