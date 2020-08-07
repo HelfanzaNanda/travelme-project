@@ -36,7 +36,6 @@ class UserController extends Controller
         $datas = Order::where('owner_id', Auth::guard('owner')->user()->id)
             ->orderBy('id', 'ASC')->get();
 
-            $status = [];
             $serverKey = 'SB-Mid-server-lgheMLSAsWyuFmE1FmP7L2K1';
             $headers = [
                 'Accept' => 'application/json',
@@ -45,7 +44,7 @@ class UserController extends Controller
             ];
       
             $client = new Client();
-      
+            $status = [];
             foreach ($datas as $p) {
               $res = $client->get('https://api.sandbox.midtrans.com/v2/'.$p->order_id.'/status', [
 
@@ -63,7 +62,18 @@ class UserController extends Controller
                 $p->update();
               }
             }   
-        return view('pages.owner.user.index', compact('datas', 'drivers', 'status'));
+        return view('pages.owner.user.index', compact('datas', 'drivers'));
+    }
+
+
+    public function filter(Request $request)
+    {
+        $date = Carbon::parse($request->date)->format('Y-m-d');
+        $datas = Order::whereDate('date', $date)->where('owner_id', Auth::guard('owner')->user()->id)
+            ->orderBy('id', 'ASC')->get();
+        $drivers = Driver::where('owner_id', Auth::guard('owner')->user()->id)->get();
+
+        return view('pages.owner.user.index', compact('datas', 'drivers'));
     }
 
     public function create()
@@ -226,7 +236,7 @@ class UserController extends Controller
             $data->driver_id = $request->driver_id;
             $data->car_id = $driver->car_id;
             $data->update();
-            return redirect()->route('owner.user.index')->with('success', 'Berhasil Memilih sopir');
+            return redirect()->route('owner.user.index')->with('success', 'Berhasil Mengganti sopir');
         }
     }
 
@@ -264,6 +274,16 @@ class UserController extends Controller
         // You must change it to get your tokens
         $token = $data->user->fcm_token;
         $downstreamResponse = FacadesFCM::sendTo($token, $option, $notification, $_data);
+
+        return redirect()->route('owner.user.index')->with('success', 'Berhasil Menolak Pesanan');
+    }
+
+
+    public function cancel($id)
+    {
+        $order = Order::findOrFail($id);
+        $order->verify = '0';
+        $order->update();
 
         return redirect()->route('owner.user.index')->with('success', 'Berhasil Menolak Pesanan');
     }

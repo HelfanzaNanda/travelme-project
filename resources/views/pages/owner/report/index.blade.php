@@ -20,18 +20,16 @@
 
         <div class="card">
             <div class="card-body">
-                <form action="{{ route('owner.report.search') }}" method="POST">
+                <form action="{{ route('owner.report.filter') }}" method="POST">
                     <div class="row mb-3">
                         @csrf
                         <div class="col-md-4">
-                            @php($month = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli',
+                            @php($months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli',
                             'Agustus', 'September', 'Oktober', 'November', 'Desember'])
                             <select name="month" class="form-control" id="month-select">
-                                @for ($i = 0; $i < count($month); $i++)
+                                @for ($i = 0; $i < count($months); $i++)
                                     <option value="{{ $i }}"
-                                    {{ $number_month == $i ? 'selected' : ''}}>
-                                        {{ $month[$i] }}
-                                    </option>
+                                    {{ $month == $i+1 ? 'selected' : ''}}>{{ $months[$i] }}</option>
                                 @endfor
                             </select>
                         </div>
@@ -40,52 +38,34 @@
                         </div>
                     </div>
                 </form>
-                <form action="{{ route('owner.report.print') }}" method="POST">
+                
+                {{-- <form action="{{ route('owner.report.print') }}" method="POST">
                     @csrf
                     <input type="hidden" id="month" name="month">
                     <button type="submit" class="btn btn-primary">print</button>
-                </form>
+                </form> --}}
+                
                 <div class="table-responsive m-t-40">
+
+                    <h3>Total Uang di bulan {{ $nameMonth }} : Rp. {{ number_format($totalPriceInMonth) }}</h3>
+
                     <table id="myTable" class="table table-bordered table-striped">
                         <thead>
                             <tr>
                                 <th>No</th>
                                 <th>Tanggal</th>
-                                <th>Total Pesanan</th>
+                                <th>Total Uang Masuk</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($groupByDates as $key => $groupByDate)
-                            <tr>
-                                <td><a class="detail-icon" id="show_{{$loop->iteration}}" href="#">
-                                        <i class="fa far fa-times-circle"></i> </a>
-                                    {{$loop->iteration}}
-                                </td>
-                                <td>{{ $key }}</td>
-                                <td>{{ $groupByDate->count() }}</td>
-                                
-                            </tr>
 
-                            <tr>
-                                <td colspan="6">
-                                    <div id="extra_{{ $loop->iteration }}" style="display: none">
-                                        @php($destinations = array())
-                                        @foreach ($groupByDate as $key => $item)
-                                        @if (isset($destinations[$item->departure->destination]))
-                                        @php($destinations[$item->departure_id] += $item->departure->destination)
-                                        @else    
-                                        @php($destinations[$item->departure_id] = $item->departure->destination)
-                                        @endif
-                                        <p><b>Perjalanan : {{ $destinations[$item->departure_id] }}</b> </p>
-                                        <p>Jam : {{ $item->hour }}</p>
-                                        <p>Supir : {{ $item->driver->name }}</p>
-                                        @endforeach
-                                    </div>
-
-                                </td>
-                            </tr>
-
-                            @endforeach
+                            @for($i = 1; $i <= $date; $i++)
+                                <tr>
+                                    <td><strong> {{ $i }} </strong></td>
+                                    <td> <strong> {{isset($results[$i]) ? $results[$i]["date"] : '-'}} </strong></td>
+                                    <td> <strong> {{isset($results[$i]) ? 'Rp. '.number_format($results[$i]["total_price"]) : '-'}} </strong></td>
+                                </tr>
+                            @endfor
 
                         </tbody>
                     </table>

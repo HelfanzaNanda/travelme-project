@@ -30,12 +30,13 @@
         <div class="card">
             <div class="card-body">
                 <div class="table-responsive m-t-40">
+                    @if (count($datas) < 1)
+                        <div class="d-flex justify-content-center">
+                            <h2> Tidak Ada Data Penumpang</h6>
+                        </div>
+                    @else
                     <table class="table table-bordered table-striped">
-                        @if (count($datas) < 1)
-                            <div class="d-flex justify-content-center">
-                                <h2> Tidak Ada Data Jadwal</h6>
-                            </div>
-                        @else
+                        
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -94,8 +95,8 @@
                             </tr>
                             @endforeach
                         </tbody>
-                        @endif
                     </table>
+                    @endif
                 </div>
             </div>
         </div>

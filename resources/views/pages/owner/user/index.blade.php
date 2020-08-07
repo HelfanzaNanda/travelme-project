@@ -32,7 +32,27 @@
         <div class="card">
             <div class="card-body">
                 <div class="table-responsive m-t-40">
+                    <p>Filter data penumpang perhari</p>
+                    <form action="{{ route('owner.user.filter') }}" class="row mb-3" method="POST">
+                        @csrf
+                        <div class="col-3">
+                            <div class="form-group">
+                                <input type="text" name="date" id="tanggal" class="form-control"
+                                style="cursor: pointer; background: white" readonly>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-actions">
+                                <button class="btn btn-info" type="submit">filter</button>
+                            </div>
+                        </div>
+                    </form>
                     <table id="myTable" class="table table-bordered table-striped">
+                        @if (count($datas) < 1)
+                            <div class="d-flex justify-content-center">
+                                <h2> Tidak Ada Data Jadwal</h6>
+                            </div>
+                        @else
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -51,22 +71,28 @@
                                 <td>{{$data->user->name}}</td>
                                 <td>{{$data->departure->from .' -> '. $data->departure->destination}}</td>
                                 <td>{{'Rp.'.number_format($data->total_price)}}/{{$data->total_seat}} Kursi</td>
-                                
-                                @if ($data->status == 'none')
-                                    <td><span class="badge badge-success">belum melakukan pembayaran / {{ $data->payment ? "online" : "langsung"}}</span></td>    
-                                @elseif($data->status == 'settlement')
-                                <td><span class="badge badge-success">sudah melakukan pembayaran / {{ $data->payment ? "online" : "langsung"}}</span></td>
+
+
+                                @if ($data->payment)
+                                    @if ($data->status == 'none')
+                                        <td><span class="badge badge-success">belum melakukan pembayaran</span></td>
+                                    @elseif($data->status == 'settlement')
+                                        <td><span class="badge badge-success">sudah melakukan pembayaran</span></td>
+                                    @else
+                                        <td><span class="badge badge-success">{{  $data->status  }}</span></td>
+                                    @endif
                                 @else
-                                <td><span class="badge badge-success">{{  $data->status  }}</span></td>
+                                    <td><span class="badge badge-success">bayar melalui supir</span></td>
                                 @endif
+
                                 <td>
-                                @if ($data->verify == '2')
-                                <span class="badge badge-warning">di konfirmasi</span>
-                                @elseif($data->verify == '1')
-                                <span class="badge badge-warning">belum konfirmasi</span>
-                                @else
-                                <span class="badge badge-warning">di tolak</span>
-                                @endif
+                                    @if ($data->verify == '2')
+                                        <span class="badge badge-success">di konfirmasi</span>
+                                    @elseif($data->verify == '1')
+                                        <span class="badge badge-warning">belum konfirmasi</span>
+                                    @else
+                                        <span class="badge badge-danger">di tolak</span>
+                                    @endif
                                 </td>
 
                                 @if (count($drivers) > 0)
@@ -76,20 +102,27 @@
                                         aria-controls="collapseA1">
                                         <i class="mdi mdi-eye"></i></a>
                                     @if ($data->verify == '1' && $data->status == 'none')
-                                    <a href="{{ route('owner.user.confirmed', $data->id) }}" 
-                                        onclick="return confirm('apakah anda yakin ?')"
-                                        class="btn btn-warning btn-sm" >Konfirmasi</a>
+                                        <a href="{{ route('owner.user.confirmed', $data->id) }}"
+                                            onclick="return confirm('apakah anda yakin ?')"
+                                            class="btn btn-warning btn-sm">Konfirmasi</a>
 
-                                    <a href="" data-toggle="modal" data-target="#declineModal{{ $data->id }}"
-                                        class="btn btn-danger btn-sm">
-                                        Tolak</a>
+                                        {{-- <a href="" data-toggle="modal" data-target="#declineModal{{ $data->id }}"
+                                            class="btn btn-danger btn-sm">
+                                            Tolak</a> --}}
+
+                                        <a href="{{ route('owner.user.cancel', $data->id) }}" 
+                                            onclick="return confirm('apakah anda yakin ingin menghapus pesanan ini?')"
+                                            class="btn btn-danger btn-sm">Tolak</a>
                                     @else
-                                    @if ($data->verify == '2' && $data->status != 'none' && $data->status != 'pending')
-                                    <a href="" class="btn btn-warning btn-sm" data-toggle="modal"
-                                    data-target="#confirmedModal{{ $data->id }}" data-id="{{ $data->id }}" id="get-driver">Ganti Sopir</a>    
-                                    @else
-                                        
-                                    @endif
+                                        @if ($data->verify == '2' && $data->status != 'none' && $data->status != 'pending')
+                                        <a href="" class="btn btn-warning btn-sm" data-toggle="modal"
+                                            data-target="#confirmedModal{{ $data->id }}" data-id="{{ $data->id }}"
+                                            id="get-driver">Ganti Sopir</a>
+                                        @elseif(!$data->payment && $data->verify == '2')
+                                            <a href="" class="btn btn-warning btn-sm" data-toggle="modal"
+                                            data-target="#confirmedModal{{ $data->id }}" data-id="{{ $data->id }}"
+                                            id="get-driver">Ganti Sopir</a>
+                                        @endif
                                     @endif
                                 </td>
                                 @else
@@ -107,7 +140,8 @@
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
-                                            <form action="{{ route('owner.user.choosedriver', $data->id) }}" method="post">
+                                            <form action="{{ route('owner.user.choosedriver', $data->id) }}"
+                                                method="post">
                                                 @csrf
                                                 @method('patch')
                                                 <div class="modal-body">
@@ -117,9 +151,10 @@
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" 
+                                                    <button type="button" class="btn btn-secondary"
                                                         data-dismiss="modal">Close</button>
-                                                    <button type="submit" class="btn btn-primary" id="btn-konfirmasi">Konfirmasi</button>
+                                                    <button type="submit" class="btn btn-primary"
+                                                        id="btn-konfirmasi">Konfirmasi</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -132,7 +167,8 @@
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="exampleModalLabel">Menolak Karena Apa?</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
@@ -143,12 +179,12 @@
                                                     <div class="form-group">
                                                         @php($reasons = ['--- Pilih ---','Terlalu Jauh', 'Yang Lain'])
                                                         <select class="form-control" id="select-reason">
-                                                            @for ($i = 0; $i < count($reasons); $i++)
-                                                                <option value="{{ $i }}"
-                                                                    {{ $i == 0 ? 'selected disabled' : '' }}>
-                                                                    {{ $reasons[$i] }}
+                                                            @for ($i = 0; $i < count($reasons); $i++) <option
+                                                                value="{{ $i }}"
+                                                                {{ $i == 0 ? 'selected disabled' : '' }}>
+                                                                {{ $reasons[$i] }}
                                                                 </option>
-                                                            @endfor
+                                                                @endfor
                                                         </select>
                                                     </div>
                                                     <div class="form-group">
@@ -158,11 +194,15 @@
 
                                                     <div class="form-group">
                                                         <select class="form-control" id="additional-price"
-                                                        style="display: none;" name="additional_price">
-                                                            <option value="0" selected disabled>-- Pilih Tambahan Harga --</option>
-                                                            <option value="10000">Rp . {{ number_format(10000) }}</option>
-                                                            <option value="20000">Rp . {{ number_format(20000) }}</option>
-                                                            <option value="30000">Rp . {{ number_format(30000) }}</option>
+                                                            style="display: none;" name="additional_price">
+                                                            <option value="0" selected disabled>-- Pilih Tambahan Harga
+                                                                --</option>
+                                                            <option value="10000">Rp . {{ number_format(10000) }}
+                                                            </option>
+                                                            <option value="20000">Rp . {{ number_format(20000) }}
+                                                            </option>
+                                                            <option value="30000">Rp . {{ number_format(30000) }}
+                                                            </option>
                                                         </select>
                                                         {{-- <input type="text" class="form-control" id="additional-price"
                                                             style="display: none;" name="additional_price"> --}}
@@ -192,16 +232,21 @@
                                                 <p>Jam :{{ \Carbon\carbon::parse($data->hour)->format('H:i') }}</p>
                                             </div>
                                             <div class="col-md-6">
-                                                <p>Driver :  {{ $data->driver_id == null ? 'driver belum di pilih' : $data->driver['name'] }}</p>
-                                                <p>Mobil : {{ $data->car_id == null ? 'mobil belum di pilih' : $data->car['number_plate']}}</p>
+                                                <p>Driver :
+                                                    {{ $data->driver_id == null ? 'driver belum di pilih' : $data->driver['name'] }}
+                                                </p>
+                                                <p>Mobil :
+                                                    {{ $data->car_id == null ? 'mobil belum di pilih' : $data->car['number_plate']}}
+                                                </p>
                                             </div>
                                         </div>
-                                        
+
                                     </div>
                                 </td>
                             </tr>
                             @endforeach
                         </tbody>
+                        @endif
                     </table>
                 </div>
             </div>
@@ -273,5 +318,14 @@
         return `<option value="${d.id}">${d.name}</option>`
     }
    
+</script>
+
+<script>
+	$('#tanggal').datepicker({
+		format: 'dd-mm-yyyy',
+        todayHighlight: true,
+        clearBtn: true,
+        toggleActive: true,
+	});
 </script>
 @endsection

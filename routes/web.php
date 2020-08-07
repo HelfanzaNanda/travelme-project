@@ -106,11 +106,13 @@ Route::group(['prefix' => 'travel'], function (){
     Route::get('user/{id}/confirmed', 'Web\Owner\UserController@confirmed')->name('owner.user.confirmed');
     Route::patch('user/{id}/choosedriver', 'Web\Owner\UserController@chooseDriver')->name('owner.user.choosedriver');
     Route::patch('user/{id}/decline', 'Web\Owner\UserController@decline')->name('owner.user.decline');
+    Route::get('user/{id}/cancel', 'Web\Owner\UserController@cancel')->name('owner.user.cancel');
     Route::get('user/{id}/driver', 'Web\Owner\UserController@getDrivers');
     Route::get('date/{date}/hour', 'Web\Owner\UserController@fetchHours');
+    Route::post('user/filter', 'Web\Owner\UserController@filter')->name('owner.user.filter');
 
     Route::get('report', 'Web\Owner\ReportController@index')->name('owner.report.index');
-    Route::post('report/search', 'Web\Owner\ReportController@search')->name('owner.report.search');
+    Route::post('report/filter', 'Web\Owner\ReportController@filter')->name('owner.report.filter');
     Route::post('report/print','Web\Owner\ReportController@print')->name('owner.report.print');
 
     Route::get('profile','Web\Owner\ProfileController@index')->name('owner.profile.index');

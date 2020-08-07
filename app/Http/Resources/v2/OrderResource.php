@@ -38,7 +38,6 @@ class OrderResource extends JsonResource
             "user" => new UserResource($this->user),
             "owner" => new OwnerResource($this->owner),
             "departure" => new DepartureResource($this->departure),
-            "driver" => new DriverResource($this->driver),
             "car" => new CarResource($this->car),
         ];
     }

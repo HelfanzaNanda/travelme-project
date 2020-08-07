@@ -20,10 +20,10 @@ class HourResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
+            //'id' => $this->id,
             'hour' => date('H:i', strtotime($this->hour)),
-            'seat' => $this->seat,
-            'remaining_seat' => $this->remaining_seat,
+            // 'seat' => $this->seat - 2,
+            // 'remaining_seat' => $this->remaining_seat - 2,
         ];
     }
 }

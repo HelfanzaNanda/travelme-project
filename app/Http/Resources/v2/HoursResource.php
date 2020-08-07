@@ -17,8 +17,8 @@ class HoursResource extends JsonResource
         return [
             'id' => $this->id,
             'hour' => date('H:i', strtotime($this->hour)),
-            'seat' => $this->seat,
-            'remaining_seat' => $this->remaining_seat,
+            'seat' => $this->seat - 2,
+            'remaining_seat' => $this->remaining_seat - 2,
             'date' => new DateResource($this->date),
             'car' => new CarResource($this->car)
         ];

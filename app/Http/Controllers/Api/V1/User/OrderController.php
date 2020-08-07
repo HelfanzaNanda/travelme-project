@@ -60,18 +60,19 @@ class OrderController extends Controller
             }
 
             $data->total_price = $orderDetail->sum('price');
+            $data->driver_id = $data->car->driver->id;
             $data->update();
 
             $date = DateOfDeparture::where('departure_id', $request->departure_id)
                 ->where('date', $dateFormat)->first();
             $hour = HourOfDeparture::where('date_id', $date->id)->where('hour', $request->hour)->first();
-            $hour->remaining_seat -= $request->total_seat;
+            $hour->remaining_seat -= count($data->orderDetails);
             $hour->update();
 
             return response()->json([
                 'message' => 'successfully order travel',
                 'status' => true,
-                'data' => new OrderResource($data)
+                'data' => (object)[]
             ]);
     }
 

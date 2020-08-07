@@ -41,16 +41,7 @@ class DepartureController extends Controller
                     ->whereHas('departure', function ($q) use ($from, $destination) {
                         $q->where('from', $from)->where('destination', $destination);
                     });
-            })->where('remaining_seat', '!=', 0)->whereTime('hour', '>=', $hourNow)->orderBy('hour', 'ASC')->get();
-
-            // $results = [];
-            // foreach ($hours as $hour) {
-            //     $minute = substr($hour, 3);
-            //     if ($minute != '00') {
-            //         $minute = '00';
-            //         array_push($results, $hour);
-            //     }
-            // }
+            })->where('remaining_seat', '>', 2)->whereTime('hour', '>=', $hourNow)->orderBy('hour', 'ASC')->get();
 
             return response()->json([
                 'message' => 'successfully search travel',
@@ -63,7 +54,7 @@ class DepartureController extends Controller
                     ->whereHas('departure', function ($q) use ($from, $destination) {
                         $q->where('from', $from)->where('destination', $destination);
                     });
-            })->where('remaining_seat', '!=', 0)->orderBy('hour', 'ASC')->get();
+            })->where('remaining_seat', '>', 2)->orderBy('hour', 'ASC')->get();
 
             return response()->json([
                 'message' => 'successfully search travel',
