@@ -53,6 +53,10 @@ class ReportController extends Controller
         $orders = Order::where('done', true)->where('owner_id',$owner_id)
         ->whereMonth('date', $month)->get();
 
+        $nameMonth = date("F", mktime(0, 0, 0, $month, 1));
+        $totalPriceInMonth = Order::where('done', true)->where('owner_id',$owner_id)
+        ->whereMonth('date', $month)->get()->sum('total_price');
+
         $date = (int)Carbon::now()->month($month)->endOfMonth()->format('d');
 
         $results = [];
@@ -63,7 +67,7 @@ class ReportController extends Controller
                 'total_price' => $order->sum('total_price'),
             ];
         }
-        return view('pages.owner.report.index', compact(['results', 'date', 'month']));
+        return view('pages.owner.report.index', compact(['results', 'date', 'month', 'totalPriceInMonth', 'nameMonth']));
 
     }
 
