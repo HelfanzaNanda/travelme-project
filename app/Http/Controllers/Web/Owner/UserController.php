@@ -185,24 +185,29 @@ class UserController extends Controller
         if ($data->verify == '0') {
             return back()->with('error', 'pesanan sudah di batalkan oleh pemesan');
         } else {
-            $data->verify = '2';
-            $data->update();
 
-            $optionBuilder = new OptionsBuilder();
-            $optionBuilder->setTimeToLive(60 * 20);
-            $message = "Pesanan Anda Sudah Di Verifikasi Admin";
-            $notificationBuilder = new PayloadNotificationBuilder('travelme');
-            $notificationBuilder->setBody($message)->setSound('default');
+            if($data->user->fcm_token == null){
+                $data->verify = '2';
+                $data->update();
+            }else{
+                $data->verify = '2';
+                $data->update();
 
-            $dataBuilder = new PayloadDataBuilder();
-            $dataBuilder->addData(['a_data' => 'my_data']);
-            $option = $optionBuilder->build();
-            $notification = $notificationBuilder->build();
-            $_data = $dataBuilder->build();
+                $optionBuilder = new OptionsBuilder();
+                $optionBuilder->setTimeToLive(60 * 20);
+                $message = "Pesanan Anda Sudah Di Verifikasi Admin";
+                $notificationBuilder = new PayloadNotificationBuilder('travelme');
+                $notificationBuilder->setBody($message)->setSound('default');
 
-            // You must change it to get your tokens
-            $token = $data->user->fcm_token;
-            $downstreamResponse = FacadesFCM::sendTo($token, $option, $notification, $_data);
+                $dataBuilder = new PayloadDataBuilder();
+                $dataBuilder->addData(['a_data' => 'my_data']);
+                $option = $optionBuilder->build();
+                $notification = $notificationBuilder->build();
+                $_data = $dataBuilder->build();
+                
+                $token = $data->user->fcm_token;
+                FacadesFCM::sendTo($token, $option, $notification, $_data);
+            }
 
             return redirect()->route('owner.user.index')->with('success', 'Berhasil Mengkonfirmasi Pesanan');
         }
