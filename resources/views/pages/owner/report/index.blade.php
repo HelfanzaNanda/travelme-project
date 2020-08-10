@@ -29,7 +29,7 @@
                             <select name="month" class="form-control" id="month-select">
                                 @for ($i = 0; $i < count($months); $i++)
                                     <option value="{{ $i }}"
-                                    {{ $month == $i+1 ? 'selected' : ''}}>{{ $months[$i] }}</option>
+                                    {{ $month == $i ? 'selected' : ''}}>{{ $months[$i] }}</option>
                                 @endfor
                             </select>
                         </div>
