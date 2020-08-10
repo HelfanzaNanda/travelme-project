@@ -50,7 +50,7 @@
                     <table id="myTable" class="table table-bordered table-striped">
                         @if (count($datas) < 1)
                             <div class="d-flex justify-content-center">
-                                <h2> Tidak Ada Data Jadwal</h6>
+                                <h2> Tidak Ada Data Penumpang</h6>
                             </div>
                         @else
                         <thead>
