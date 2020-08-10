@@ -146,10 +146,10 @@ class UserController extends Controller
             $orderDetail->seat_id = $seat;
             $orderDetail->price = $departure->price;
             $orderDetail->save();
-        }
 
-        $order->total_price = $orderDetail->sum('price');
-        $order->update();
+            $order->total_price += $departure->price;
+            $order->update();
+        }
 
         return redirect()->route('owner.user.index');
     }
