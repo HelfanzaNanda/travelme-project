@@ -227,12 +227,13 @@ class OrderController extends Controller
             ]);
         } else {
             $order->verify = '0';
-            $order->additional_price = 0;
+            //$order->additional_price = 0;
             $order->update();
 
             return response()->json([
                 'message' => 'successfully cancel order from user',
                 'status' => true,
+                'data' => (object)[]
             ]);
         }
     }
