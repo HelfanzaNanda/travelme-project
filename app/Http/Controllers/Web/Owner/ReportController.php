@@ -20,7 +20,7 @@ class ReportController extends Controller
 
     public function index()
     {
-        $month = Carbon::now()->month;
+        $month = Carbon::now()->month-1;
         $owner_id =  Auth::guard('owner')->user()->id;
         $orders = Order::where('done', true)->where('owner_id',$owner_id)
         ->whereMonth('date', $month)->get();
