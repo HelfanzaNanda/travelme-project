@@ -136,6 +136,7 @@ class UserController extends Controller
         $order->pickup_point = $request->pickup_point;
         $order->destination_point = $request->destination_point;
         $order->payment = false;
+        $order->verify = '2';
         $order->save();
 
 
