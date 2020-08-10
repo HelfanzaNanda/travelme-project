@@ -57,7 +57,7 @@ class ReportController extends Controller
         $totalPriceInMonth = Order::where('done', true)->where('owner_id',$owner_id)
         ->whereMonth('date', $month)->get()->sum('total_price');
 
-        $date = (int)Carbon::now()->month($month)->endOfMonth()->format('d');
+        $date = (int)Carbon::now()->month($month+1)->endOfMonth()->format('d');
 
         $results = [];
         foreach ($orders as $order) {
