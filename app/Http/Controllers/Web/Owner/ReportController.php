@@ -53,7 +53,7 @@ class ReportController extends Controller
         $orders = Order::where('done', true)->where('owner_id',$owner_id)
         ->whereMonth('date', $month)->get();
 
-        $nameMonth = date("F", mktime(0, 0, 0, $month, 1));
+        $nameMonth = date("F", mktime(0, 0, 0, $month+1, 1));
         $totalPriceInMonth = Order::where('done', true)->where('owner_id',$owner_id)
         ->whereMonth('date', $month)->get()->sum('total_price');
 
