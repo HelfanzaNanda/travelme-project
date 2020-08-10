@@ -57,9 +57,11 @@ class OrderController extends Controller
                 $orderDetail->seat_id = $seat['id'];
                 $orderDetail->price = $seat['price'];
                 $orderDetail->save();
-            }
 
-            $data->total_price = $orderDetail->sum('price');
+                $data->total_price += $seat['price'];
+                $data->update();
+            }
+            
             $data->driver_id = $data->car->driver->id;
             $data->update();
 
