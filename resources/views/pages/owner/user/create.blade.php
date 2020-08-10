@@ -223,13 +223,13 @@
 
     function setLayoutSeat(s){
         let result;
-        if(s.status == "available"){
+        if(s.status === "available"){
             result = 
             `<div class="form-check col-4">
                 <input class="form-check-input" type="radio" name="seats[]" value="${s.id}">
                 <img src="{{ asset('uploads/seat.png') }}" width="50" height="50">
             </div>`
-        }else{
+        }else if(s.status === "booked"){
             result = 
             `<div class="form-check col-4">
                 <input class="form-check-input" type="radio" disabled>
