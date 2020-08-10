@@ -39,7 +39,7 @@ class ReportController extends Controller
         $totalPriceInMonth = Order::where('done', true)->where('owner_id',$owner_id)
         ->whereMonth('date', $month)->get()->sum('total_price');
 
-        $nameMonth = date("F", mktime(0, 0, 0, $month, 1));
+        $nameMonth = date("F", mktime(0, 0, 0, $month+1, 1));
 
         return view('pages.owner.report.index', compact(['results', 'date', 'month', 'totalPriceInMonth', 'nameMonth']));
 
